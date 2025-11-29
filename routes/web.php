@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Route;
 // Route Google OAuth
 Route::get('/auth-google-redirect', [OAuthController::class, 'redirectGoogle'])->name('google.redirect');
 Route::get('/auth-google-callback', [OAuthController::class, 'callbackGoogle'])->name('google.callback');
-Route::get('/home', [GuestController::class, 'home'])->name('guest.home');
 Route::get('/', [GuestController::class, 'home'])->name('/');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

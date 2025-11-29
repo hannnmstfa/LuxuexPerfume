@@ -29,6 +29,6 @@ class OAuthController extends Controller
             event(new Verified($user));
         }
         Auth::login($user);
-        return redirect()->intended('guest.home');
+        return redirect()->intended('/');
     }
 }
