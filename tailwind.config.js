@@ -17,6 +17,15 @@ export default {
                 inter: ['Inter', ...defaultTheme.fontFamily.sans],
                 poppins: ['Poppins', ...defaultTheme.fontFamily.sans],
             },
+            keyframes: {
+                swipeUp: {
+                    '0%': { transform: 'translateY(50px)', opacity: '0' },
+                    '100%': { transform: 'translateY(0)', opacity: '1' },
+                },
+            },
+            animation: {
+                swipeUp: 'swipeUp 0.7s ease-out forwards',
+            },
         },
     },
 
