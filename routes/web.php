@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\KategoriController As AdminKategori;
+use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 
 // Route Google OAuth
@@ -10,7 +13,11 @@ Route::get('/auth-google-redirect', [OAuthController::class, 'redirectGoogle'])-
 Route::get('/auth-google-callback', [OAuthController::class, 'callbackGoogle'])->name('google.callback');
 Route::get('/', [GuestController::class, 'home'])->name('/');
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::middleware(Admin::class)->group(function(){
+        Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+        Route::resource('/admin/produk/kategori', AdminKategori::class)->names('kategoriProduk');
+    });
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });

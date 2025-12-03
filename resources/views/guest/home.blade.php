@@ -4,8 +4,8 @@
         <div class="px-4 animate-swipeUp mx-auto max-w-screen-xl flex flex-col justify-center items-center py-6 lg:py-10">
             <img src="{{ asset('assets/midle-icon.png') }}" class="w-[50%] md:w-[25%]" alt="">
             <!-- <h1 class="mb-6 text-4xl font-bold tracking-tighter text-white md:text-5xl lg:text-6xl">LuxuexPerfume</h1> -->
-            <p class="mb-8 text-base font-normal text-center text-white md:text-xl sm:px-16 lg:px-48">Here at Flowbite we focus on
-                markets where technology, innovation, and capital can unlock long-term value and drive economic growth.
+            <p class="mb-8 text-base font-normal text-center text-white md:text-xl sm:px-16 lg:px-48">
+                Ingat parfum ingat <span class="font-bold bg-gray-100 text-yellow-700">LuxuexPerfume</span>
             </p>
             <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 md:space-x-4">
                 <button type="button"

@@ -21,7 +21,7 @@
                     <div>
                         <label for="email"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                        <input type="email" name="email" id="email"
+                        <input type="email" name="email" id="email" value="{{ old('email') }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="email@example.com" required autofocus>
                     </div>
@@ -50,7 +50,7 @@
                     <button type="submit"
                         class="w-full text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">Masuk</button>
                     <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                        Belum memiliki akun? <a href="#"
+                        Belum memiliki akun? <a href="{{ route('register')}}"
                             class="font-medium text-yellow-600 hover:underline dark:text-yellow-500">Daftar</a>
                     </p>
                 </form>
