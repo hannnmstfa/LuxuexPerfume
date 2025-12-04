@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\KategoriController As AdminKategori;
+use App\Http\Controllers\Admin\ProdukController As AdminProduk;
 use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +15,7 @@ Route::get('/', [GuestController::class, 'home'])->name('/');
 Route::middleware('auth')->group(function () {
     Route::middleware(Admin::class)->group(function(){
         Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-        Route::resource('/admin/produk/kategori', AdminKategori::class)->names('kategoriProduk');
+        Route::resource('/admin/produk', AdminProduk::class)->names('admProduk');
     });
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
