@@ -19,6 +19,7 @@ return new class extends Migration
             $table->longText('deskripsi');
             $table->integer('harga');
             $table->integer('harga_diskon')->nullable();
+            $table->longText('path_foto');
             $table->timestamps();
         });
     }

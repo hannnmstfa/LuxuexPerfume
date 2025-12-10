@@ -15,7 +15,9 @@ Route::get('/', [GuestController::class, 'home'])->name('/');
 Route::middleware('auth')->group(function () {
     Route::middleware(Admin::class)->group(function(){
         Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-        Route::resource('/admin/produk', AdminProduk::class)->names('admProduk');
+        Route::resource('/admin/produk', AdminProduk::class)->names('admProduk')->except('show');
+        Route::put('/admin/produk/{id}/atur-diskon', [AdminProduk::class, 'setDiskon'])->name('admProduk.setDiskon');
+        Route::put('/admin/produk/{id}/delete-diskon', [AdminProduk::class, 'delDiskon'])->name('admProduk.delDiskon');
     });
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
