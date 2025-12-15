@@ -39,18 +39,17 @@
                             <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                                 {{ Auth::user()->email }}
                             </p>
-                            <p class="text-xs dark:text-gray-300">
-                                {{ Auth::user()->role }}
+                            <p class="text-xs font-semibold text-gray-400 dark:text-gray-300">
+                                {{ ucfirst(Auth::user()->role) }}
                             </p>
                         </div>
                         <ul class="py-1" role="none">
                             <li>
-                                <a href="{{ route('profile') }}"
+                                <a href="{{ route('/') }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                    role="menuitem">Profil Saya</a>
+                                    role="menuitem">Keluar Admin Panel</a>
                             </li>
                             <li>
-
                                 <form method="POST" action="{{ route('logout') }}" role="menuitem" tabindex="-1"
                                     id="user-menu-item-2"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">

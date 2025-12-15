@@ -4,26 +4,33 @@
 
 
 [x-cloak] {
-    display: none ;
+    display: none;
 }
 
-input:focus, textarea:focus, select:focus {
+/* #myTable {
+    table-layout: fixed !important;
+} */
+
+input:focus,
+textarea:focus,
+select:focus {
     outline: none !important;
     border-color: #c26c11 !important;
     box-shadow: 0 0 0 1px rgb(240, 138, 29) !important;
 }
 
-.datatable-input:focus{
-    border-color: #b65800 !important;
-    outline: 0;
-    box-shadow: 0 0 0 0.1rem rgba(255, 174, 0, 0.25) !important;
-}
-.datatable-selector:focus{
+.datatable-input:focus {
     border-color: #b65800 !important;
     outline: 0;
     box-shadow: 0 0 0 0.1rem rgba(255, 174, 0, 0.25) !important;
 }
 
-*{
+.datatable-selector:focus {
+    border-color: #b65800 !important;
+    outline: 0;
+    box-shadow: 0 0 0 0.1rem rgba(255, 174, 0, 0.25) !important;
+}
+
+* {
     /* border: 1px solid red; */
 }

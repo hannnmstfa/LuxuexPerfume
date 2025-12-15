@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(() => {
                 const dataTable = new simpleDatatables.DataTable(tableEl, {
                     paging: true,
-                    perPage: 5,
+                    perPage: 10,
                     searchable: true,
                     sortable: true,
                     numeric: true,

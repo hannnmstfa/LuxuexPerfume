@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\StockController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\ProfileController;
@@ -18,6 +19,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('/admin/produk', AdminProduk::class)->names('admProduk')->except('show');
         Route::put('/admin/produk/{id}/atur-diskon', [AdminProduk::class, 'setDiskon'])->name('admProduk.setDiskon');
         Route::put('/admin/produk/{id}/delete-diskon', [AdminProduk::class, 'delDiskon'])->name('admProduk.delDiskon');
+        Route::resource('/admin/stok', StockController::class)->names('admStock')->except('show');
     });
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

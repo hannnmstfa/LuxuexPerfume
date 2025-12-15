@@ -107,16 +107,17 @@
                                                     clip-rule="evenodd" />
                                             </svg>
                                         </div>
-                                        <span class="font-semibold text-nowrap">Rp
+                                        <span class="font-semibold text-nowrap hover:underline">Rp
                                             {{ number_format($parfum->harga_diskon) }}</span>
                                     </button>
                                 @endif
                             </div>
                         </td>
                         <td>
-                            <div class="flex justify-start items-center" data-modal-target="parfum-{{ $index }}"
-                                data-modal-toggle="parfum-{{ $index }}">
-                                <button class="bg-yellow-400 hover:bg-yellow-500 rounded p-1" title="Edit">
+                            <div class="flex justify-start items-center gap-1">
+                                <button class="bg-yellow-400 hover:bg-yellow-500 rounded p-1"
+                                    data-modal-target="parfum-{{ $index }}" data-modal-toggle="parfum-{{ $index }}"
+                                    title="Edit">
                                     <svg class="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                         width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                         <path fill-rule="evenodd"
@@ -124,6 +125,15 @@
                                             clip-rule="evenodd" />
                                     </svg>
                                 </button>
+                                <a href="{{ route('admProduk.destroy', $parfum->id) }}" title="Hapus Parfum"
+                                    class="p-1 rounded bg-red-600 hover:bg-red-700" data-confirm-delete="true">
+                                    <svg class="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                        <path fill-rule="evenodd"
+                                            d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </a>
                             </div>
                         </td>
                     </tr>
@@ -178,7 +188,7 @@
                         <div class="mb-3">
                             <label for="harga" class="font-medium text-sm">Harga<span
                                     class="text-red-600">*</span></label>
-                            <input type="number" min="1" class="rounded w-full border-gray-300 text-sm" name="harga"
+                            <input type="number" min="1" class="rounded w-full border-gray-300 text-sm" min="1" name="harga"
                                 value="{{ old('harga') }}" placeholder="Cth: 25000" required>
                         </div>
                         <div class="mb-3">
@@ -254,7 +264,7 @@
                                 <div class="mb-3">
                                     <label for="harga" class="font-medium text-sm">Harga<span
                                             class="text-red-600">*</span></label>
-                                    <input type="number" min="1" class="rounded w-full border-gray-300 text-sm" name="harga"
+                                    <input type="number" min="1" class="rounded w-full border-gray-300 text-sm" min="1" name="harga"
                                         value="{{ old('harga', $edit->harga) }}" placeholder="Cth: 25000" required>
                                 </div>
                                 <div class="mb-3">
@@ -313,18 +323,20 @@
                                 <div class="mb-3">
                                     <label for="harga_diskon" class="font-medium text-sm">Harga Diskon<span
                                             class="text-red-600">*</span></label>
-                                    <input type="number" class="rounded w-full border-gray-300 text-sm" name="harga_diskon"
+                                    <input type="number" class="rounded w-full border-gray-300 text-sm" min="1" name="harga_diskon"
                                         value="{{ old('harga_diskon', $diskon->harga_diskon) }}" placeholder="Cth: 50000"
                                         required>
                                 </div>
                                 <hr class="py-2">
                                 <div class="flex flex-col gap-1">
                                     <button type="submit"
-                                    class="w-full text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Simpan
-                                    Harga Diskon</button>
-                                    <a href="{{ route('admProduk.delDiskon', $diskon->id) }}" data-confirm="true" data-color="#8e4b10" data-title="Konfirmasi !!!" data-icon="warning" data-caption="Apakah anda ingin menghapus diskon pada {{ $diskon->nama }}?"
-                                    class="w-full {{ $diskon->harga_diskon == null ? 'hidden' : '' }} text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Hapus
-                                    Harga Diskon</a>
+                                        class="w-full text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Simpan
+                                        Harga Diskon</button>
+                                    <a href="{{ route('admProduk.delDiskon', $diskon->id) }}" data-confirm="true"
+                                        data-color="#8e4b10" data-title="Konfirmasi !!!" data-icon="warning"
+                                        data-caption="Apakah anda ingin menghapus diskon pada {{ $diskon->nama }}?"
+                                        class="w-full {{ $diskon->harga_diskon == null ? 'hidden' : '' }} text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Hapus
+                                        Harga Diskon</a>
                                 </div>
                             </form>
                         </div>
