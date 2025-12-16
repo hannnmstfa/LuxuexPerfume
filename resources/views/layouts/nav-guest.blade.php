@@ -1,4 +1,4 @@
-<nav class="fixed w-full z-20 top-0 start-0 border-b border-gray-200 bg-white/20 backdrop-blur-xl backdrop-saturate-150">
+<nav class="fixed w-full z-50 top-0 start-0 border-b border-gray-200 bg-white/20 backdrop-blur-xl backdrop-saturate-150">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="{{ route('/') }}" class="flex items-center space-x-3 ">
             <div class="rounded-full overflow-hidden">
@@ -63,8 +63,8 @@
                         class="block py-2 px-3 rounded  md:px-2 {{ request()->is('/') ? 'md:border-b-2 md:border-yellow-800' : 'md:hover:border-b-2 md:hover:border-yellow-800' }}">Home</a>
                 </li>
                 <li>
-                    <a href=""
-                        class="block py-2 px-3 rounded  md:px-2 {{ request()->is('') ? 'md:border-b-2 md:border-yellow-800' : 'md:hover:border-b-2 md:hover:border-yellow-800' }}">Produk</a>
+                    <a href="{{ route('produk') }}"
+                        class="block py-2 px-3 rounded  md:px-2 {{ request()->is('produk') ? 'md:border-b-2 md:border-yellow-800' : 'md:hover:border-b-2 md:hover:border-yellow-800' }}">Produk</a>
                 </li>
 
                 <form class="w-full mx-auto">

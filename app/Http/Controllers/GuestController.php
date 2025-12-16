@@ -10,4 +10,8 @@ class GuestController extends Controller
     {
         return view('guest.home');
     }
+    public function produk()
+    {
+        return view('guest.produk.index');
+    }
 }

@@ -10,7 +10,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 class StockController extends Controller
 {
     public function index(){
-        $data = Stock::get();
+        $data = Stock::with('produks')->get();
         return view('admin.stock.index', compact('data'));
     }
     public function update(Request $request, $id){

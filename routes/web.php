@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/auth-google-redirect', [OAuthController::class, 'redirectGoogle'])->name('google.redirect');
 Route::get('/auth-google-callback', [OAuthController::class, 'callbackGoogle'])->name('google.callback');
 Route::get('/', [GuestController::class, 'home'])->name('/');
+Route::get('/produk', [GuestController::class, 'produk'])->name('produk');
 Route::middleware('auth')->group(function () {
     Route::middleware(Admin::class)->group(function(){
         Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');

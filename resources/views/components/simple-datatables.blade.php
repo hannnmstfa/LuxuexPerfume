@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         noResults: "Tidak ditemukan data yang sama",
                     },
                 });
-
                 // Fungsi untuk rebind modal Flowbite setiap update/sort/paging
                 const rebindFlowbite = () => {
                     document.querySelectorAll('[data-modal-toggle]').forEach(el => {
