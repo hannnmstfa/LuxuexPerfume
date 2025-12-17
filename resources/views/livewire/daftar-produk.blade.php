@@ -73,7 +73,7 @@
         <div class="col-span-3 px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 @foreach ($products as $i => $product)
-                    <a href="#" class="bg-white rounded-lg shadow-md overflow-hidden relative group !z-0">
+                    <a href="#" class="bg-white font-inter  shadow-md overflow-hidden relative group !z-0">
                         <div class="relative z-[5]">
                             <span
                                 class="absolute top-0  right-0 {{ $product->kategori == 'pria' ? 'bg-gray-800' : 'bg-pink-500' }} text-white text-xs font-semibold px-2 py-1 rounded">
@@ -82,15 +82,44 @@
                         </div>
                         <div class="relative">
                             <img src="{{ asset($product->path_foto) }}" loading="lazy" alt="{{ $product->nama }}"
-                            class="w-full h-48 group-hover:scale-105 transition-transform duration-300 object-cover">
-                            <span class="absolute bottom-0 left-0 bg-gray-500 text-white text-xs font-semibold px-2 py-1 rounded-r">
+                                class="w-full h-48 hover:scale-105 transition-transform duration-300 object-cover">
+                            <span
+                                class="absolute bottom-0 left-0 bg-gray-500 text-white text-xs font-semibold px-2 py-1 rounded-r">
                                 Stok Tersisa: {{ $product->stocks->jumlah ?? 0 }}
                             </span>
                         </div>
-                        <div class="px-4">
+                        <div class="px-4 pb-3">
                             <h3 class="text-lg font-semibold mb-2 line-clamp-1">{{ $product->nama }}</h3>
-                            <p class="text-xs text-red-500 italic line-through {{ $product->harga_diskon !== null ? '' : 'hidden' }}">Rp {{ number_format($product->harga) }}</p>
-                            <p class="text-gray-700 font-bold text-xl">Rp {{ number_format($product->harga_diskon == null ? $product->harga : $product->harga_diskon) }}</p>
+                            <p
+                                class="text-xs text-red-500 italic line-through {{ $product->harga_diskon !== null ? '' : 'hidden' }}">
+                                Rp {{ number_format($product->harga) }}</p>
+                            <p class="text-gray-500 font-semibold text-xl">Rp
+                                {{ number_format($product->harga_diskon == null ? $product->harga : $product->harga_diskon) }}
+                            </p>
+                        </div>
+                        <div
+                            class="absolute bottom-0 font-inter md:grid grid-cols-4 mb-3 md:mb-0 left-0 w-full justify-center items-center space-y-1 md:space-y-0 gap-[2px]">
+                            <button
+                                class="col-span-3 peer flex justify-center items-center text-xs border border-yellow-600 hover:bg-yellow-600 text-yellow-600 hover:text-white font-bold py-2 px-4 shadow-md transition-colors duration-100">
+                                <svg class="w-5 h-5 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                    height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
+                                </svg>
+                                <span class="ms-1 hidden peer-hover:block">Tambah Keranjang</span>
+                            </button>
+                            <div class=" peer col-span-1 hover:col-span-3">
+                                <button data-tooltip-target="tooltip-default" type="button"
+                                    class="w-full text-xs bg-red-800 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition-colors duration-300">
+                                    Beli
+                                </button>
+                                <div id="tooltip-default" role="tooltip"
+                                    class="absolute z-20 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-dark rounded-base shadow-xs opacity-0 tooltip">
+                                    Tooltip content
+                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 @endforeach
