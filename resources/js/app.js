@@ -1,11 +1,7 @@
 import './bootstrap';
 import 'flowbite';
 import { DataTable } from "simple-datatables";
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
 window.simpleDatatables = { DataTable };
-Alpine.start();
 
 // Button Loading
 window.addEventListener("DOMContentLoaded", function () {

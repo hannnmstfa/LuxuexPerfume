@@ -73,7 +73,7 @@
         <div class="col-span-3 px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 @foreach ($products as $i => $product)
-                    <a href="#" class="bg-white font-inter  shadow-md overflow-hidden relative group !z-0">
+                    <div class="bg-white font-inter  shadow-md overflow-hidden relative group !z-0">
                         <div class="relative z-[5]">
                             <span
                                 class="absolute top-0  right-0 {{ $product->kategori == 'pria' ? 'bg-gray-800' : 'bg-pink-500' }} text-white text-xs font-semibold px-2 py-1 rounded">
@@ -98,30 +98,44 @@
                             </p>
                         </div>
                         <div
-                            class="absolute bottom-0 font-inter md:grid grid-cols-4 mb-3 md:mb-0 left-0 w-full justify-center items-center space-y-1 md:space-y-0 gap-[2px]">
-                            <button
-                                class="col-span-3 flex justify-center items-center text-xs border border-yellow-600 hover:bg-yellow-600 text-yellow-600 hover:text-white font-bold py-2 px-4 shadow-md transition-colors duration-100">
-                                <svg class="w-5 h-5 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                                    height="24" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
-                                </svg>
-                                <span class="ms-1">Tambah ke Keranjang</span>
+                            class="md:absolute bottom-0 p-2 md:p-0 font-inter md:hidden md:group-hover:grid md:animate-swipeUp grid-cols-4 mb-3 md:mb-0 bg-gray-50 left-0 w-full justify-center items-center space-y-1 md:space-y-0 gap-[2px]">
+                            <button wire:click="$dispatch('addKeranjang', { productId: {{ $product->id }}})"
+                                class="col-span-1 w-full md:col-span-3 flex justify-center items-center text-xs border border-yellow-600 hover:bg-yellow-600 text-yellow-600 hover:text-white font-bold py-2 px-4 shadow-md transition-colors duration-100">
+                                @if(isset($this->success[$product->id]))
+                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M5 11.917 9.724 16.5 19 7.5" />
+                                    </svg>
+                                    <span class="ms-1">Ditambahkan</span>
+                                @else
+                                    <svg class="w-5 h-5 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
+                                    </svg>
+                                    <span class="ms-1">Tambah ke Keranjang</span>
+                                @endif
                             </button>
                             <div class="col-span-1">
-                                <button data-tooltip-target="tooltiipid" type="button"
-                                    class="w-full text-xs bg-red-800 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition-colors duration-300">
-                                    Beli
-                                </button>
-                                <div id="tooltiipid" role="tooltip"
-                                    class="absolute z-20 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-dark rounded-base shadow-xs opacity-0 tooltip">
-                                    Tooltip content
+                                <a href="{{ route('produk.detail', $product->slug) }}" data-tooltip-target="tooltiptest{{ $i }}"
+                                    class="w-full flex gap-1 justify-center items-center text-xs bg-gray-500 hover:bg-gray-700 border border-gray-500 text-white font-semibold py-2 px-4 shadow-md transition-colors duration-300">
+                                    <span class="block md:hidden">Detail Produk</span>
+                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
+                                    </svg>
+                                </a>
+                                <div id="tooltiptest{{ $i }}" role="tooltip"
+                                    class="absolute !z-[100] inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-base shadow-xs opacity-0 tooltip">
+                                    Lihat detail produk
                                     <div class="tooltip-arrow" data-popper-arrow></div>
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 @endforeach
             </div>
             <div class="mt-4">

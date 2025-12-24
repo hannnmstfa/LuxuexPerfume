@@ -14,6 +14,8 @@ Route::get('/auth-google-redirect', [OAuthController::class, 'redirectGoogle'])-
 Route::get('/auth-google-callback', [OAuthController::class, 'callbackGoogle'])->name('google.callback');
 Route::get('/', [GuestController::class, 'home'])->name('/');
 Route::get('/produk', [GuestController::class, 'produk'])->name('produk');
+Route::get('/produk/{produk}', [GuestController::class, 'detailProduk'])->name('produk.detail');
+Route::get('/keranjang', [GuestController::class, 'keranjang'])->name('keranjang');
 Route::middleware('auth')->group(function () {
     Route::middleware(Admin::class)->group(function(){
         Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
