@@ -17,7 +17,7 @@
 
     <!-- Menu Dial -->
     <div class="fixed flex end-6 bottom-6">
-        <livewire:keranjang.handle-keranjang/>
+        <livewire:keranjang.handle/>
     </div>
     
 </body>

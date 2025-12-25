@@ -64,25 +64,11 @@
                 </li>
                 <li>
                     <a href="{{ route('produk') }}"
-                        class="block py-2 px-3 rounded  md:px-2 {{ request()->is('produk') ? 'md:border-b-2 md:border-yellow-800' : 'md:hover:border-b-2 md:hover:border-yellow-800' }}">Produk</a>
+                        class="block py-2 px-3 rounded  md:px-2 {{ request()->is('produk*') ? 'md:border-b-2 md:border-yellow-800' : 'md:hover:border-b-2 md:hover:border-yellow-800' }}">Produk</a>
                 </li>
-
-                <form class="w-full mx-auto">
-                    <label for="search" class="block mb-2.5 text-sm font-medium text-heading sr-only ">Search</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-                                    d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
-                            </svg>
-                        </div>
-                        <input type="search" id="search"
-                            class="block w-full p-3 ps-9 bg-neutral-secondary-medium border  text-heading text-sm rounded-xl  shadow-xs placeholder:text-body"
-                            placeholder="Cari Produk" autocomplete="off" required />
-                    </div>
-                </form>
-
+                <li wire:ignore.self>
+                    <livewire:produk.search/>
+                </li>
                 @guest
                     <a href="{{ route('login') }}"
                         class="border border-gray-400 bg-yellow-800 hover:bg-yellow-700 flex gap-1 justify-center items-center text-gray-50 font-semibold rounded py-2 px-4">

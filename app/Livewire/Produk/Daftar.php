@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Produk;
 
-use App\Models\Keranjang;
 use App\Models\Produk;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class DaftarProduk extends Component
+class Daftar extends Component
 {
     use WithPagination;
     public $kategori = 'all';
@@ -44,6 +42,6 @@ class DaftarProduk extends Component
             ->paginate(9)
             ->onEachSide(1);
 
-        return view('livewire.daftar-produk', compact('products'));
+        return view('livewire.produk.daftar', compact('products'));
     }
 }

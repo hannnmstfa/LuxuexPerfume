@@ -5,7 +5,7 @@ namespace App\Livewire\Keranjang;
 use App\Models\Keranjang;
 use Livewire\Component;
 
-class HandleKeranjang extends Component
+class Handle extends Component
 {
     public $jumlah_keranjang = 0;
     protected $listeners = [
@@ -63,6 +63,6 @@ class HandleKeranjang extends Component
 
     public function render()
     {
-        return view('livewire.keranjang.handle-keranjang');
+        return view('livewire.keranjang.handle');
     }
 }
