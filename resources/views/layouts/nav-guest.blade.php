@@ -7,10 +7,10 @@
             <span
                 class="self-center text-lg md:text-2xl font-bold whitespace-nowrap">{{ config('app.name', 'Laravel') }}</span>
         </a>
-        <div class="flex justify-between gap-2 items-center md:hidden">
+        <div class="flex justify-between gap-2 items-center lg:hidden">
             @auth
                 <button type="button"
-                    class="flex text-sm bg-neutral-primary rounded-full md:me-0 focus:ring-4 focus:ring-neutral-tertiary"
+                    class="flex text-sm rounded-full md:me-0 focus:ring-4 focus:ring-neutral-tertiary"
                     id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
                     data-dropdown-placement="bottom">
                     <span class="sr-only">Open user menu</span>
@@ -46,7 +46,7 @@
                 </div>
             @endauth
             <button data-collapse-toggle="navbar-default" type="button"
-                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base md:hidden hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base lg:hidden"
                 aria-controls="navbar-default" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
                 <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -55,9 +55,9 @@
                 </svg>
             </button>
         </div>
-        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+        <div class="hidden w-full lg:block lg:w-auto" id="navbar-default">
             <ul
-                class="font-medium flex flex-col space-y-1 md:space-y-0 p-4 md:p-0 mt-4 border border-gray-300 rounded-md md:flex-row md:items-center md:justify-center md:space-x-6 md:mt-0 md:border-0">
+                class="font-medium flex flex-col space-y-1 lg:space-y-0 p-4 lg:p-0 mt-4 border border-gray-300 rounded-md lg:flex-row lg:items-center lg:justify-center lg:space-x-6 lg:mt-0 lg:border-0">
                 <li>
                     <a href="{{ route('/') }}"
                         class="block py-2 px-3 rounded  md:px-2 {{ request()->is('/') ? 'md:border-b-2 md:border-yellow-800' : 'md:hover:border-b-2 md:hover:border-yellow-800' }}">Home</a>
@@ -80,7 +80,7 @@
                         <span>Masuk</span>
                     </a>
                 @else
-                    <button type="button" class="hidden md:flex text-sm w-max rounded-full md:me-0 focus:ring-2"
+                    <button type="button" class="hidden lg:flex text-sm w-max rounded-full lg:me-0 focus:ring-2"
                         id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-menu-lg"
                         data-dropdown-placement="bottom">
                         <span class="sr-only">Open user menu</span>

@@ -20,10 +20,11 @@
                         <a href="{{ route('produk.detail', $produk->slug) }}" class="flex items-center gap-2">
                             <img src="{{ asset($produk->path_foto) }}" alt="{{ $produk->nama }}"
                                 class="w-10 h-10 object-cover rounded" />
-                                <div>
-                                    <p class="text-sm text-heading line-clamp-1">{{ $produk->nama }}</p>
-                                    <p class="text-xs text-gray-500">Rp {{ number_format($produk->harga_diskon ? $produk->harga_diskon : $produk->harga) }}</p>
-                                </div>
+                            <div>
+                                <p class="text-sm text-heading line-clamp-1">{{ $produk->nama }}</p>
+                                <p class="text-xs text-gray-500">Rp
+                                    {{ number_format($produk->harga_diskon ? $produk->harga_diskon : $produk->harga) }}</p>
+                            </div>
                         </a>
                     </li>
                 @empty

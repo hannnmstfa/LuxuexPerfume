@@ -9,9 +9,10 @@ class Handle extends Component
 {
     public $jumlah_keranjang = 0;
     protected $listeners = [
-        'updateKeranjang',
-        'addKeranjang',
-    ];
+    'keranjangDiupdate' => 'updateKeranjang',
+    'addKeranjang',
+];
+
     public function addKeranjang($productId, $jumlah = 1)
     {
         if (auth()->check()) {
@@ -44,7 +45,7 @@ class Handle extends Component
         $this->dispatch('keranjangDitambahkan', [
             'productId' => $productId,
         ]);
-        $this->updateKeranjang();
+        $this->dispatch('keranjangDiupdate');
     }
     public function mount()
     {
