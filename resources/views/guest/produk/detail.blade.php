@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="bg-white shadow-md rounded-lg p-6 flex flex-col md:flex-row gap-6">
             <div class="md:w-1/2">
-                <img src="{{ asset('storage/produk/' . $produk->gambar) }}" alt="{{ $produk->nama }}"
+                <img src="{{ asset($produk->path_foto) }}" alt="{{ $produk->nama }}"
                     class="w-full h-auto rounded-lg">
             </div>
             <div class="md:w-1/2 flex flex-col justify-between">
