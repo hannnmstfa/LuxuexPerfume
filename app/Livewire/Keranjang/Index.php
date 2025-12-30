@@ -11,6 +11,8 @@ class Index extends Component
     public $ongkir = 15000;
     public $subtotal = 0;
     public $total = 0;
+    public array $errorStok = [];
+    public array $daftarProduk = [];
 
     protected $listeners = [
         'keranjangDiupdate' => 'viewKeranjangs',
@@ -37,7 +39,7 @@ class Index extends Component
 
     public function viewKeranjangs()
     {
-        $this->keranjangs = Keranjang::where(
+        $this->keranjangs = Keranjang::with(['produks'])->where(
             auth()->check() ? 'users_id' : 'sessions_id',
             auth()->check() ? auth()->id() : session()->getId()
         )->get();
@@ -50,11 +52,26 @@ class Index extends Component
     public function hapusKeranjang($id)
     {
         Keranjang::where('id', $id)->delete();
-
-        // 🔥 refresh table & badge
         $this->dispatch('keranjangDiupdate');
     }
 
+    public function cek(){
+        $this->errorStok = [];
+        $this->daftarProduk = [];
+        foreach($this->keranjangs as $item){
+            $stok = $item->produks->stocks->jumlah ?? 0;
+            if($stok < 1 || $stok < $item->jumlah){
+                $this->errorStok[] = $item->id;
+            }else{
+                $this->daftarProduk[] = $item->id;
+            }
+        }
+        if($this->errorStok){
+            return;
+        }
+        session()->put('checkout.produk');
+        return to_route('checkout');
+    }
     public function render()
     {
         return view('livewire.keranjang.index');

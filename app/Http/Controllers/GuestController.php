@@ -22,6 +22,7 @@ class GuestController extends Controller
     }
     public function keranjang()
     {
+        session(['url.intended' => url()->current()]);
         return view('guest.keranjang');
     }
 }

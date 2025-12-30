@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Keranjang;
 use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
@@ -28,7 +29,9 @@ class OAuthController extends Controller
             $user->markEmailAsVerified();
             event(new Verified($user));
         }
+        $session = session()->getId();
         Auth::login($user);
+        Keranjang::updateKeranjang($session);
         return redirect()->intended('/');
     }
 }

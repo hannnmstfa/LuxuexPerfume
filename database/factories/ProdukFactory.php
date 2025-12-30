@@ -21,7 +21,7 @@ class ProdukFactory extends Factory
             'harga_diskon' => $this->faker->boolean(30)
                 ? $harga - $this->faker->numberBetween(5000, 30000)
                 : null,
-            'path_foto' => 'produk1.jpg',
+            'path_foto' => Str::slug($nama) . '.jpg',
             'created_at' => now(),
             'updated_at' => now(),
         ];

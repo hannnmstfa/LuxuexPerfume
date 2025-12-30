@@ -11,6 +11,6 @@ class Stock extends Model
         'jumlah',
     ];
     public function produks(){
-        return $this->belongsTo(Produk::class);
+        return $this->belongsTo(Produk::class, 'produks_id');
     }
 }

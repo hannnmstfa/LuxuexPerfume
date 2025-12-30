@@ -7,9 +7,9 @@
         </svg>
     </div>
     <input type="text" wire:model.live="search"
-        class="peer block w-full p-3 ps-9 bg-neutral-secondary-medium border text-heading text-sm rounded-xl  shadow-xs placeholder:text-body"
+        class="peer w-full p-3 ps-9 bg-white border text-sm rounded-xl  shadow-xs"
         placeholder="Cari Produk" autocomplete="off" />
-    <div class="absolute {{ $search > 0 ? 'block' : 'hidden' }} peer-focus:block top-12 w-full border bg-gray-100 border-gray-300 rounded-md shadow-lg z-[100]"
+    <div class="absolute {{ $search > 0 ? 'block' : 'hidden' }} peer-focus:block top-12 w-full border bg-gray-100 border-gray-300 rounded-md shadow-lg z-20"
         id="search-results">
         <ul class="bg-white shadow rounded w-full max-h-56 overflow-y-auto">
             @if (strlen($search) < 1)

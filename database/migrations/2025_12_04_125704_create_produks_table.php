@@ -22,6 +22,13 @@ return new class extends Migration
             $table->longText('path_foto');
             $table->timestamps();
         });
+
+        Schema::create('stocks', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('produks_id')->constrained()->cascadeOnDelete();
+            $table->integer('jumlah')->default(0);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -30,5 +37,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('produks');
+        Schema::dropIfExists('stocks');
     }
 };
