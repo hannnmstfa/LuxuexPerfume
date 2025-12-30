@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Keranjang;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -30,21 +31,29 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'fullname' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', Rules\Password::defaults(), 'confirmed'],
+            'phone' => ['required', 'string', 'regex:/^08[0-9]/', 'unique:' . User::class],
+            'alamat' => 'required|string',
+        ], [
+            'email.unique' => 'Email sudah terdaftar',
+            'password.confirmed' => 'Password konfirmasi harus sama',
+            'password.min' => 'Password minimal 8 karakter',
+            'phone.regex' => 'No Telepon harus diawali <b>08xxxxxxxxx</b>'
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'name' => $request->fullname,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'phone' => $request->phone,
+            'alamat' => $request->alamat,
         ]);
-
+        $session = session()->getId();
         event(new Registered($user));
-
         Auth::login($user);
-
+        Keranjang::updateKeranjang($session);
         return redirect(route('/', absolute: false));
     }
 }

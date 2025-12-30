@@ -46,7 +46,7 @@ class LoginRequest extends FormRequest
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
             if(!User::whereEmail($this->email)->exists()){
-                toast('Email tidak terdaftar', 'error')->width('max-content');
+                Alert::error('Gagal Login', 'Email tidak terdaftar, silahkan daftarkan akun anda terlebih dahulu.');
             }else{
                 Alert::warning('Login Gagal !!!', 'Silahkan cek email atau password anda');
             }

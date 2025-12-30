@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('harga_diskon')->nullable();
             $table->longText('path_foto');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('stocks', function (Blueprint $table) {

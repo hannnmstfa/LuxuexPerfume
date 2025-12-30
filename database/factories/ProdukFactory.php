@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Produk;
+use App\Models\Stock;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -10,7 +12,7 @@ class ProdukFactory extends Factory
     public function definition(): array
     {
         $nama = $this->faker->words(3, true);
-        $harga = $this->faker->numberBetween(50000, 500000);
+        $harga = $this->faker->numberBetween(10000, 500000);
 
         return [
             'nama' => ucfirst($nama),
@@ -25,5 +27,14 @@ class ProdukFactory extends Factory
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+    public function configure()
+    {
+        return $this->afterCreating(function (Produk $produk) {
+            Stock::create([
+                'produks_id' => $produk->id,
+                'jumlah' => $this->faker->numberBetween(0, 50),
+            ]);
+        });
     }
 }
