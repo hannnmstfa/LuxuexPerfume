@@ -10,18 +10,18 @@
     <div class="max-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         @include('layouts.nav-guest')
         <main class=" bg-gray-50 min-h-screen pt-20 pb-5">
-            <div class="w-full  px-2 py-3">
-                @if ($errors->any())
-                        <div class="container mx-auto rounded bg-red-200 p-2 border border-red-600">
-                            <p class="font-bold text-md dark:text-black">Error List</p>
-                            <ul class="list-disc ms-5 text-sm">
-                                @foreach ($errors->all() as $error)
-                                    <li class="text-red-600">{!! $error !!}</li>
-                                @endforeach
-                            </ul>
-                        </div>
+            @if ($errors->any())
+                <div class="w-full  px-2 py-3">
+                    <div class="container mx-auto rounded bg-red-200 p-2 border border-red-600">
+                        <p class="font-bold text-md dark:text-black">Error List</p>
+                        <ul class="list-disc ms-5 text-sm">
+                            @foreach ($errors->all() as $error)
+                                <li class="text-red-600">{!! $error !!}</li>
+                            @endforeach
+                        </ul>
                     </div>
-                @endif
+                </div>
+            @endif
             {{ $slot }}
         </main>
     </div>
