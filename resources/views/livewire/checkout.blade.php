@@ -1,10 +1,12 @@
 <div class="max-w-screen-xl mx-auto">
-    <form action="#" method="post"
+    <form action="{{ route('checkout.post') }}" method="post"
         class="grid grid-cols-12 gap-4 justify-center items-start space-y-2 lg:space-y-0 p-3 font-inter">
         @csrf
         <div class="col-span-12 lg:col-span-8 space-y-6">
             <div class="bg-white p-6 rounded shadow">
-                <h2 class="font-semibold text-xl">Data Penerima</h2>
+                <h2 class="font-semibold text-xl mb-2">
+                    Data Penerima
+                </h2>
                 <hr class="py-2">
                 <div class="grid grid-cols-2 gap-2 space-y-2 lg:space-y-0">
                     <div class="col-span-2 lg:col-span-1">
@@ -99,11 +101,57 @@
                     </div>
                 </div>
             </div>
+
+            <div class="bg-white p-6 rounded shadow">
+                <h2 class="font-semibold text-xl">Metode Pembayaran</h2>
+                <hr class="py-2">
+                <div class="grid grid-cols-3 gap-2 space-y-2 md:space-y-0">
+                    <span class="col-span-3 font-semibold">Virtual Account</span>
+                    @foreach ($payment['data'] as $va)
+                        @if ($va['group'] == 'Virtual Account')
+                            <div class="col-span-3 md:col-span-1">
+                                <div
+                                    class="w-full h-20 border flex flex-col justify-center gap-2 items-center border-gray-300 bg-gray-100 hover:bg-gray-200 cursor-pointer duration-300 rounded p-2">
+                                    <img src="{{ $va['icon_url'] }}" class="w-20" alt="">
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                    <span class="col-span-3 font-semibold pt-3">Toko Retail</span>
+                    @foreach ($payment['data'] as $retail)
+                        @if ($retail['group'] == 'Convenience Store')
+                            <div class="col-span-3 md:col-span-1">
+                                <div
+                                    class="w-full h-20 border flex flex-col justify-center gap-2 items-center border-gray-300 bg-gray-100 hover:bg-gray-200 cursor-pointer duration-300 rounded p-2">
+                                    <img src="{{ $retail['icon_url'] }}" class="w-20" alt="">
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                    <span class="col-span-3 font-semibold pt-3">E-Wallet</span>
+                    @foreach ($payment['data'] as $ewallet)
+                        @if ($ewallet['group'] == 'E-Wallet')
+                            <div class="col-span-3 md:col-span-1">
+                                <input type="radio" name="payment_method" value="{{ $ewallet['code'] }}" class="peer" id="{{ $ewallet['code'] }}">
+                                <label for="{{ $ewallet['code'] }}"
+                                    class="w-full h-20 border flex flex-col justify-center peer-checked:border-2 peer-checked:border-orange-400 gap-2 items-center border-gray-300 bg-gray-100 hover:bg-gray-200 cursor-pointer duration-100 rounded p-2">
+                                    <img src="{{ $ewallet['icon_url'] }}" class="w-20" alt="">
+                                    </label>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
         </div>
+
 
         <!-- KANAN -->
         <div class="col-span-12 lg:col-span-4">
             <div class="border border-gray-300 rounded-md p-4 shadow-md relative font-inter">
+                <div
+                    class="absolute w-full top-0 left-0 right-0 bottom-0 bg-gray-500 flex justify-center items-center bg-opacity-50">
+                    <x-loader />
+                </div>
                 <h2 class="text-xl font-bold mb-4">Ringkasan Pesanan</h2>
                 <table class="w-full text-sm font-inter mb-3">
                     <thead>
@@ -114,33 +162,39 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($keranjangs as $item)
+                        @forelse ($keranjangs as $item)
                             <tr class="border-b">
-                                <td>{{ $item->jumlah }}</td>
-                                <td>{{ $item->produks->nama }}</td>
-                                <td class="text-right">
+                                <td class="py-1">{{ $item->jumlah }}</td>
+                                <td class="py-1"><span class="line-clamp-1"
+                                        title="{{ $item->produks->nama }}">{{ $item->produks->nama }}</span></td>
+                                <td class="text-right py-1">
                                     Rp{{ number_format(($item->produks->harga_diskon ? $item->produks->harga_diskon : $item->produks->harga) * $item->jumlah) }}
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="3" class="text-center italic border-b">Belum ada data</td>
+                            </tr>
+                        @endforelse
                         <tr></tr>
                     </tbody>
                 </table>
-                <div class="flex justify-between items-center text-md text-gray-500">
+                <div class="flex justify-between items-center text-sm text-gray-500">
                     <h4 class="font-semibold ">Subtotal</h4>
                     <h4 class="font-semibold ">Rp{{ number_format($subtotal) }}</h4>
                 </div>
-                <div class="flex justify-between items-center text-md text-gray-500">
+                <div class="flex justify-between items-center text-sm text-gray-500">
                     <h4 class="font-semibold ">Ongkir</h4>
                     <h4 class="font-semibold ">Rp{{ number_format($ongkir) }}</h4>
                 </div>
-                <hr>
                 <div class="flex justify-between items-center text-lg font-bold">
                     <h4>Total Bayar</h4>
                     <h4>Rp{{ number_format($subtotal + $ongkir) }}</h4>
                 </div>
-                <button class="w-full mt-4 bg-yellow-600 text-white py-3 rounded">
-                    Bayar Sekarang
+                <hr>
+                <button type="submit"
+                    class="w-full mt-3 font-semibold bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-md">
+                    Lanjut ke Pembayaran
                 </button>
             </div>
         </div>

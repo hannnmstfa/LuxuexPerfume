@@ -6,5 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class TransaksiItem extends Model
 {
-    //
+    protected $fillable = [
+        'transaksi_id',
+        'produks_id',
+        'harga',
+        'jumlah',
+        'subtotal',
+    ];
 }

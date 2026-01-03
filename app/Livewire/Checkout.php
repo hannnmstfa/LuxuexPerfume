@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Http\Controllers\TripayController;
 use App\Http\Controllers\WilayahController;
 use App\Models\Keranjang;
 use Livewire\Component;
@@ -20,8 +21,11 @@ class Checkout extends Component
     public $dataKota = [];
     public $dataKec = [];
     public $dataDesa = [];
+    public $payment = [];
     public function mount(){
         $wilayah = app(WilayahController::class);
+        $tripay = app(TripayController::class);
+        $this->payment = $tripay->getPayment();
         $this->dataProv = $wilayah->provinsi();
         $this->keranjangs = Keranjang::with(['produks'])->where('users_id', auth()->id())->get();
         $this->subtotal = $this->keranjangs->sum(function ($item) {

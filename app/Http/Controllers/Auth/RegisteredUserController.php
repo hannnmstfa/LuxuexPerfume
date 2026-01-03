@@ -34,7 +34,7 @@ class RegisteredUserController extends Controller
             'fullname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', Rules\Password::defaults(), 'confirmed'],
-            'phone' => ['required', 'string', 'regex:/^08[0-9]/', 'unique:' . User::class],
+            'phone' => ['required', 'string', 'regex:/^08[0-9]{8,11}/', 'unique:' . User::class],
             'alamat' => 'required|string',
         ], [
             'email.unique' => 'Email sudah terdaftar',

@@ -3,7 +3,6 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\StockController;
 use App\Http\Controllers\AfterLoginController;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\ProfileController;
@@ -30,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/checkout', [AfterLoginController::class, 'checkout'])->name('checkout');
+    Route::post('/checkout/kalkulasi', [AfterLoginController::class, 'checkoutPost'])->name('checkout.post');
 });
 
 // Debug
