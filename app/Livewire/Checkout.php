@@ -10,6 +10,7 @@ use Livewire\Component;
 class Checkout extends Component
 {
     public $keranjangs;
+    public $payment_method;
     public $ongkir = 15000;
     public $subtotal = 0;
     public $total = 0;

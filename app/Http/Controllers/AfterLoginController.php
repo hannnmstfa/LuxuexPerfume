@@ -24,7 +24,10 @@ class AfterLoginController extends Controller
             'nama_penerima' => 'required|string',
             'no_penerima' => ['required', 'string', 'regex:/^08[0-9]{8,11}/'],
             'kode_area' => 'required|string',
-            'alamat' => 'required|string'
+            'alamat' => 'required|string',
+            'payment_method' => 'required|string',
+        ], [
+            'payment_method.required' => 'Silahkan Pilih metode pembayaran terlebih dahulu'
         ]);
         $data = Keranjang::where('users_id', auth()->id())->get();
         $subtotal = $data->sum(function ($item) {

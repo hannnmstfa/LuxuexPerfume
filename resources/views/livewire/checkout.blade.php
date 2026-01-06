@@ -30,7 +30,12 @@
                 </div>
             </div>
 
-            <div class="bg-white p-6 rounded shadow">
+            <div class="bg-white p-6 rounded shadow relative">
+                <div wire:loading.remove.class="hidden" wire:loading.class="flex"
+                    wire:target="provinsi(), kota(), kecamatan(), desa()"
+                    class="absolute w-full top-0 left-0 right-0 bottom-0 bg-gray-500 hidden justify-center items-center bg-opacity-50">
+                    <x-loader />
+                </div>
                 <h2 class="font-semibold text-xl">Alamat Pengiriman</h2>
                 <hr class="py-2">
                 <div class="grid grid-cols-2 gap-2 space-y-2 lg:space-y-0">
@@ -103,6 +108,18 @@
             </div>
 
             <div class="bg-white p-6 rounded shadow">
+                <div wire:loading.remove.class="hidden" wire:loading.class="flex" wire:target="setPayment"
+                    class="absolute w-full top-0 left-0 right-0 bottom-0 bg-gray-500 hidden justify-center items-center bg-opacity-50">
+                    <x-loader />
+                </div>
+                <div class="border {{ $errors->has('payment_method') ? '' : 'hidden' }} rounded border-red-500 mb-3 text-red-500 bg-red-200 p-2 flex justify-start items-center gap-2">
+                    <svg class="w-6 h-6" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                    <p>Silahkan Pilih metode pembayaran terlebih dahulu</p>
+                </div>
                 <h2 class="font-semibold text-xl">Metode Pembayaran</h2>
                 <hr class="py-2">
                 <div class="grid grid-cols-3 gap-2 space-y-2 md:space-y-0">
@@ -110,10 +127,12 @@
                     @foreach ($payment['data'] as $va)
                         @if ($va['group'] == 'Virtual Account')
                             <div class="col-span-3 md:col-span-1">
-                                <div
-                                    class="w-full h-20 border flex flex-col justify-center gap-2 items-center border-gray-300 bg-gray-100 hover:bg-gray-200 cursor-pointer duration-300 rounded p-2">
+                                <input type="radio" name="payment_method" value="{{ $va['code'] }}" class="peer hidden"
+                                    id="{{ $va['code'] }}">
+                                <label for="{{ $va['code'] }}"
+                                    class="w-full h-20 border flex flex-col justify-center peer-checked:bg-yellow-100 peer-checked:border-2 peer-checked:border-yellow-400 gap-2 items-center border-gray-300 bg-gray-100 hover:bg-gray-200 cursor-pointer duration-100 rounded p-2">
                                     <img src="{{ $va['icon_url'] }}" class="w-20" alt="">
-                                </div>
+                                </label>
                             </div>
                         @endif
                     @endforeach
@@ -121,10 +140,12 @@
                     @foreach ($payment['data'] as $retail)
                         @if ($retail['group'] == 'Convenience Store')
                             <div class="col-span-3 md:col-span-1">
-                                <div
-                                    class="w-full h-20 border flex flex-col justify-center gap-2 items-center border-gray-300 bg-gray-100 hover:bg-gray-200 cursor-pointer duration-300 rounded p-2">
+                                <input type="radio" name="payment_method" value="{{ $retail['code'] }}" class="peer hidden"
+                                    id="{{ $retail['code'] }}">
+                                <label for="{{ $retail['code'] }}"
+                                    class="w-full h-20 border flex flex-col justify-center peer-checked:bg-yellow-100 peer-checked:border-2 peer-checked:border-yellow-400 gap-2 items-center border-gray-300 bg-gray-100 hover:bg-gray-200 cursor-pointer duration-100 rounded p-2">
                                     <img src="{{ $retail['icon_url'] }}" class="w-20" alt="">
-                                </div>
+                                </label>
                             </div>
                         @endif
                     @endforeach
@@ -132,11 +153,12 @@
                     @foreach ($payment['data'] as $ewallet)
                         @if ($ewallet['group'] == 'E-Wallet')
                             <div class="col-span-3 md:col-span-1">
-                                <input type="radio" name="payment_method" value="{{ $ewallet['code'] }}" class="peer" id="{{ $ewallet['code'] }}">
+                                <input type="radio" name="payment_method" value="{{ $ewallet['code'] }}" class="peer hidden"
+                                    id="{{ $ewallet['code'] }}">
                                 <label for="{{ $ewallet['code'] }}"
-                                    class="w-full h-20 border flex flex-col justify-center peer-checked:border-2 peer-checked:border-orange-400 gap-2 items-center border-gray-300 bg-gray-100 hover:bg-gray-200 cursor-pointer duration-100 rounded p-2">
+                                    class="w-full h-20 border flex flex-col justify-center peer-checked:bg-yellow-100 peer-checked:border-2 peer-checked:border-yellow-400 gap-2 items-center border-gray-300 bg-gray-100 hover:bg-gray-200 cursor-pointer duration-100 rounded p-2">
                                     <img src="{{ $ewallet['icon_url'] }}" class="w-20" alt="">
-                                    </label>
+                                </label>
                             </div>
                         @endif
                     @endforeach
@@ -148,8 +170,8 @@
         <!-- KANAN -->
         <div class="col-span-12 lg:col-span-4">
             <div class="border border-gray-300 rounded-md p-4 shadow-md relative font-inter">
-                <div
-                    class="absolute w-full top-0 left-0 right-0 bottom-0 bg-gray-500 flex justify-center items-center bg-opacity-50">
+                <div wire:loading.remove.class="hidden" wire:loading.class="flex" wire:target="setPayment"
+                    class="absolute w-full top-0 left-0 right-0 bottom-0 bg-gray-500 hidden justify-center items-center bg-opacity-50">
                     <x-loader />
                 </div>
                 <h2 class="text-xl font-bold mb-4">Ringkasan Pesanan</h2>
