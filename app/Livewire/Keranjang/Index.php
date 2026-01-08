@@ -70,7 +70,7 @@ class Index extends Component
             return;
         }
         session()->put('checkout.produk');
-        return to_route('checkout');
+        return to_route('checkout.index');
     }
     public function render()
     {

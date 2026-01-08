@@ -9,19 +9,17 @@ use App\Models\TransaksiItem;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class AfterLoginController extends Controller
+class CheckoutController extends Controller
 {
-    public function checkout()
-    {
+    public function index(){
         $cek = Keranjang::where('users_id', auth()->id())->exists();
         if (!$cek) {
             Alert::warning('Keranjang Kosong !!!', 'Silahkan menambahkan beberapa produk kedalam keranjang terlebih dahulu.');
             return to_route('produk');
         }
-        return view('afterlogin.checkout');
+        return view('afterlogin.checkout.index');
     }
-    public function checkoutPost(Request $request)
-    {
+    public function store(Request $request){
         $request->validate([
             'nama_penerima' => 'required|string',
             'no_penerima' => ['required', 'string', 'regex:/^08[0-9]{8,11}/'],
@@ -55,6 +53,7 @@ class AfterLoginController extends Controller
         $amount = $subtotal + $ongkir;
         $tripay = new TripayController();
         $data_tripay = $tripay->createTrx($request->payment_method, $kodeTrx, $amount, $orderItems);
+        dd($data_tripay);
         $trx = Transaksi::create([
             'users_id' => auth()->id(),
             'kodeTrx' => $kodeTrx,

@@ -1,5 +1,5 @@
 <div class="max-w-screen-xl mx-auto">
-    <form action="{{ route('checkout.post') }}" method="post"
+    <form action="{{ route('checkout.store') }}" method="post"
         class="grid grid-cols-12 gap-4 justify-center items-start space-y-2 lg:space-y-0 p-3 font-inter">
         @csrf
         <div class="col-span-12 lg:col-span-8 space-y-6">
