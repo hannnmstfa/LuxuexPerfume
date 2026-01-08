@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('metode_bayar');
             $table->string('tripay_ref');
             $table->enum('status_bayar', ['menunggu pembayaran', 'berhasil', 'kadaluarsa', 'gagal'])->default('menunggu pembayaran');
+            $table->dateTime('pay_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -40,6 +41,7 @@ return new class extends Migration
             $table->string('no_penerima');
             $table->String('kode_area')->nullable();
             $table->longText('alamat_penerima');
+            $table->timestamps();
         });
     }
 

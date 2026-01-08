@@ -53,7 +53,6 @@ class CheckoutController extends Controller
         $amount = $subtotal + $ongkir;
         $tripay = new TripayController();
         $data_tripay = $tripay->createTrx($request->payment_method, $kodeTrx, $amount, $orderItems);
-        dd($data_tripay);
         $trx = Transaksi::create([
             'users_id' => auth()->id(),
             'kodeTrx' => $kodeTrx,
@@ -84,6 +83,7 @@ class CheckoutController extends Controller
             'kode_area' => $request->kode_area,
             'alamat_penerima' => $request->alamat,
         ]);
-        dd($trx);
+        Alert::success('Pesanan Dibuat', 'Selesaikan pembayaran agar pesananmu segera diproses');
+        return to_route('trx.pay', $kodeTrx);
     }
 }

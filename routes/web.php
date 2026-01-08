@@ -7,6 +7,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('/checkout', CheckoutController::class)->names('checkout')->except('show');
+    Route::get('/transaksi/{kodeTrx}/payment', [TransaksiController::class, 'trxPayment'])->name('trx.pay');
 });
 
 
