@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Keranjang;
 use App\Models\Transaksi;
+use App\Models\TransaksiDetail;
+use App\Models\TransaksiItem;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -29,20 +31,60 @@ class AfterLoginController extends Controller
         ], [
             'payment_method.required' => 'Silahkan Pilih metode pembayaran terlebih dahulu'
         ]);
-        $data = Keranjang::where('users_id', auth()->id())->get();
-        $subtotal = $data->sum(function ($item) {
+        $kodeTrx = 'LX' . date('YmdHis');
+        $keranjangs = Keranjang::where('users_id', auth()->id())->get();
+        $orderItems = [];
+        foreach ($keranjangs as $item) {
+            $orderItems[] = [
+                'name' => $item->produks->nama,
+                'price' => $item->produks->harga_diskon
+                    ? $item->produks->harga_diskon
+                    : $item->produks->harga,
+                'quantity' => $item->jumlah,
+            ];
+        }
+        $orderItems[] = [
+            'name' => 'Ongkir',
+            'price' => 15000,
+            'quantity' => 1,
+        ];
+        $subtotal = $keranjangs->sum(function ($item) {
             return ($item->produks->harga_diskon ? $item->produks->harga_diskon : $item->produks->harga) * $item->jumlah;
         });
+        $ongkir = 15000;
+        $amount = $subtotal + $ongkir;
+        $tripay = new TripayController();
+        $data_tripay = $tripay->createTrx($request->payment_method, $kodeTrx, $amount, $orderItems);
         $trx = Transaksi::create([
             'users_id' => auth()->id(),
-            'kodeTrx' => LP,
-            'subtotal',
-            'ongkir',
-            'total_harga',
-            'metode_bayar',
-            'tripay_ref',
-            'status_bayar',
+            'kodeTrx' => $kodeTrx,
+            'subtotal' => $subtotal,
+            'ongkir' => $ongkir,
+            'total_harga' => $amount,
+            'metode_bayar' => $data_tripay['data']['payment_name'],
+            'tripay_ref' => $data_tripay['data']['reference'],
         ]);
-        dd($request->all(), $data, $subtotal);
+        foreach ($keranjangs as $item) {
+            TransaksiItem::create([
+                'transaksi_id' => $trx->id,
+                'produks_id' => $item->produks_id,
+                'harga' => $item->produks->harga_diskon
+                    ? $item->produks->harga_diskon
+                    : $item->produks->harga,
+                'jumlah' => $item->jumlah,
+                'subtotal' => $item->produks->harga_diskon
+                    ? $item->produks->harga_diskon
+                    : $item->produks->harga + $item->jumlah,
+            ]);
+            $item->delete();
+        }
+        TransaksiDetail::create([
+            'transaksi_id' => $trx->id,
+            'nama_penerima' => $request->nama_penerima,
+            'no_penerima' => $request->no_penerima,
+            'kode_area' => $request->kode_area,
+            'alamat_penerima' => $request->alamat,
+        ]);
+        dd($trx);
     }
 }

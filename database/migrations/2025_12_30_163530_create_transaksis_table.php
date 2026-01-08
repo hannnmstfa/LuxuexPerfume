@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedInteger('total_harga');
             $table->string('metode_bayar');
             $table->string('tripay_ref');
-            $table->enum('status_bayar', ['menunggu pembayaran', 'berhasil', 'kadaluarsa', 'gagal']);
+            $table->enum('status_bayar', ['menunggu pembayaran', 'berhasil', 'kadaluarsa', 'gagal'])->default('menunggu pembayaran');
             $table->timestamps();
             $table->softDeletes();
         });

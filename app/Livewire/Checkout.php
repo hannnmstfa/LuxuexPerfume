@@ -12,6 +12,7 @@ class Checkout extends Component
     public $keranjangs;
     public $payment_method;
     public $ongkir = 15000;
+    // public $fee_payment = 0;
     public $subtotal = 0;
     public $total = 0;
     public $provinsi = '';
@@ -34,6 +35,11 @@ class Checkout extends Component
         });
         $this->total = $this->subtotal + $this->ongkir;
     }
+    // public function hitungPayment(int $flat = 0, float $percent = 0){
+    //     $this->fee_payment = 0;
+    //     $this->fee_payment = (($this->subtotal + $this->ongkir) * $percent / 100) + $flat;
+    //     $this->total = $this->subtotal + $this->ongkir + $this->fee_payment;
+    // }
     public function updatedProvinsi($code_prov){
         $wilayah = app(WilayahController::class);
         $this->dataKota = $wilayah->kota($code_prov);
