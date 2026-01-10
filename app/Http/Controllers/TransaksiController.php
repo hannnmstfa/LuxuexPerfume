@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class TransaksiController extends Controller
@@ -16,5 +17,9 @@ class TransaksiController extends Controller
             Alert::error($detail_tripay['message']);
         }
         return view('afterlogin.transaksi.bayar', compact('trx', 'detail_tripay'));
+    }
+    public function index(){
+        $datas = Transaksi::where('users_id', Auth::user()->id)->get();
+        return view('afterlogin.transaksi.index', compact('datas'));
     }
 }

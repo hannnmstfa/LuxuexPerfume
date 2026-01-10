@@ -26,17 +26,20 @@
                     </div>
                     <ul class="p-2 text-sm text-body font-medium" aria-labelledby="user-menu-button">
                         <li>
-                            <a href="#" class="inline-flex items-center w-full p-2 hover:bg-gray-200 rounded">Dashboard</a>
-                        </li>
-                        <li>
                             <a href="{{ route('profile') }}"
                                 class="inline-flex items-center w-full p-2 hover:bg-gray-200 rounded">Profile</a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.dashboard') }}"
-                                class="inline-flex items-center w-full p-2 hover:bg-gray-200 rounded">Admin
-                                Panel</a>
-                        <li>
+                            <a class="inline-flex items-center w-full p-2 hover:bg-gray-200 rounded" 
+                            href="{{ route('trx.index') }}">Transaksi</a>
+                        </li>
+                        @if (Auth::user()->role == 'admin')
+                            <li>
+                                <a href="{{ route('admin.dashboard') }}"
+                                    class="inline-flex items-center w-full p-2 hover:bg-gray-200 rounded">Admin
+                                    Panel</a>
+                            <li>
+                        @endif
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"
@@ -103,6 +106,10 @@
                                 <a href="{{ route('profile') }}"
                                     class="inline-flex items-center w-full p-2 hover:bg-gray-200 rounded">Profile</a>
                             </li>
+                            <li>
+                            <a class="inline-flex items-center w-full p-2 hover:bg-gray-200 rounded" 
+                            href="{{ route('trx.index') }}">Transaksi</a>
+                        </li>
                             @if (Auth::user()->role == 'admin')
                                 <li>
                                     <a href="{{ route('admin.dashboard') }}"

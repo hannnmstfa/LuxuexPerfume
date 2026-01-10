@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('/checkout', CheckoutController::class)->names('checkout')->except('show');
     Route::get('/transaksi/{kodeTrx}/payment', [TransaksiController::class, 'trxPayment'])->name('trx.pay');
+    Route::resource('/transaksi', TransaksiController::class)->names('trx');
 });
 
 
