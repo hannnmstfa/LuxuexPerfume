@@ -16,4 +16,5 @@
         </div>
         <h2 class="font-inter text-2xl md:text-3xl font-semibold">DETAIL TRANSAKSI</h2>
     </div>
+    tt
 </x-guest-layout>
