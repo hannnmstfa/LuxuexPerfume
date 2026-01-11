@@ -19,7 +19,11 @@ class TransaksiController extends Controller
         return view('afterlogin.transaksi.bayar', compact('trx', 'detail_tripay'));
     }
     public function index(){
-        $datas = Transaksi::where('users_id', Auth::user()->id)->get();
+        $datas = Transaksi::where('users_id', Auth::user()->id)->orderByDesc('created_at')->get();
         return view('afterlogin.transaksi.index', compact('datas'));
+    }
+    public function show($kodeTrx){
+        $trx = Transaksi::where('kodeTrx', $kodeTrx)->firstOrFail();
+        return view('afterlogin.transaksi.detail', compact('trx'));
     }
 }

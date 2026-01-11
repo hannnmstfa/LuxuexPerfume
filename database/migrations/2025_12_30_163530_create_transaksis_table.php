@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('ongkir');
             $table->unsignedInteger('total_harga');
             $table->string('metode_bayar');
+            $table->unsignedInteger('fee_payment');
             $table->string('tripay_ref');
             $table->enum('status_bayar', ['menunggu pembayaran', 'berhasil', 'kadaluarsa', 'gagal'])->default('menunggu pembayaran');
             $table->dateTime('pay_at')->nullable();

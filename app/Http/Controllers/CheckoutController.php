@@ -60,6 +60,7 @@ class CheckoutController extends Controller
             'ongkir' => $ongkir,
             'total_harga' => $amount,
             'metode_bayar' => $data_tripay['data']['payment_name'],
+            'fee_payment' => $data_tripay['data']['total_fee'],
             'tripay_ref' => $data_tripay['data']['reference'],
         ]);
         foreach ($keranjangs as $item) {

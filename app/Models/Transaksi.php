@@ -14,6 +14,7 @@ class Transaksi extends Model
         'ongkir',
         'total_harga',
         'metode_bayar',
+        'fee_payment',
         'tripay_ref',
         'status_bayar',
     ];

@@ -6,11 +6,6 @@
 [x-cloak] {
     display: none;
 }
-
-/* #myTable {
-    table-layout: fixed !important;
-} */
-
 input:focus,
 textarea:focus,
 select:focus {
