@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Laravolt\Avatar\Avatar;
 
@@ -20,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        
+        if(config("app.env") == 'local') {
+            URL::forceScheme('http');
+        }else{
+            URL::forceScheme('https');
+        }
     }
 }
