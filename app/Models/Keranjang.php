@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class Keranjang extends Model
@@ -21,11 +22,11 @@ class Keranjang extends Model
     {
         $data = self::where('sessions_id', $session)->get();
         foreach ($data as $keranjang) {
-            $cek = self::where('users_id', auth()->id())
+            $cek = self::where('users_id', Auth::user()->id)
                 ->where('produks_id', $keranjang->produks_id)->exists();
             if (!$cek) {
                 $keranjang->update([
-                    'users_id' => auth()->id(),
+                    'users_id' => Auth::user()->id,
                     'sessions_id' => null,
                 ]);
             }

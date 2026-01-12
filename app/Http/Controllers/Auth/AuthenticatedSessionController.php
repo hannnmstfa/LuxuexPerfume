@@ -27,8 +27,8 @@ class AuthenticatedSessionController extends Controller
     {
         $session = session()->getId();
         $request->authenticate();
-        $request->session()->regenerate();
         Keranjang::updateKeranjang($session);
+        $request->session()->regenerate();
         return redirect()->intended(route('/', absolute: false));
     }
 

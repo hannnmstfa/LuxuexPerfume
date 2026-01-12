@@ -13,8 +13,7 @@ return new class extends Migration {
         Schema::create('keranjangs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('users_id')->nullable()->constrained()->cascadeOnDelete();
-            $table->string('sessions_id')->nullable();
-            $table->foreign('sessions_id')->references('id')->on('sessions')->cascadeOnDelete();
+            $table->string('sessions_id')->nullable()->index();
             $table->foreignId('produks_id')->constrained()->cascadeOnDelete()->unique();
             $table->unsignedInteger('jumlah')->default(1);
             $table->timestamps();
