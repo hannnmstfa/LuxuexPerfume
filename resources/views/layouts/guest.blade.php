@@ -102,6 +102,7 @@
             </div>
         </div>
     @endguest
+    @livewireScripts
 </body>
 
 </html>

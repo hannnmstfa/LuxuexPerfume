@@ -5,4 +5,3 @@
 
 <!-- Scripts -->
 @vite(['resources/css/font.css', 'resources/css/app.css', 'resources/js/app.js'])
-@livewireScripts

@@ -24,6 +24,6 @@
         </main>
     </div>
     @include('sweetalert::alert')
-    @livewireScriptConfig
+    @livewireScript
 </body>
 </html>
