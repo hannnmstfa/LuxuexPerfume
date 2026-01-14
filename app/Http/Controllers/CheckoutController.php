@@ -73,7 +73,7 @@ class CheckoutController extends Controller
                 'jumlah' => $item->jumlah,
                 'subtotal' => $item->produks->harga_diskon
                     ? $item->produks->harga_diskon
-                    : $item->produks->harga + $item->jumlah,
+                    : $item->produks->harga * $item->jumlah,
             ]);
             $item->delete();
         }

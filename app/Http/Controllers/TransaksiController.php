@@ -23,7 +23,7 @@ class TransaksiController extends Controller
         return view('afterlogin.transaksi.index', compact('datas'));
     }
     public function show($kodeTrx){
-        $trx = Transaksi::where('kodeTrx', $kodeTrx)->firstOrFail();
+        $trx = Transaksi::with('transaksi_items')->where('kodeTrx', $kodeTrx)->firstOrFail();
         return view('afterlogin.transaksi.detail', compact('trx'));
     }
 }

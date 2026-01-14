@@ -13,4 +13,8 @@ class TransaksiItem extends Model
         'jumlah',
         'subtotal',
     ];
+    public function produks()
+    {
+        return $this->belongsTo(Produk::class, 'produks_id');
+    }
 }
