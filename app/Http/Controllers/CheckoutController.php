@@ -7,6 +7,7 @@ use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
 use App\Models\TransaksiItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CheckoutController extends Controller
@@ -54,7 +55,7 @@ class CheckoutController extends Controller
         $tripay = new TripayController();
         $data_tripay = $tripay->createTrx($request->payment_method, $kodeTrx, $amount, $orderItems);
         $trx = Transaksi::create([
-            'users_id' => auth()->id(),
+            'users_id' => Auth::user()->id,
             'kodeTrx' => $kodeTrx,
             'subtotal' => $subtotal,
             'ongkir' => $ongkir,

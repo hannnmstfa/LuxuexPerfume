@@ -9,6 +9,7 @@ use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Middleware\Admin;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
 
 // Route Google OAuth
@@ -18,6 +19,7 @@ Route::get('/', [GuestController::class, 'home'])->name('/');
 Route::get('/produk', [GuestController::class, 'produk'])->name('produk');
 Route::get('/produk/{produk}', [GuestController::class, 'detailProduk'])->name('produk.detail');
 Route::get('/keranjang', [GuestController::class, 'keranjang'])->name('keranjang');
+Route::post('/transaksi/callback', [TransaksiController::class, 'trxCallback'])->name('trx.callback')->withoutMiddleware(VerifyCsrfToken::class);
 Route::middleware('auth')->group(function () {
     Route::middleware(Admin::class)->group(function(){
         Route::get('/admin/dashboard', [AdminDashboard::class, 'index'])->name('admin.dashboard');

@@ -171,7 +171,7 @@
 
 
         <!-- KANAN -->
-        <div class="col-span-12 lg:col-span-4">
+        <div class="col-span-12 lg:col-span-4 sticky top-24">
             <div class="border border-gray-300 rounded-md p-4 shadow-md relative font-inter">
                 <div wire:loading.remove.class="hidden" wire:loading.class="flex" wire:target="hitungPayment()"
                     class="absolute w-full top-0 left-0 right-0 bottom-0 bg-gray-500 hidden justify-center items-center bg-opacity-50">

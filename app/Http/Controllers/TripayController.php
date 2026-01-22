@@ -60,18 +60,18 @@ class TripayController extends Controller
         curl_close($curl);
         return $response;
     }
-    public function createTrx($merchantCode, $kodeTrx, $amount, $orderItems)
+    public function createTrx($methodCode, $kodeTrx, $amount, $orderItems)
     {
         $data = [
-            'method' => $merchantCode,
+            'method' => $methodCode,
             'merchant_ref' => $kodeTrx,
             'amount' => $amount,
             'customer_name' => Auth::user()->name,
             'customer_email' => Auth::user()->email,
-            'customer_phone' => Auth::user()->whatsapp,
+            'customer_phone' => Auth::user()->phone,
             'order_items' => $orderItems,
-            'callback_url' => config('app.url') . '/topup-callback',
-            'return_url' => config('app.url') . '/saldo/' . $kodeTrx . '/sukses',
+            'callback_url' => config('app.url') . '/transaksi/callback',
+            'return_url' => route('trx.pay', $kodeTrx),
             'expired_time' => (time() + (24 * 60 * 60)), // 24 jam
             'signature' => hash_hmac('sha256', $this->merchantCode . $kodeTrx . $amount, $this->privateKey)
         ];
