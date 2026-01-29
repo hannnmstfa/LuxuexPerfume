@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
-use App\Http\Controllers\Admin\StockController as AdminStock;
 use App\Http\Controllers\Admin\ProdukController As AdminProduk;
 use App\Http\Controllers\Admin\TransaksiController as AdminTrx;
 use App\Http\Controllers\CheckoutController;
@@ -28,7 +27,6 @@ Route::middleware('auth')->group(function () {
         Route::resource('/admin/produk', AdminProduk::class)->names('admProduk')->except('show');
         Route::put('/admin/produk/{id}/atur-diskon', [AdminProduk::class, 'setDiskon'])->name('admProduk.setDiskon');
         Route::put('/admin/produk/{id}/delete-diskon', [AdminProduk::class, 'delDiskon'])->name('admProduk.delDiskon');
-        Route::resource('/admin/stok', AdminStock::class)->names('admStock')->except('show');
         Route::resource('/admin/transaksi', AdminTrx::class)->names('admTrx');
     });
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
