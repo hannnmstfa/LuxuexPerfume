@@ -84,8 +84,8 @@
                             <img src="{{ asset($product->path_foto) }}" loading="lazy" alt="{{ $product->nama }}"
                                 class="w-full h-48 hover:scale-105 transition-transform duration-300 object-cover">
                             <span
-                                class="absolute bottom-0 left-0 bg-gray-500 text-white text-xs font-semibold px-2 py-1 rounded-r">
-                                Stok Tersisa: {{ $product->stocks->jumlah ?? 0 }}
+                                class="absolute bottom-0 left-0  {{ $product->stok < 1 ? 'text-red-600 bg-red-100 border border-l-0 border-red-400' : 'text-white bg-gray-500' }} text-xs font-semibold px-2 py-1 rounded-r">
+                                {{ $product->stok < 1 ? 'Stok Habis' : 'Stok Tersisa: ' . $product->stok }}
                             </span>
                         </div>
                         <div class="px-4 pb-3">

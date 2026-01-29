@@ -43,7 +43,7 @@
                                         <a href="{{ route('produk.detail', $item->produks->slug) }}"
                                             class="font-semibold hover:text-gray-400">{{ $item->produks->nama }}</a>
                                         <div class="text-xs text-gray-400">Stok tersisa:
-                                            {{ $item->produks->stocks->jumlah ?? 0 }}</div>
+                                            {{ $item->produks->stok }}</div>
                                     </div>
                                 </div>
                             </td>
@@ -78,7 +78,7 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <p class="text-xs text-red-600 {{ optional($item->produks->stocks)->jumlah < $item->jumlah ? 'block' : 'hidden' }}">Jumlah melebihi stok tersisa</p>
+                                <p class="text-xs text-red-600 {{ $item->produks->stok < $item->jumlah ? 'block' : 'hidden' }}">Jumlah melebihi stok tersisa</p>
                             </td>
                             <td class="px-6 py-4 font-semibold">
                                 Rp{{ number_format(($item->produks->harga_diskon ? $item->produks->harga_diskon : $item->produks->harga) * $item->jumlah) }}

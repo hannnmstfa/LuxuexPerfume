@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SaldoUser;
 use App\Models\TopUp;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
@@ -95,7 +96,7 @@ class TripayController extends Controller
         curl_close($curl);
         return $response;
     }
-    public function topupCallback(Request $request)
+    public function trxCallback(Request $request)
     {
         
         $callbackSignature = $request->server('HTTP_X_CALLBACK_SIGNATURE');
@@ -131,32 +132,36 @@ class TripayController extends Controller
         $status = strtoupper((string) $data->status);
 
         if ($data->is_closed_payment === 1) {
-            $invoice = TopUp::where('tripay_ref', $tripayReference)
-                ->where('status', 'belum bayar')
-                ->first();
+            $invoice = Transaksi::where('tripay_ref', $tripayReference)->first();
 
             if (! $invoice) {
                 return Response::json([
                     'success' => false,
-                    'message' => 'No invoice found or already paid: ' . $invoiceId,
+                    'message' => 'Transaksi tidak ditemukan: ' . $invoiceId,
                 ]);
             }
 
             switch ($status) {
+                case 'UNPAID':
+                    $invoice->forceFill([
+                        'status_bayar' => 'menunggu pembayaran',
+                        'pay_at' => null,
+                    ])->save();
+                    break;
+
                 case 'PAID':
-                    $invoice->update(['status' => 'berhasil']);
-                    $saldo = SaldoUser::where('users_id', $invoice->users_id)->first();
-                    $saldo->update([
-                        'saldo' => $saldo->saldo += $data->amount_received,
+                    $invoice->update([
+                        'status_bayar' => 'berhasil',
+                        'pay_at' => now(),
                     ]);
                     break;
 
                 case 'EXPIRED':
-                    $invoice->update(['status' => 'kadaluarsa']);
+                    $invoice->update(['status_bayar' => 'kadaluarsa']);
                     break;
 
                 case 'FAILED':
-                    $invoice->update(['status' => 'gagal']);
+                    $invoice->update(['status_bayar' => 'gagal']);
                     break;
 
                 default:

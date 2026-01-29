@@ -17,6 +17,7 @@ class Transaksi extends Model
         'fee_payment',
         'tripay_ref',
         'status_bayar',
+        'pay_at',
     ];
     public function transaksi_items(){
         return $this->hasMany(TransaksiItem::class, 'transaksi_id');

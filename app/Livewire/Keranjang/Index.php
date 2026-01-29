@@ -3,6 +3,7 @@
 namespace App\Livewire\Keranjang;
 
 use App\Models\Keranjang;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Index extends Component
@@ -40,8 +41,8 @@ class Index extends Component
     public function viewKeranjangs()
     {
         $this->keranjangs = Keranjang::with(['produks'])->where(
-            auth()->check() ? 'users_id' : 'sessions_id',
-            auth()->check() ? auth()->id() : session()->getId()
+            Auth::check() ? 'users_id' : 'sessions_id',
+            Auth::check() ? Auth::id() : session()->getId()
         )->get();
         $this->subtotal = $this->keranjangs->sum(function ($item) {
             return ($item->produks->harga_diskon ? $item->produks->harga_diskon : $item->produks->harga) * $item->jumlah;
@@ -59,7 +60,7 @@ class Index extends Component
         $this->errorStok = [];
         $this->daftarProduk = [];
         foreach($this->keranjangs as $item){
-            $stok = $item->produks->stocks->jumlah ?? 0;
+            $stok = $item->produks->stok;
             if($stok < 1 || $stok < $item->jumlah){
                 $this->errorStok[] = $item->id;
             }else{

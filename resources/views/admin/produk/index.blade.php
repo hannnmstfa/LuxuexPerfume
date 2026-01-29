@@ -48,7 +48,7 @@
                         No
                     </th>
                     <th scope="col" class="bg-gray-200 dark:bg-gray-500 text-center">
-                        Parfum
+                        Produk
                     </th>
                     <th scope="col" class="bg-gray-200 dark:bg-gray-500 text-center">
                         Kategori
@@ -58,6 +58,9 @@
                     </th>
                     <th scope="col" class="bg-gray-200 dark:bg-gray-500">
                         Harga
+                    </th>
+                    <th scope="col" class="bg-gray-200 dark:bg-gray-500">
+                        Stok
                     </th>
                     <th scope="col" class="bg-gray-200 dark:bg-gray-500">
                         Aksi
@@ -93,7 +96,7 @@
                                                 d="M20.29 8.567c.133.323.334.613.59.85v.002a3.536 3.536 0 0 1 0 5.166 2.442 2.442 0 0 0-.776 1.868 3.534 3.534 0 0 1-3.651 3.653 2.483 2.483 0 0 0-1.87.776 3.537 3.537 0 0 1-5.164 0 2.44 2.44 0 0 0-1.87-.776 3.533 3.533 0 0 1-3.653-3.654 2.44 2.44 0 0 0-.775-1.868 3.537 3.537 0 0 1 0-5.166 2.44 2.44 0 0 0 .775-1.87 3.55 3.55 0 0 1 1.033-2.62 3.594 3.594 0 0 1 2.62-1.032 2.401 2.401 0 0 0 1.87-.775 3.535 3.535 0 0 1 5.165 0 2.444 2.444 0 0 0 1.869.775 3.532 3.532 0 0 1 3.652 3.652c-.012.35.051.697.184 1.02ZM9.927 7.371a1 1 0 1 0 0 2h.01a1 1 0 0 0 0-2h-.01Zm5.889 2.226a1 1 0 0 0-1.414-1.415L8.184 14.4a1 1 0 0 0 1.414 1.414l6.218-6.217Zm-2.79 5.028a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01Z"
                                                 clip-rule="evenodd" />
                                         </svg>
-                                        <span class="ms-1 text-nowrap">Set Discount</span>
+                                        <span class="ms-1 text-nowrap">Atur Diskon</span>
                                     </button>
                                 @else
                                     <button data-modal-target="diskon-{{ $index }}" title="Atur Harga Diskon"
@@ -112,6 +115,9 @@
                                     </button>
                                 @endif
                             </div>
+                        </td>
+                        <td>
+                            <span class="{{ $parfum->stok < 1 ? 'text-red-600 border p-1 rounded bg-red-100 border-red-400' : '' }} font-semibold">{{ $parfum->stok < 1 ? 'Stok Habis' : $parfum->stok }}</span>
                         </td>
                         <td>
                             <div class="flex justify-start items-center gap-1">
@@ -192,6 +198,12 @@
                                 value="{{ old('harga') }}" placeholder="Cth: 25000" required>
                         </div>
                         <div class="mb-3">
+                            <label for="stok" class="font-medium text-sm">Stok<span
+                                    class="text-red-600">*</span></label>
+                            <input type="number" min="0" class="rounded w-full border-gray-300 text-sm" name="stok"
+                                value="{{ old('stok') }}" placeholder="Cth: 25" required>
+                        </div>
+                        <div class="mb-3">
                             <label for="harga" class="font-medium text-sm">Deskripsi<span
                                     class="text-red-600">*</span></label>
                             <textarea name="deskripsi" id="deskripsi" rows="5"
@@ -267,6 +279,12 @@
                                     <input type="number" min="1" class="rounded w-full border-gray-300 text-sm" min="1" name="harga"
                                         value="{{ old('harga', $edit->harga) }}" placeholder="Cth: 25000" required>
                                 </div>
+                                <div class="mb-3">
+                            <label for="stok" class="font-medium text-sm">Stok<span
+                                    class="text-red-600">*</span></label>
+                            <input type="number" min="0" class="rounded w-full border-gray-300 text-sm" name="stok"
+                                value="{{ old('stok', $edit->stok) }}" placeholder="Cth: 25" required>
+                        </div>
                                 <div class="mb-3">
                                     <label for="harga" class="font-medium text-sm">Deskripsi<span
                                             class="text-red-600">*</span></label>

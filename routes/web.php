@@ -3,11 +3,13 @@
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\StockController as AdminStock;
 use App\Http\Controllers\Admin\ProdukController As AdminProduk;
+use App\Http\Controllers\Admin\TransaksiController as AdminTrx;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\TripayController;
 use App\Http\Middleware\Admin;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +21,7 @@ Route::get('/', [GuestController::class, 'home'])->name('/');
 Route::get('/produk', [GuestController::class, 'produk'])->name('produk');
 Route::get('/produk/{produk}', [GuestController::class, 'detailProduk'])->name('produk.detail');
 Route::get('/keranjang', [GuestController::class, 'keranjang'])->name('keranjang');
-Route::post('/transaksi/callback', [TransaksiController::class, 'trxCallback'])->name('trx.callback')->withoutMiddleware(VerifyCsrfToken::class);
+Route::post('/transaksi/callback', [TripayController::class, 'trxCallback'])->name('trx.callback')->withoutMiddleware(VerifyCsrfToken::class);
 Route::middleware('auth')->group(function () {
     Route::middleware(Admin::class)->group(function(){
         Route::get('/admin/dashboard', [AdminDashboard::class, 'index'])->name('admin.dashboard');
@@ -27,6 +29,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/admin/produk/{id}/atur-diskon', [AdminProduk::class, 'setDiskon'])->name('admProduk.setDiskon');
         Route::put('/admin/produk/{id}/delete-diskon', [AdminProduk::class, 'delDiskon'])->name('admProduk.delDiskon');
         Route::resource('/admin/stok', AdminStock::class)->names('admStock')->except('show');
+        Route::resource('/admin/transaksi', AdminTrx::class)->names('admTrx');
     });
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

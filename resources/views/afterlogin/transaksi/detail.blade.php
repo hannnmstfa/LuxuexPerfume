@@ -29,23 +29,27 @@
                 <h4 class="font-inter text-xl font-semibold">{{ $trx->kodeTrx }}</h4>
             </div>
             <div class="col-span-2 md:col-span-1">
-                <p class="text-sm text-gray-500 italic">Status</p>
-                <h4 class="font-inter text-xl font-semibold">
+                <p class="text-sm text-gray-500 italic">Status Pembayaran</p>
+                <div class="font-inter text-sm font-bold flex justify-start items-center">
                     @if ($trx->status_bayar !== 'berhasil')
                         <span
-                            class="font-semibold {{ $trx->status_bayar == 'menunggu pembayaran' ? 'text-yellow-400' : '' }}">{{ ucwords($trx->status_bayar) }}</span>
+                            class="border  rounded py-1 px-2 {{ $trx->status_bayar == 'menunggu pembayaran' ? 'border-yellow-300 bg-yellow-200 text-yellow-700' : '' }}  {{ $trx->status_bayar == 'kadaluarsa' ? 'border-gray-400 bg-gray-300 text-gray-700' : '' }} {{ $trx->status_bayar == 'gagal' ? 'border-red-400 bg-red-300 text-red-700' : '' }}">{{ $trx->status_bayar !== 'menunggu pembayaran' ? 'Pembayaran' : '' }} {{ ucwords($trx->status_bayar) }}</span>
+                    @else
+                        <span class="bg-green-200 border-green-300 py-1 px-2 rounded border text-green-600">Pembayaran {{ ucwords($trx->status_bayar) }}</span>
                     @endif
-                </h4>
+                </div>
             </div>
             <div class="col-span-2 md:col-span-1">
                 <p class="text-sm text-gray-500 italic">Waktu Pemesanan</p>
                 <h4 class="font-inter text-lg font-semibold">
-                    {{ $trx->created_at->isoFormat('dddd, DD MMMM YYYY - H:m') . ' WIB' }}</h4>
+                    {{ $trx->created_at->isoFormat('dddd, DD MMMM YYYY - HH:mm') . ' WIB' }}
+                </h4>
             </div>
             <div class="col-span-2 md:col-span-1">
                 <p class="text-sm text-gray-500 italic">Waktu Pembayaran</p>
                 <h4 class="font-inter text-lg font-semibold">
-                    {{ $trx->pay_at ? $trx->pay_at->isoFormat('dddd, DD MMMM YYYY - H:m') . ' WIB' : '--' }}</h4>
+                    {{ $trx->pay_at ? \Carbon\Carbon::parse($trx->pay_at)->isoFormat('dddd, DD MMMM YYYY - HH:mm') . ' WIB' : '-' }}
+                </h4>
             </div>
             <div class="col-span-2 md:col-span-1">
                 <p class="text-sm text-gray-500 italic">Metode Pembayaran</p>
@@ -75,7 +79,7 @@
                         <div class="tooltip-arrow" data-popper-arrow></div>
                     </div>
                     <a href="{{ route('trx.pay', $trx->kodeTrx) }}"
-                        class="px-3 py-1 {{ $trx->pay_at !== null ? 'hidden' : '' }} rounded bg-yellow-500 hover:bg-yellow-600 font-bold text-white ">Bayar</a>
+                        class="px-3 py-1 {{ $trx->status_bayar !== 'menunggu pembayaran' ? 'hidden' : '' }} rounded bg-yellow-500 hover:bg-yellow-600 font-bold text-white ">Bayar</a>
                 </div>
             </div>
         </div>
@@ -93,6 +97,15 @@
             <div class="col-span-2">
                 <p class="text-sm text-gray-500 italic">Alamat Lengkap Penerima</p>
                 <h4 class="font-inter text-lg font-semibold">{{ $trx->transaksi_details->alamat_penerima }}</h4>
+            </div>
+            <div class="col-span-2">
+                <p class="text-sm text-gray-500 italic">Status Pengiriman</p>
+                @if ($trx->status_bayar !== 'berhasil')
+                    <span
+                        class="font-semibold {{ $trx->status_bayar == 'menunggu pembayaran' ? 'text-yellow-400' : '' }}">{{ ucwords($trx->status_bayar) }}</span>
+                @else
+                    <span class="font-semibold "><i class="fa-light text-2xl fa-box"></i> Pesanan sedang disiapkan</span>
+                @endif
             </div>
         </div>
         <div class="overflow-auto rounded shadow">

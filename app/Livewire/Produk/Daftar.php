@@ -28,8 +28,7 @@ class Daftar extends Component
 
     public function render()
     {
-        $products = Produk::with('stocks')
-            ->when($this->kategori !== 'all', function ($q) {
+        $products = Produk::when($this->kategori !== 'all', function ($q) {
                 $q->where('kategori', $this->kategori);
             })
             ->when($this->sortBy === 'harga', function ($q) {

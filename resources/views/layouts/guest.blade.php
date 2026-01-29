@@ -25,7 +25,6 @@
             {{ $slot }}
         </main>
     </div>
-    @include('sweetalert::alert')
 
     <!-- Menu Dial -->
     <div class="fixed flex end-6 bottom-6">
@@ -102,7 +101,7 @@
             </div>
         </div>
     @endguest
-    @livewireScripts
+    @include('sweetalert::alert')
 </body>
 
 </html>

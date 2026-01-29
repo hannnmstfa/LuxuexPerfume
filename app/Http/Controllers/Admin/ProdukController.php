@@ -14,8 +14,8 @@ class ProdukController extends Controller
 {
     public function index()
     {
-        $produks = Produk::orderBy('nama', 'asc')->get();
-        confirmDelete('Konfirmasi !!!', 'Apakah anda yakin ingin menghapus parfum?');
+        $produks = Produk::orderBy('stok', 'asc')->get();
+        confirmDelete('Konfirmasi !!!', 'Apakah anda yakin ingin menghapus produk?');
         return view('admin.produk.index', compact('produks'));
     }
     public function store(Request $request)
@@ -24,26 +24,25 @@ class ProdukController extends Controller
             'kategori' => 'required|string',
             'nama' => 'required|string',
             'harga' => 'required|integer|min:1',
+            'stok' => 'required|integer|min:0',
             'deskripsi' => 'required|string',
             'gambar' => 'required|image',
         ], [
-            'gambar.image' => 'Gambar parfum tidak sesuai',
+            'gambar.image' => 'Gambar produk tidak sesuai',
             'harga.integer' => 'Format Penulisan tidak boleh mengandung karakter apapun. <b>Cth: 5000</b>',
             'harga.min' => 'Harga paling sedikit adalah <b>1</b>',
         ]);
         $pathFile = WebpController::convert($request->gambar, '/produk/', $request->nama);
-        $produk = Produk::create([
+        Produk::create([
             'slug' => Str::slug($request->nama),
             'nama' => $request->nama,
             'harga' => $request->harga,
             'kategori' => $request->kategori,
             'deskripsi' => $request->deskripsi,
+            'stok' => $request->stok,
             'path_foto' => $pathFile,
         ]);
-        Stock::create([
-            'produks_id' => $produk->id,
-        ]);
-        Alert::success('Sukses', 'Parfum berhasil ditambahkan');
+        Alert::success('Sukses', 'Produk berhasil ditambahkan');
         return back();
     }
     public function setDiskon(Request $request, $id)
@@ -75,6 +74,7 @@ class ProdukController extends Controller
             'kategori' => 'required|string',
             'nama' => 'required|string',
             'harga' => 'required|integer|min:1',
+            'stok' => 'required|integer|min:0',
             'deskripsi' => 'required|string',
             'gambar' => 'nullable|image',
         ], [
@@ -96,9 +96,10 @@ class ProdukController extends Controller
             'nama' => $request->nama,
             'harga' => $request->harga,
             'kategori' => $request->kategori,
+            'stok' => $request->stok,
             'deskripsi' => $request->deskripsi,
         ]);
-        Alert::success('Sukses', 'Berhasil mengupdate data parfum');
+        Alert::success('Sukses', 'Berhasil mengupdate data produk');
         return back();
     }
     public function destroy($id)

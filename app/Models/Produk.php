@@ -17,11 +17,9 @@ class Produk extends Model
         'harga_diskon',
         'kategori',
         'deskripsi',
+        'stok',
         'path_foto',
     ];
-    public function stocks(){
-        return $this->hasOne(Stock::class, 'produks_id');
-    }
     public function toSearchableArray()
     {
         return [

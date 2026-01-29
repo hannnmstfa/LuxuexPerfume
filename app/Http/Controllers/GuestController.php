@@ -17,7 +17,7 @@ class GuestController extends Controller
     }
     public function detailProduk($slug)
     {
-        $produk = Produk::with('stocks')->where('slug', $slug)->firstOrFail();
+        $produk = Produk::where('slug', $slug)->firstOrFail();
         return view('guest.produk.detail', compact('produk'));
     }
     public function keranjang()

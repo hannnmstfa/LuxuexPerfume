@@ -19,16 +19,10 @@ return new class extends Migration
             $table->longText('deskripsi');
             $table->integer('harga');
             $table->integer('harga_diskon')->nullable();
+            $table->unsignedInteger('stok')->default(0);
             $table->longText('path_foto');
             $table->timestamps();
             $table->softDeletes();
-        });
-
-        Schema::create('stocks', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('produks_id')->constrained()->cascadeOnDelete();
-            $table->integer('jumlah')->default(0);
-            $table->timestamps();
         });
     }
 
@@ -38,6 +32,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('produks');
-        Schema::dropIfExists('stocks');
     }
 };

@@ -3,6 +3,7 @@
 namespace App\Livewire\Keranjang;
 
 use App\Models\Keranjang;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Handle extends Component
@@ -15,15 +16,15 @@ class Handle extends Component
 
     public function addKeranjang($productId, $jumlah = 1)
     {
-        if (auth()->check()) {
-            $cek = Keranjang::where('users_id', auth()->id())
+        if (Auth::check()) {
+            $cek = Keranjang::where('users_id', Auth::user()->id)
                 ->where('produks_id', $productId)
                 ->first();
             if ($cek) {
                 $cek->increment('jumlah', $jumlah);
             } else {
                 Keranjang::create([
-                    'users_id' => auth()->id(),
+                    'users_id' => Auth::user()->id,
                     'produks_id' => $productId,
                     'jumlah' => $jumlah,
                 ]);
@@ -54,8 +55,8 @@ class Handle extends Component
 
     public function updateKeranjang()
     {
-        if (auth()->check()) {
-            $this->jumlah_keranjang = Keranjang::where('users_id', auth()->id())->count();
+        if (Auth::check()) {
+            $this->jumlah_keranjang = Keranjang::where('users_id', Auth::user()->id)->count();
         } else {
             $sessionId = session()->getId();
             $this->jumlah_keranjang = Keranjang::where('sessions_id', $sessionId)->count();

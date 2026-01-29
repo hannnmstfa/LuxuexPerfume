@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
-        @include('layouts.head')
-        <title>{{ ucwords($title) }} - Admin {{ config('app.name', 'Laravel') }}</title>
-    </head>
+    @include('layouts.head')
+    <title>{{ ucwords($title) }} - Admin {{ config('app.name', 'Laravel') }}</title>
+</head>
+
 <body class="font-poppins antialiased bg-gray-50">
     <div class="max-h-screen">
         @include('layouts.sidebar-adm')
@@ -24,6 +26,6 @@
         </main>
     </div>
     @include('sweetalert::alert')
-    @livewireScript
 </body>
+
 </html>
