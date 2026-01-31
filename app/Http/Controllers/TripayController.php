@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SaldoUser;
 use App\Models\TopUp;
+use App\Models\Tracking;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -132,7 +133,9 @@ class TripayController extends Controller
         $status = strtoupper((string) $data->status);
 
         if ($data->is_closed_payment === 1) {
-            $invoice = Transaksi::where('tripay_ref', $tripayReference)->first();
+            $invoice = Transaksi::with('transaksi_items')
+            ->with('transaksi_details')
+            ->where('tripay_ref', $tripayReference)->first();
 
             if (! $invoice) {
                 return Response::json([
@@ -153,6 +156,14 @@ class TripayController extends Controller
                     $invoice->update([
                         'status_bayar' => 'berhasil',
                         'pay_at' => now(),
+                    ]);
+                    foreach ($invoice->transaksi_items as $item) {
+                        $produk = $item->produks;
+                        $produk->decrement('stok', $item->jumlah);
+                    }
+                    Tracking::create([
+                        'transaksi_id' => $invoice->id,
+                        'last_phone' => $invoice->transaksi_details->no_penerima,
                     ]);
                     break;
 

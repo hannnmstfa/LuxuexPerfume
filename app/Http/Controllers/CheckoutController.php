@@ -13,7 +13,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 class CheckoutController extends Controller
 {
     public function index(){
-        $cek = Keranjang::where('users_id', auth()->id())->exists();
+        $cek = Keranjang::where('users_id', Auth::id())->exists();
         if (!$cek) {
             Alert::warning('Keranjang Kosong !!!', 'Silahkan menambahkan beberapa produk kedalam keranjang terlebih dahulu.');
             return to_route('produk');
@@ -31,7 +31,7 @@ class CheckoutController extends Controller
             'payment_method.required' => 'Silahkan Pilih metode pembayaran terlebih dahulu'
         ]);
         $kodeTrx = 'LX' . date('YmdHis');
-        $keranjangs = Keranjang::where('users_id', auth()->id())->get();
+        $keranjangs = Keranjang::where('users_id', Auth::id())->get();
         $orderItems = [];
         foreach ($keranjangs as $item) {
             $orderItems[] = [

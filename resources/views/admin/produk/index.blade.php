@@ -44,32 +44,32 @@
         <table id="myTable" class="hidden w-full text-sm text-center dark:text-gray-400">
             <thead>
                 <tr class="">
-                    <th scope="col" class="bg-gray-200 dark:bg-gray-500 text-center">
+                    <th scope="col" class="bg-yellow-500 text-white  text-center">
                         No
                     </th>
-                    <th scope="col" class="bg-gray-200 dark:bg-gray-500 text-center">
+                    <th scope="col" class="bg-yellow-500 text-white  text-center">
                         Produk
                     </th>
-                    <th scope="col" class="bg-gray-200 dark:bg-gray-500 text-center">
+                    <th scope="col" class="bg-yellow-500 text-white  text-center">
                         Kategori
                     </th>
-                    <th scope="col" class="bg-gray-200 dark:bg-gray-500">
+                    <th scope="col" class="bg-yellow-500 text-white ">
                         Deskripsi
                     </th>
-                    <th scope="col" class="bg-gray-200 dark:bg-gray-500">
+                    <th scope="col" class="bg-yellow-500 text-white ">
                         Harga
                     </th>
-                    <th scope="col" class="bg-gray-200 dark:bg-gray-500">
+                    <th scope="col" class="bg-yellow-500 text-white ">
                         Stok
                     </th>
-                    <th scope="col" class="bg-gray-200 dark:bg-gray-500">
+                    <th scope="col" class="bg-yellow-500 text-white ">
                         Aksi
                     </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($produks as $index => $parfum)
-                    <tr>
+                    <tr class="odd:bg-white even:bg-gray-200">
                         <td class="text-center">{{ $index + 1 }}</td>
                         <td>
                             <div class="flex w-full justify-center items-center flex-col">
@@ -79,7 +79,7 @@
                             </div>
                         </td>
                         <td class="text-center">{{ ucfirst($parfum->kategori) }}</td>
-                        <td class="text-xs md:text-sm">{{ Str::limit($parfum->deskripsi, 30) }}</td>
+                        <td class="text-xs">{{ $parfum->deskripsi}}</td>
                         <td>
                             <div class="flex flex-col items-start justify-center">
                                 <span
@@ -88,7 +88,7 @@
                                 @if ($parfum->harga_diskon == null)
                                     <button data-modal-target="diskon-{{ $index }}" title="Atur Harga Diskon"
                                         data-modal-toggle="diskon-{{ $index }}"
-                                        class="flex bg-gray-200 hover:bg-gray-300 rounded p-1 justify-center items-center">
+                                        class="flex bg-gray-300 hover:bg-gray-400 rounded p-1 justify-center items-center">
                                         <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                             viewBox="0 0 24 24">
@@ -117,28 +117,18 @@
                             </div>
                         </td>
                         <td>
-                            <span class="{{ $parfum->stok < 1 ? 'text-red-600 border p-1 rounded bg-red-100 border-red-400' : '' }} font-semibold">{{ $parfum->stok < 1 ? 'Stok Habis' : $parfum->stok }}</span>
+                            <span class="text-nowrap {{ $parfum->stok < 1 ? 'text-red-600 border p-1 rounded-full bg-red-100 border-red-400' : '' }} font-semibold">{{ $parfum->stok < 1 ? 'Stok Habis' : $parfum->stok }}</span>
                         </td>
                         <td>
-                            <div class="flex justify-start items-center gap-1">
-                                <button class="bg-yellow-400 hover:bg-yellow-500 rounded p-1"
+                            <div class="flex flex-col justify-center items-center gap-1">
+                                <button class="bg-yellow-400 hover:bg-yellow-500 rounded font-semibold text-white py-1 px-3 w-full"
                                     data-modal-target="parfum-{{ $index }}" data-modal-toggle="parfum-{{ $index }}"
                                     title="Edit">
-                                    <svg class="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                        <path fill-rule="evenodd"
-                                            d="M14 4.182A4.136 4.136 0 0 1 16.9 3c1.087 0 2.13.425 2.899 1.182A4.01 4.01 0 0 1 21 7.037c0 1.068-.43 2.092-1.194 2.849L18.5 11.214l-5.8-5.71 1.287-1.31.012-.012Zm-2.717 2.763L6.186 12.13l2.175 2.141 5.063-5.218-2.141-2.108Zm-6.25 6.886-1.98 5.849a.992.992 0 0 0 .245 1.026 1.03 1.03 0 0 0 1.043.242L10.282 19l-5.25-5.168Zm6.954 4.01 5.096-5.186-2.218-2.183-5.063 5.218 2.185 2.15Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
+                                    Edit
                                 </button>
                                 <a href="{{ route('admProduk.destroy', $parfum->id) }}" title="Hapus Parfum"
-                                    class="p-1 rounded bg-red-600 hover:bg-red-700" data-confirm-delete="true">
-                                    <svg class="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                        <path fill-rule="evenodd"
-                                            d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
+                                    class="py-1 px-3 w-full font-semibold text-white rounded bg-red-600 hover:bg-red-700" data-confirm-delete="true">
+                                    Hapus
                                 </a>
                             </div>
                         </td>

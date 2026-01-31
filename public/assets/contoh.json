@@ -1,0 +1,90 @@
+{
+    "meta": {
+        "message": "Success Get Waybill",
+        "code": 200,
+        "status": "success"
+    },
+    "data": {
+        "delivered": true,
+        "summary": {
+            "courier_code": "jne",
+            "courier_name": "Jalur Nugraha Ekakurir (JNE)",
+            "waybill_number": "TLJR3D65UVGK4445",
+            "service_code": "REG",
+            "waybill_date": "03-05-2025 20:34:13",
+            "shipper_name": "PULAUHP_SEMARANG",
+            "receiver_name": "IMAM",
+            "origin": "KOTA SEMARANG",
+            "destination": "BAE,KUDUS",
+            "status": "DELIVERED"
+        },
+        "details": {
+            "waybill_number": "TLJR3D65UVGK4445",
+            "waybill_date": "2025-05-03",
+            "waybill_time": "20:34",
+            "weight": "0.1 Kg",
+            "origin": "KOTA SEMARANG",
+            "destination": "BAE,KUDUS",
+            "shipper_name": "PULAUHP_SEMARANG",
+            "shipper_address1": "",
+            "shipper_address2": "",
+            "shipper_address3": "",
+            "shipper_city": "KOTA SEMARANG",
+            "receiver_name": "IMAM",
+            "receiver_address1": "",
+            "receiver_address2": "",
+            "receiver_address3": "",
+            "receiver_city": "BAE,KUDUS"
+        },
+        "delivery_status": {
+            "status": "DELIVERED",
+            "pod_receiver": "IMAM",
+            "pod_date": "2025-05-05",
+            "pod_time": "16:07"
+        },
+        "manifest": [
+            {
+                "manifest_code": "",
+                "manifest_description": "DELIVERED TO [IMAM | 05-05-2025 16:07 | KUDUS,KAB.KUDUS ]",
+                "manifest_date": "05-05-2025 16:07:18",
+                "manifest_time": "",
+                "city_name": ""
+            },
+            {
+                "manifest_code": "",
+                "manifest_description": "WITH DELIVERY COURIER [SRG, SUB AGEN KUDUS] [SRG, SUB AGEN KUDUS]",
+                "manifest_date": "05-05-2025 11:43:41",
+                "manifest_time": "",
+                "city_name": ""
+            },
+            {
+                "manifest_code": "",
+                "manifest_description": "RECEIVED AT WAREHOUSE [SRG, SUB AGEN KUDUS] [SRG, SUB AGEN KUDUS]",
+                "manifest_date": "04-05-2025 06:58:44",
+                "manifest_time": "",
+                "city_name": ""
+            },
+            {
+                "manifest_code": "",
+                "manifest_description": "PROCESSED AT SORTING CENTER [SEMARANG, KUMUDASMORO] [SEMARANG, KUMUDASMORO]",
+                "manifest_date": "03-05-2025 23:22:44",
+                "manifest_time": "",
+                "city_name": ""
+            },
+            {
+                "manifest_code": "",
+                "manifest_description": "RECEIVED AT SORTING CENTER [SEMARANG] [SEMARANG, KUMUDASMORO]",
+                "manifest_date": "03-05-2025 21:08:48",
+                "manifest_time": "",
+                "city_name": ""
+            },
+            {
+                "manifest_code": "",
+                "manifest_description": "SHIPMENT RECEIVED AT [SEMARANG] [SEMARANG, KYAI SHALEH]",
+                "manifest_date": "03-05-2025 20:34:13",
+                "manifest_time": "",
+                "city_name": ""
+            }
+        ]
+    }
+}
