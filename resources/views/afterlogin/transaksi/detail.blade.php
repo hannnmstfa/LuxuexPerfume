@@ -33,9 +33,11 @@
                 <div class="font-inter text-sm font-bold flex justify-start items-center">
                     @if ($trx->status_bayar !== 'berhasil')
                         <span
-                            class="border  rounded py-1 px-2 {{ $trx->status_bayar == 'menunggu pembayaran' ? 'border-yellow-300 bg-yellow-200 text-yellow-700' : '' }}  {{ $trx->status_bayar == 'kadaluarsa' ? 'border-gray-400 bg-gray-300 text-gray-700' : '' }} {{ $trx->status_bayar == 'gagal' ? 'border-red-400 bg-red-300 text-red-700' : '' }}">{{ $trx->status_bayar !== 'menunggu pembayaran' ? 'Pembayaran' : '' }} {{ ucwords($trx->status_bayar) }}</span>
+                            class="border  rounded py-1 px-2 {{ $trx->status_bayar == 'menunggu pembayaran' ? 'border-yellow-300 bg-yellow-200 text-yellow-700' : '' }}  {{ $trx->status_bayar == 'kadaluarsa' ? 'border-gray-400 bg-gray-300 text-gray-700' : '' }} {{ $trx->status_bayar == 'gagal' ? 'border-red-400 bg-red-300 text-red-700' : '' }}">{{ $trx->status_bayar !== 'menunggu pembayaran' ? 'Pembayaran' : '' }}
+                            {{ ucwords($trx->status_bayar) }}</span>
                     @else
-                        <span class="bg-green-200 border-green-300 py-1 px-2 rounded border text-green-600">Pembayaran {{ ucwords($trx->status_bayar) }}</span>
+                        <span class="bg-green-200 border-green-300 py-1 px-2 rounded border text-green-600">Pembayaran
+                            {{ ucwords($trx->status_bayar) }}</span>
                     @endif
                 </div>
             </div>
@@ -85,7 +87,7 @@
         </div>
         <h3 class="font-bold text-2xl pt-3">Informasi Penerima</h3>
         <hr class="mb-3">
-        <div class="grid grid-cols-2 gap-2 spaxe-y-2 md:space-y-0 mb-5">
+        <div class="grid grid-cols-2 gap-2 space-y-2 md:space-y-0 mb-6">
             <div class="col-span-2 md:col-span-1">
                 <p class="text-sm text-gray-500 italic">Nama Penerima</p>
                 <h4 class="font-inter text-lg font-semibold">{{ $trx->transaksi_details->nama_penerima }}</h4>
@@ -100,15 +102,69 @@
             </div>
             <div class="col-span-2">
                 <p class="text-sm text-gray-500 italic">Status Pengiriman</p>
-                @if ($trx->status_bayar !== 'berhasil')
-                    <span
-                        class="font-semibold {{ $trx->status_bayar == 'menunggu pembayaran' ? 'text-yellow-400' : '' }}">{{ ucwords($trx->status_bayar) }}</span>
-                @else
-                    <span class="font-semibold "><i class="fa-light text-2xl fa-box"></i> Pesanan sedang disiapkan</span>
-                @endif
+                <ol class="flex items-center w-full space-x-4 mt-2">
+                    <li
+                        class="flex w-full items-center text-fg-brand after:content-[''] after:w-full after:h-1 after:border-b {{ $trx->status_bayar == 'berhasil' ? 'after:border-green-300' : 'after:border-gray-300' }} after:border-4 after:inline-block after:ms-4 after:rounded-full">
+                        <span data-tooltip-target="pembayaran" data-tooltip-placement="bottom"
+                            class="flex items-center cursor-pointer justify-center w-10 h-10 border {{ $trx->status_bayar == 'berhasil' ? 'bg-green-200 text-green-800 border-green-500' : 'bg-yellow-200 text-yellow-800 border-yellow-500' }} rounded-full lg:h-12 lg:w-12 shrink-0">
+                            <svg class="w-6 h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M17 8H5m12 0a1 1 0 0 1 1 1v2.6M17 8l-4-4M5 8a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.6M5 8l4-4 4 4m6 4h-4a2 2 0 1 0 0 4h4a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1Z" />
+                            </svg>
+                        </span>
+                        <div id="pembayaran" role="tooltip"
+                            class="absolute z-10 {{ $trx->status_bayar == 'berhasil' ? 'invisible opacity-0' : '' }} inline-block px-3 py-2 text-sm font-medium text-white bg-gray-700 rounded shadow-xs  tooltip">
+                            Selesaikan Pembayaran
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </li>
+                    <li
+                        class="flex w-full items-center text-fg-brand after:content-[''] after:w-full after:h-1 after:border-b after:border-brand-subtle after:border-4 after:inline-block after:ms-4 after:rounded-full">
+                        <span data-tooltip-target="dikemas" data-tooltip-placement="bottom"
+                            class="flex items-center justify-center w-10 h-10 border {{ $trx->status_bayar == 'berhasil' ? ($trx->trackings && $trx->trackings->status !== 'sedang dikemas' ? 'bg-green-200 text-green-800 border-green-500' : 'bg-yellow-200 text-yellow-800 border-yellow-500') : 'bg-gray-200 text-gray-800' }} rounded-full lg:h-12 lg:w-12 shrink-0">
+                            <svg class="w-6 h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12.013 6.175 7.006 9.369l5.007 3.194-5.007 3.193L2 12.545l5.006-3.193L2 6.175l5.006-3.194 5.007 3.194ZM6.981 17.806l5.006-3.193 5.006 3.193L11.987 21l-5.006-3.194Z" />
+                                <path
+                                    d="m12.013 12.545 5.006-3.194-5.006-3.176 4.98-3.194L22 6.175l-5.007 3.194L22 12.562l-5.007 3.194-4.98-3.211Z" />
+                            </svg>
+                        </span>
+                        <div id="dikemas" role="tooltip"
+                            class="absolute z-10 {{ $trx->trackings && $trx->trackings->status !== 'sedang dikemas' ? 'invisible opacity-0' : ($trx->status_bayar == 'berhasil' ? '' : 'invisible opacity-0') }} inline-block px-3 py-2 text-sm font-medium text-white bg-gray-700 rounded shadow-xs  tooltip">
+                            Sedang Dikemas
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </li>
+                    <li
+                        class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-default after:border-4 after:inline-block  after:ms-4 after:rounded-full">
+                        <span
+                            class="flex items-center justify-center w-10 h-10 bg-neutral-tertiary rounded-full lg:h-12 lg:w-12 shrink-0">
+                            <svg class="w-5 h-5 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M15 9h3m-3 3h3m-3 3h3m-6 1c-.306-.613-.933-1-1.618-1H7.618c-.685 0-1.312.387-1.618 1M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm7 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" />
+                            </svg>
+                        </span>
+                    </li>
+                    <li class="flex items-center w-full">
+                        <span
+                            class="flex items-center justify-center w-10 h-10 bg-neutral-tertiary rounded-full lg:h-12 lg:w-12 shrink-0">
+                            <svg class="w-5 h-5 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 7 2 2 4-4m-5-9v4h4V3h-4Z" />
+                            </svg>
+                        </span>
+                    </li>
+                </ol>
             </div>
         </div>
-        <div class="overflow-auto rounded shadow">
+        <div class="overflow-auto rounded shadow-lg mt-16">
             <table class="w-full">
                 <thead>
                     <tr class="font-inter text-lg border-b  bg-orange-200">

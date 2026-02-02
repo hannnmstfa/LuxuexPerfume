@@ -4,8 +4,10 @@
             <a href="{{ route('/') }}" class="text-xs hover:text-yellow-600 hover:underline">
                 Home
             </a>
-            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7" />
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m19 9-7 7-7-7" />
             </svg>
         </div>
         <h2 class="font-inter text-2xl md:text-3xl font-semibold">RIWAYAT TRANSAKSI</h2>
@@ -24,22 +26,23 @@
                 </thead>
                 <tbody>
                     @foreach ($datas as $data)
-                    <tr>
-                        <td>
-                            <a href="{{ route('trx.show', $data->kodeTrx) }}" class="font-bold text-yellow-700 underline">{{ $data->kodeTrx }}</a>
-                        </td>
-                        <td>
-                            <div>{{ \Carbon\Carbon::parse($data->created_at)->isoFormat('ddd, DD MMMM YYYY') }}</div>
-                            <div class="text-xs italic text-gray-400">{{ \Carbon\Carbon::parse($data->created_at)->isoFormat('HH:mm') }} WIB</div>
-                        </td>
-                        <td>{{ $data->metode_bayar }}</td>
-                        <td>Rp{{ number_format($data->total_harga + $data->fee_payment) }}</td>
-                        <td>
-                            @if ($data->status_bayar !== 'berhasil')
-                            <span class="font-semibold {{ $data->status_bayar == 'menunggu pembayaran' ? 'text-yellow-400' : '' }}">{{ ucwords($data->status_bayar) }}</span>
-                            @endif
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <a href="{{ route('trx.show', $data->kodeTrx) }}"
+                                    class="font-bold text-yellow-700 underline">{{ $data->kodeTrx }}</a>
+                            </td>
+                            <td>
+                                <div>{{ \Carbon\Carbon::parse($data->created_at)->isoFormat('ddd, DD MMMM YYYY') }}</div>
+                                <div class="text-xs italic text-gray-400">
+                                    {{ \Carbon\Carbon::parse($data->created_at)->isoFormat('HH:mm') }} WIB</div>
+                            </td>
+                            <td>{{ $data->metode_bayar }}</td>
+                            <td>Rp{{ number_format($data->total_harga + $data->fee_payment) }}</td>
+                            <td>
+                                <span
+                                    class="font-semibold border bg-gray-100 border-gray-300 rounded-full py-1 px-2 {{ $data->status_bayar == 'berhasil' ? 'text-green-600 border-green-300 bg-green-100' : '' }} {{ $data->status_bayar == 'gagal' ? 'text-red-500 border-red-300 bg-red-100' : '' }} {{ $data->status_bayar == 'menunggu pembayaran' ? 'text-yellow-400 border-yellow-300 bg-yellow-100' : '' }}">{{ ucwords($data->status_bayar) }}</span>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>

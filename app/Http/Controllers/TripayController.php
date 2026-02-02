@@ -74,7 +74,7 @@ class TripayController extends Controller
             'order_items' => $orderItems,
             'callback_url' => config('app.url') . '/transaksi/callback',
             'return_url' => route('trx.pay', $kodeTrx),
-            'expired_time' => (time() + (24 * 60 * 60)), // 24 jam
+            'expired_time' => (time() + (1 * 60 * 60)),
             'signature' => hash_hmac('sha256', $this->merchantCode . $kodeTrx . $amount, $this->privateKey)
         ];
 
@@ -134,8 +134,8 @@ class TripayController extends Controller
 
         if ($data->is_closed_payment === 1) {
             $invoice = Transaksi::with('transaksi_items')
-            ->with('transaksi_details')
-            ->where('tripay_ref', $tripayReference)->first();
+            ->where('tripay_ref', $tripayReference)
+            ->first();
 
             if (! $invoice) {
                 return Response::json([
@@ -161,10 +161,6 @@ class TripayController extends Controller
                         $produk = $item->produks;
                         $produk->decrement('stok', $item->jumlah);
                     }
-                    Tracking::create([
-                        'transaksi_id' => $invoice->id,
-                        'last_phone' => $invoice->transaksi_details->no_penerima,
-                    ]);
                     break;
 
                 case 'EXPIRED':
