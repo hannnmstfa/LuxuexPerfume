@@ -134,8 +134,8 @@ class TripayController extends Controller
 
         if ($data->is_closed_payment === 1) {
             $invoice = Transaksi::with('transaksi_items')
-            ->where('tripay_ref', $tripayReference)
-            ->first();
+            ->with('transaksi_details')
+            ->where('tripay_ref', $tripayReference)->first();
 
             if (! $invoice) {
                 return Response::json([
@@ -161,6 +161,10 @@ class TripayController extends Controller
                         $produk = $item->produks;
                         $produk->decrement('stok', $item->jumlah);
                     }
+                    Tracking::create([
+                        'transaksi_id' => $invoice->id,
+                        'last_phone' => $invoice->transaksi_details->no_penerima,
+                    ]);
                     break;
 
                 case 'EXPIRED':

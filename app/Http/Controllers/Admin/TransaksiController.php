@@ -16,7 +16,8 @@ class TransaksiController extends Controller
         return view('admin.transaksi.index', compact('datas'));
     }
     public function show($kodeTrx){
-        $trx = Transaksi::where('kodeTrx', $kodeTrx)->first();
+        $trx = Transaksi::with(['transaksi_items', 'transaksi_details', 'trackings', 'users'])
+        ->where('kodeTrx', $kodeTrx)->first();
         return view('admin.transaksi.detail', compact('trx'));
     }
 }
