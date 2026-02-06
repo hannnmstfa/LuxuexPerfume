@@ -1,0 +1,8 @@
+{
+    "meta": {
+        "message": "Invalid Wylay",
+        "code": 404,
+        "status": "error"
+    },
+    "data": null
+}

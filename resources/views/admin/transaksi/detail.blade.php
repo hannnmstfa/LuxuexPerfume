@@ -52,7 +52,7 @@
         <div class="col-span-2 flex flex-col gap-4">
             <div class="rounded-lg shadow-lg bg-gray-100 p-3 border">
                 <h1 class="text-lg font-semibold">Item yang Dibeli</h1>
-                <hr class="my-2">
+                <hr class="my-2 border-gray-300">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm">
                         <thead>
@@ -96,24 +96,37 @@
             <div class="rounded-lg shadow-lg bg-gray-100 p-3 border">
                 <div class="flex-row items-center justify-between space-y-3 sm:flex sm:space-y-0 sm:space-x-4">
                     <h1 class="text-lg font-semibold">Tracking Pengiriman</h1>
+                    @if ($trx->trackings)
+                        @if (!$trx->trackings->no_resi)
+                            <button data-modal-target="resi" data-modal-toggle="resi"
+                                class="font-inter rounded shadow py-1 px-3 font-bold bg-yellow-500 hover:bg-yellow-600 text-white">Input
+                                Resi</button>
+                        @endif
+                    @endif
                 </div>
-                <hr class="my-2">
-                @if (!$trx->trackings->no_resi)
-                <p class="text-center italic text-sm font-semibold text-red-600">Nomor Resi Belum ditambahkan</p>
+                <hr class="my-2 border-gray-300">
+                @if (!$trx->trackings)
+                    <p class="text-center italic text-sm font-semibold text-red-600">Tagihan belum dibayar</p>
+                @else
+                    @if (!$trx->trackings->no_resi)
+                        <p class="text-center italic text-sm font-semibold text-red-600">No.Resi belum ditambahkan</p>
+                    @else
+                        gfgfg
+                    @endif
                 @endif
             </div>
         </div>
         <div class="col-span-1 flex flex-col gap-4">
             <div class="rounded-lg shadow-lg bg-gray-100 p-3 border">
                 <h1 class="text-lg font-semibold">Rincian Pemesan</h1>
-                <hr class="my-2">
+                <hr class="my-2 border-gray-300">
                 <p class="text-sm font-bold">{{ $trx->users->name }}</p>
                 <p class="text-sm">{{ $trx->users->phone }}</p>
                 <p class="text-sm">{{ $trx->users->email }}</p>
             </div>
             <div class="rounded-lg shadow-lg bg-gray-100 p-3 border">
                 <h1 class="text-lg font-semibold">Rincian Penerima</h1>
-                <hr class="my-2">
+                <hr class="my-2 border-gray-300">
                 <p class="text-sm font-bold">{{ $trx->transaksi_details->nama_penerima }}</p>
                 <p class="text-sm">{{ $trx->transaksi_details->no_penerima }}</p>
                 <p class="text-sm">{{ $trx->transaksi_details->alamat_penerima }}</p>
@@ -140,4 +153,61 @@
             </div>
         </div>
     </div>
+
+    @if ($trx->trackings)
+        <!-- Modal Resi -->
+        <div id="resi" tabindex="-1" aria-hidden="true" data-modal-backdrop="static"
+            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-md max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                    <!-- Modal header -->
+                    <div
+                        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                            Resi Pengiriman
+                        </h3>
+                        <button type="button"
+                            class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            data-modal-hide="resi">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="p-4 md:p-5">
+                        <form action="{{ route('admTrx.tracking', $trx->kodeTrx) }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="mb-3">
+                                <label for="layanan" class="font-medium text-sm">Nama Layanan<span
+                                        class="text-red-600">*</span></label>
+                                <select name="layanan" id="layanan" class="block w-full text-sm rounded border-gray-300 "
+                                    required>
+                                    <option value="" selected disabled>-- Pilih Layanan --</option>
+                                    <option value="jne" {{ old('layanan') == 'jne' ? 'selected' : '' }}>JNE</option>
+                                    <option value="sicepat" {{ old('layanan') == 'sicepat' ? 'selected' : '' }}>SiCepat</option>
+                                    <option value="ninja" {{ old('layanan') == 'ninja' ? 'selected' : '' }}>Ninja</option>
+                                    <option value="jnt" {{ old('layanan') == 'jnt' ? 'selected' : '' }}>J&T Express</option>
+                                    <option value="pos" {{ old('layanan') == 'pos' ? 'selected' : '' }}>POS Indonesia</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="resi" class="font-medium text-sm">Nomor Resi<span
+                                        class="text-red-600">*</span></label>
+                                <input type="text" class="rounded w-full border-gray-300 text-sm" name="resi"
+                                    value="{{ old('resi') }}" placeholder="Masukkan No Resi dari pengiriman" required>
+                            </div>
+                            <button type="submit"
+                                class="w-full text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Simpan Resi</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 </x-app-layout>

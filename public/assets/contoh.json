@@ -5,7 +5,7 @@
         "status": "success"
     },
     "data": {
-        "delivered": true,
+        "delivered": false,
         "summary": {
             "courier_code": "jne",
             "courier_name": "Jalur Nugraha Ekakurir (JNE)",
