@@ -97,9 +97,16 @@
                 <div class="flex-row items-center justify-between space-y-3 sm:flex sm:space-y-0 sm:space-x-4">
                     <h1 class="text-lg font-semibold">Tracking Pengiriman</h1>
                     @if ($trx->trackings)
-                        @if (!$trx->trackings->no_resi)
+                        @if (!$trx->trackings->resi)
                             <button data-modal-target="resi" data-modal-toggle="resi"
                                 class="font-inter rounded shadow py-1 px-3 font-bold bg-yellow-500 hover:bg-yellow-600 text-white">Input
+                                Resi</button>
+                        @else
+                            <button data-modal-target="resi" data-modal-toggle="resi" class="hidden"></button>
+                            <button data-confirm-modal="true" data-icon="warning" data-title="Ubah Nomor Resi?"
+                                data-caption="Mengubah nomor resi berpengaruh dengan hasil tracking. Apakah anda ingin melanjutkan?"
+                                data-color="orange" data-modal="resi"
+                                class="font-inter rounded shadow py-1 px-3 font-bold bg-yellow-500 hover:bg-yellow-600 text-white">Edit
                                 Resi</button>
                         @endif
                     @endif
@@ -108,10 +115,38 @@
                 @if (!$trx->trackings)
                     <p class="text-center italic text-sm font-semibold text-red-600">Tagihan belum dibayar</p>
                 @else
-                    @if (!$trx->trackings->no_resi)
+                    @if (!$trx->trackings->resi)
                         <p class="text-center italic text-sm font-semibold text-red-600">No.Resi belum ditambahkan</p>
                     @else
-                        gfgfg
+                        @if($trx->trackings->trackings_details->count() == 0)
+                            <div class="text-center text-sm">Track belum ada. Pastikan nomor resi sudah benar.</div>
+                        @else
+                            @foreach ($trx->trackings->trackings_details as $index => $track)
+                                <div
+                                    class="{{ $index == 0 ? 'text-yellow-700' : ' text-gray-600' }} border-b w-full rounded flex p-3 gap-3 justify-start items-center">
+                                    <div>
+                                        @if ($index == 0 && $trx->trackings->status == 'pengiriman selesai')
+                                            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                <path fill-rule="evenodd"
+                                                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        @else
+                                            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+                                            </svg>
+                                        @endif
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-semibold">{{ $track->deskripsi }}</p>
+                                        <p class="text-[10px] text-gray-500">{{ $track->created_at }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
                     @endif
                 @endif
             </div>
@@ -180,7 +215,8 @@
                     </div>
                     <!-- Modal body -->
                     <div class="p-4 md:p-5">
-                        <form action="{{ route('admTrx.tracking', $trx->kodeTrx) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admTrx.tracking', $trx->kodeTrx) }}" method="post"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
@@ -189,21 +225,24 @@
                                 <select name="layanan" id="layanan" class="block w-full text-sm rounded border-gray-300 "
                                     required>
                                     <option value="" selected disabled>-- Pilih Layanan --</option>
-                                    <option value="jne" {{ old('layanan') == 'jne' ? 'selected' : '' }}>JNE</option>
-                                    <option value="sicepat" {{ old('layanan') == 'sicepat' ? 'selected' : '' }}>SiCepat</option>
-                                    <option value="ninja" {{ old('layanan') == 'ninja' ? 'selected' : '' }}>Ninja</option>
-                                    <option value="jnt" {{ old('layanan') == 'jnt' ? 'selected' : '' }}>J&T Express</option>
-                                    <option value="pos" {{ old('layanan') == 'pos' ? 'selected' : '' }}>POS Indonesia</option>
+                                    <option value="jne" {{ old('layanan', $trx->trackings->ekspedisi) == 'jne' ? 'selected' : '' }}>JNE</option>
+                                    <option value="sicepat" {{ old('layanan', $trx->trackings->ekspedisi) == 'sicepat' ? 'selected' : '' }}>SiCepat
+                                    </option>
+                                    <option value="ninja" {{ old('layanan', $trx->trackings->ekspedisi) == 'ninja' ? 'selected' : '' }}>Ninja</option>
+                                    <option value="jnt" {{ old('layanan', $trx->trackings->ekspedisi) == 'jnt' ? 'selected' : '' }}>J&T Express</option>
+                                    <option value="pos" {{ old('layanan', $trx->trackings->ekspedisi) == 'pos' ? 'selected' : '' }}>POS Indonesia</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label for="resi" class="font-medium text-sm">Nomor Resi<span
                                         class="text-red-600">*</span></label>
                                 <input type="text" class="rounded w-full border-gray-300 text-sm" name="resi"
-                                    value="{{ old('resi') }}" placeholder="Masukkan No Resi dari pengiriman" required>
+                                    value="{{ old('resi', $trx->trackings->resi) }}"
+                                    placeholder="Masukkan No Resi dari pengiriman" required>
                             </div>
                             <button type="submit"
-                                class="w-full text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Simpan Resi</button>
+                                class="w-full text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Simpan
+                                Resi</button>
                         </form>
                     </div>
                 </div>

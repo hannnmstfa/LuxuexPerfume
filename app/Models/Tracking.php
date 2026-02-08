@@ -18,4 +18,7 @@ class Tracking extends Model
     {
         return $this->belongsTo(Transaksi::class);
     }
+    public function trackings_details(){
+        return $this->hasMany(TrackingDetails::class, 'trackings_id')->orderBy('created_at', 'desc');
+    }
 }

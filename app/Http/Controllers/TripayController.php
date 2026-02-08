@@ -163,7 +163,7 @@ class TripayController extends Controller
                     }
                     Tracking::create([
                         'transaksi_id' => $invoice->id,
-                        'last_phone' => $invoice->transaksi_details->no_penerima,
+                        'last_phone' => substr($invoice->transaksi_details->no_penerima, -4),
                     ]);
                     break;
 
