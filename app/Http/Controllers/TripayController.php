@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Pesanan;
 use App\Models\SaldoUser;
 use App\Models\TopUp;
 use App\Models\Tracking;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Response;
 
 class TripayController extends Controller
@@ -165,6 +167,7 @@ class TripayController extends Controller
                         'transaksi_id' => $invoice->id,
                         'last_phone' => substr($invoice->transaksi_details->no_penerima, -4),
                     ]);
+                    Mail::to('burhanmusthofa1@gmail.com')->queue(new Pesanan($invoice));
                     break;
 
                 case 'EXPIRED':
