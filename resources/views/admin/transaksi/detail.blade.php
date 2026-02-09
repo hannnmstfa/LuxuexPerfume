@@ -165,7 +165,7 @@
                 <p class="text-sm font-bold">{{ $trx->transaksi_details->nama_penerima }}</p>
                 <p class="text-sm">{{ $trx->transaksi_details->no_penerima }}</p>
                 <p class="text-sm">{{ $trx->transaksi_details->alamat_penerima }}</p>
-                <div class="flex relative justify-start items-center gap-2 mt-2">
+                <!-- <div class="flex relative justify-start items-center gap-2 mt-2">
                     <p class="text-nowrap w-max bg-indigo-300 font-bold text-sm border border-indigo-500 rounded-full py-1 px-2"
                         title="Kode Area">{{ $trx->transaksi_details->kode_area }}</p>
                     <button data-tooltip-target="rincian" type="button">
@@ -184,6 +184,59 @@
                             sesuai dengan Kepmendagri No 300.2.2-2138 Tahun 2025</p>
                         <div class="tooltip-arrow" data-popper-arrow></div>
                     </div>
+                </div> -->
+            </div>
+            <div class="rounded-lg shadow-lg bg-gray-100 p-3 border">
+                <div class="flex-row items-center justify-between space-y-3 sm:flex sm:space-y-0 sm:space-x-4">
+                    <h1 class="text-lg font-semibold">Rincian Pembayaran</h1>
+                </div>
+                <hr class="my-2 border-gray-300">
+                <div class="flex justify-between items-center">
+                    <p class="text-sm font-semibold text-gray-500">Total Bayar</p>
+                    <div class="flex justify-end items-center gap-1">
+                        <button data-tooltip-target="rincian_harga" type="button">
+                            <svg class="w-4 h-4 text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <p class="font-bold text-gray-900">
+                            Rp{{ number_format($trx->total_harga + $trx->fee_payment) }}</p>
+                    </div>
+                    <div id="rincian_harga" role="tooltip"
+                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-700 rounded shadow-xs opacity-0 tooltip">
+                        Rincian Harga:
+                        <ul class="list-disc pl-5">
+                            <li>Subtotal: Rp{{ number_format($trx->subtotal) }}</li>
+                            <li>Ongkir: Rp{{ number_format($trx->ongkir) }}</li>
+                            <li>Fee payment: Rp{{ number_format($trx->fee_payment) }}</li>
+                        </ul>
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <p class="text-sm font-semibold text-gray-500">Metode Pembayaran</p>
+                    <p class=" font-semibold text-gray-900">{{ $trx->metode_bayar }}</p>
+                </div>
+                <div class="flex justify-between items-center">
+                    <p class="text-sm font-semibold text-gray-500">Status</p>
+                    @if ($trx->status_bayar == 'berhasil')
+                        <button
+                            class="px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded-full dark:bg-green-900 dark:text-green-300">
+                            BERHASIL
+                        </button>
+                    @else
+                        <button
+                            class="px-2 py-1 text-xs font-semibold text-nowrap {{ $trx->status_bayar == 'kadaluarsa' ? 'bg-gray-500 text-white' : '' }} {{ $trx->status_bayar == 'menunggu pembayaran' ? 'text-yellow-800 bg-yellow-200' : '' }} {{ $trx->status_bayar == 'gagal' ? 'text-red-800 bg-red-200' : '' }} rounded-full">
+                            {{ strtoupper($trx->status_bayar) }}
+                        </button>
+                    @endif
+                </div>
+                <div class="flex justify-between items-center">
+                    <p class="text-sm font-semibold text-gray-500">Waktu Bayar</p>
+                    <p class=" font-semibold text-gray-900">{{ $trx->pay_at ?? '-' }}</p>
                 </div>
             </div>
         </div>

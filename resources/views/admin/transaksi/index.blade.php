@@ -96,7 +96,7 @@
                                 @if (!$data->trackings || !$data->trackings->resi)
                                     <span class="px-2 py-1 text-xs font-semibold text-red-800 bg-red-200 rounded-full text-nowrap">No.Resi Belum Ada</span>
                                 @else
-                                    <span class="px-2 py-1 text-xs font-semibold text-nowrap {{ $data->trackings->status == 'pengiriman selesai' ? 'text-green-800 bg-green-200' : 'text-yellow-800 bg-yellow-200' }} rounded-full">{{ $data->trackings->status }}</span>
+                                    <span class="px-2 py-1 text-xs font-semibold text-nowrap {{ $data->trackings->status == 'pengiriman selesai' ? 'text-green-800 bg-green-200' : 'text-yellow-800 bg-yellow-200' }} rounded-full">{{ ucwords($data->trackings->status) }}</span>
                                 @endif
                             @endif
                         </td>
