@@ -72,6 +72,10 @@
                         class="block py-2 px-3 rounded  md:px-2 {{ request()->is('produk*') ? 'md:border-b-2 md:border-yellow-800' : 'md:hover:border-b-2 md:hover:border-yellow-800' }}">Produk</a>
                 </li>
                 <li>
+                    <a href="{{ route('analisis.index') }}"
+                        class="block py-2 px-3 rounded  md:px-2 {{ request()->is('analisis*') ? 'md:border-b-2 md:border-yellow-800' : 'md:hover:border-b-2 md:hover:border-yellow-800' }}">Analisis</a>
+                </li>
+                <li>
                     <livewire:produk.search />
                 </li>
                 @guest

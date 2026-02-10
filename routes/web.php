@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\ProdukController As AdminProduk;
 use App\Http\Controllers\Admin\TransaksiController as AdminTrx;
+use App\Http\Controllers\AnalisisController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\OAuthController;
@@ -21,6 +22,7 @@ Route::get('/produk', [GuestController::class, 'produk'])->name('produk');
 Route::get('/produk/{produk}', [GuestController::class, 'detailProduk'])->name('produk.detail');
 Route::get('/keranjang', [GuestController::class, 'keranjang'])->name('keranjang');
 Route::post('/transaksi/callback', [TripayController::class, 'trxCallback'])->name('trx.callback')->withoutMiddleware(VerifyCsrfToken::class);
+Route::resource('/analisis', AnalisisController::class)->names('analisis');
 Route::middleware('auth')->group(function () {
     Route::middleware(Admin::class)->group(function(){
         Route::get('/admin/dashboard', [AdminDashboard::class, 'index'])->name('admin.dashboard');
