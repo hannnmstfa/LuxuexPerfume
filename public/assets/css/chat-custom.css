@@ -1,0 +1,315 @@
+/* =========================================================
+   N8N Chat - WhatsApp-ish Theme (FINAL CLEAN)
+   (sesuai desain kamu: footer gelap + input dark + tombol 2-state)
+   ========================================================= */
+
+/* Hide launcher bubble when chat open */
+body.chat-open .chat-window-toggle {
+  display: none !important;
+}
+
+.chat-window-wrapper{
+  position: fixed !important;
+  bottom: 10px !important;
+  right: 24px !important;
+  z-index: 9999 !important;
+}
+
+/* Close button (X) */
+.chat-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 9999;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .15);
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 34px;
+  transition: none !important;
+}
+
+.chat-close-btn:hover,
+.chat-close-btn:active,
+.chat-close-btn:focus,
+.chat-close-btn:focus-visible {
+  background: rgba(255, 255, 255, .15) !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transform: none !important;
+}
+
+/* Window */
+#n8n-chat .chat-window {
+  border-radius: 18px !important;
+  overflow: hidden !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, .25) !important;
+}
+
+/* Header */
+#n8n-chat .chat-header {
+  background: #111b21 !important;
+  color: #e9edef !important;
+  padding: 10px 14px !important;
+  min-height: 54px !important;
+}
+
+#n8n-chat .chat-header h1 {
+  font-size: 16px !important;
+  margin: 0 !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+}
+
+#n8n-chat .chat-header p {
+  font-size: 12px !important;
+  margin: 4px 0 0 0 !important;
+  opacity: .85 !important;
+}
+
+/* Body background + scrollbar */
+#n8n-chat .chat-body {
+  background: #0b141a !important;
+  background-image: radial-gradient(rgba(255, 255, 255, .06) 1px, transparent 1px);
+  background-size: 24px 24px;
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, .18) transparent;
+}
+
+#n8n-chat .chat-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+#n8n-chat .chat-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#n8n-chat .chat-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, .18);
+  border-radius: 999px;
+  border: 2px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+}
+
+/* Messages spacing */
+#n8n-chat .chat-messages-list {
+  padding: 10px 8px 12px !important;
+}
+
+/* Bubbles */
+#n8n-chat .chat-message {
+  max-width: 78% !important;
+  padding: 9px 11px !important;
+  margin: 6px 10px !important;
+  font-size: 14px !important;
+  line-height: 1.35 !important;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .12) !important;
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+}
+
+#n8n-chat .chat-message-markdown p {
+  margin: 0 !important;
+}
+
+#n8n-chat .chat-message-from-bot {
+  background: #202c33 !important;
+  color: #e9edef !important;
+  border-radius: 14px 14px 14px 4px !important;
+}
+
+#n8n-chat .chat-message-from-user {
+  background: #005c4b !important;
+  color: #e9edef !important;
+  border-radius: 14px 14px 4px 14px !important;
+  margin-left: auto !important;
+}
+
+/* Long text / code */
+#n8n-chat .chat-message-markdown pre,
+#n8n-chat .chat-message-markdown code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+  font-size: 12px !important;
+}
+
+#n8n-chat .chat-message-markdown pre {
+  background: rgba(0, 0, 0, .35) !important;
+  color: #e9edef !important;
+  padding: 10px !important;
+  border-radius: 12px !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  white-space: pre !important;
+  max-width: 100% !important;
+}
+
+#n8n-chat .chat-message-markdown code {
+  background: rgba(0, 0, 0, .25) !important;
+  padding: 2px 6px !important;
+  border-radius: 8px !important;
+}
+
+/* Footer (ini yang bikin input gak putih) */
+#n8n-chat .chat-footer {
+  background: #111b21 !important;
+  border-top: 1px solid rgba(255, 255, 255, .06) !important;
+  padding: 10px !important;
+}
+
+/* INNER pill (pakai wrapper chat-inputs bawaan n8n) */
+#n8n-chat .chat-inputs {
+  background: #202c33 !important;
+  border: 1px solid rgba(255, 255, 255, .08) !important;
+  border-radius: 999px !important;
+  padding: 1px 12px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+/* textarea gelap + gak scroll jelek */
+#n8n-chat textarea[data-test-id="chat-input"] {
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: #e9edef !important;
+  font-size: 13px !important;
+  line-height: 18px !important;
+  outline: none !important;
+  resize: none !important;
+  overflow: hidden !important;
+  min-height: 18px !important;
+  max-height: 72px !important;
+}
+
+#n8n-chat textarea[data-test-id="chat-input"]::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* controls wrapper */
+#n8n-chat .chat-inputs-controls {
+  display: flex !important;
+  align-items: center !important;
+  background: transparent !important;
+}
+
+/* SEND button 2-state */
+#n8n-chat .chat-input-send-button {
+  position: relative !important;
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  min-height: 42px !important;
+  border-radius: 999px !important;
+  border: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transition: none !important;
+  transform: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+#n8n-chat .chat-input-send-button svg {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+/* Empty: green outer + white inner + green arrow */
+#n8n-chat .chat-input-send-button:disabled {
+  background: #00a884 !important;
+  cursor: default !important;
+}
+
+#n8n-chat .chat-input-send-button:disabled::before {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+#n8n-chat .chat-input-send-button:disabled svg {
+  position: relative;
+  z-index: 1;
+}
+
+#n8n-chat .chat-input-send-button:disabled svg * {
+  stroke: #00a884 !important;
+  fill: none !important;
+}
+
+#n8n-chat .chat-input-send-button:disabled svg path {
+  fill: #00a884 !important;
+}
+
+/* Typing: white button + green arrow */
+#n8n-chat .chat-input-send-button:not(:disabled) {
+  background: #ffffff !important;
+  cursor: pointer !important;
+}
+
+#n8n-chat .chat-input-send-button:not(:disabled) svg * {
+  stroke: #00a884 !important;
+  fill: none !important;
+}
+
+#n8n-chat .chat-input-send-button:not(:disabled) svg path {
+  fill: #00a884 !important;
+}
+
+/* No hover/active/focus effect */
+#n8n-chat .chat-input-send-button:hover,
+#n8n-chat .chat-input-send-button:active,
+#n8n-chat .chat-input-send-button:focus,
+#n8n-chat .chat-input-send-button:focus-visible {
+  box-shadow: none !important;
+  outline: none !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+/* =========================================
+   Launcher Bubble (chat toggle button)
+   ========================================= */
+
+#n8n-chat .chat-window-toggle {
+  background: #000000 !important;
+  /* hitam */
+  border: none !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .35) !important;
+  width: 57px !important;
+  height: 57px !important;
+}
+
+/* SVG icon tetap putih */
+#n8n-chat .chat-window-toggle svg,
+#n8n-chat .chat-window-toggle svg * {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+/* Hilangkan efek hover / active */
+#n8n-chat .chat-window-toggle:hover,
+#n8n-chat .chat-window-toggle:active,
+#n8n-chat .chat-window-toggle:focus,
+#n8n-chat .chat-window-toggle:focus-visible {
+  background: #000000 !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .35) !important;
+  transform: none !important;
+  outline: none !important;
+}

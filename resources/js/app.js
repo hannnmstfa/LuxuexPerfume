@@ -1,5 +1,6 @@
 import './bootstrap';
 import 'flowbite';
+import { CopyClipboard } from 'flowbite';
 import { DataTable } from "simple-datatables";
 window.simpleDatatables = { DataTable };
 

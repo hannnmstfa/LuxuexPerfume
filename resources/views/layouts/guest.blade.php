@@ -27,7 +27,7 @@
     </div>
 
     <!-- Menu Dial -->
-    <div class="fixed flex end-6 bottom-6">
+    <div class="fixed flex end-6 bottom-[4.5rem]">
         <livewire:keranjang.handle />
     </div>
     @guest

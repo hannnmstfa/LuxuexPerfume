@@ -94,22 +94,26 @@
                 </div>
             </div>
             <div class="rounded-lg shadow-lg bg-gray-100 p-3 border">
-                <div class="flex-row items-center justify-between space-y-3 sm:flex sm:space-y-0 sm:space-x-4">
+                <div class="flex-row items-center justify-between space-y-2 sm:flex sm:space-y-0 sm:space-x-4">
                     <h1 class="text-lg font-semibold">Tracking Pengiriman</h1>
-                    @if ($trx->trackings)
-                        @if (!$trx->trackings->resi)
-                            <button data-modal-target="resi" data-modal-toggle="resi"
-                                class="font-inter rounded shadow py-1 px-3 font-bold bg-yellow-500 hover:bg-yellow-600 text-white">Input
-                                Resi</button>
-                        @else
-                            <button data-modal-target="resi" data-modal-toggle="resi" class="hidden"></button>
-                            <button data-confirm-modal="true" data-icon="warning" data-title="Ubah Nomor Resi?"
-                                data-caption="Mengubah nomor resi berpengaruh dengan hasil tracking. Apakah anda ingin melanjutkan?"
-                                data-color="orange" data-modal="resi"
-                                class="font-inter rounded shadow py-1 px-3 font-bold bg-yellow-500 hover:bg-yellow-600 text-white">Edit
-                                Resi</button>
+                    <div class="flex flex-col md:flex-row justify-start items-start md:items-center gap-2">
+                        @if ($trx->trackings)
+                            <div
+                                class="text-xs w-max font-semibold shadow border rounded py-1 px-2 {{ $trx->trackings->status == 'pengiriman selesai' ? 'border-green-600 text-green-600 bg-green-100' : 'border-yellow-500 text-yellow-500 bg-yellow-100' }}">{{ ucwords($trx->trackings->status) }}</div>
+                            @if (!$trx->trackings->resi)
+                                <button data-modal-target="resi" data-modal-toggle="resi"
+                                    class="font-inter rounded shadow py-1 px-3 font-bold bg-yellow-500 hover:bg-yellow-600 text-white">Input
+                                    Resi</button>
+                            @else
+                                <button data-modal-target="resi" data-modal-toggle="resi" class="hidden"></button>
+                                <button data-confirm-modal="true" data-icon="warning" data-title="Ubah Nomor Resi?"
+                                    data-caption="Mengubah nomor resi berpengaruh dengan hasil tracking. Apakah anda ingin melanjutkan?"
+                                    data-color="orange" data-modal="resi"
+                                    class="font-inter rounded shadow py-1 px-3 font-bold bg-yellow-500 hover:bg-yellow-600 text-white">Edit
+                                    Resi</button>
+                            @endif
                         @endif
-                    @endif
+                    </div>
                 </div>
                 <hr class="my-2 border-gray-300">
                 @if (!$trx->trackings)

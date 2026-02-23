@@ -34,13 +34,19 @@
                             <td>
                                 <div>{{ \Carbon\Carbon::parse($data->created_at)->isoFormat('ddd, DD MMMM YYYY') }}</div>
                                 <div class="text-xs italic text-gray-400">
-                                    {{ \Carbon\Carbon::parse($data->created_at)->isoFormat('HH:mm') }} WIB</div>
+                                    {{ \Carbon\Carbon::parse($data->created_at)->isoFormat('HH:mm') }} WIB
+                                </div>
                             </td>
                             <td>{{ $data->metode_bayar }}</td>
                             <td>Rp{{ number_format($data->total_harga + $data->fee_payment) }}</td>
                             <td>
-                                <span
-                                    class="font-semibold border bg-gray-100 border-gray-300 rounded-full py-1 px-2 {{ $data->status_bayar == 'berhasil' ? 'text-green-600 border-green-300 bg-green-100' : '' }} {{ $data->status_bayar == 'gagal' ? 'text-red-500 border-red-300 bg-red-100' : '' }} {{ $data->status_bayar == 'menunggu pembayaran' ? 'text-yellow-400 border-yellow-300 bg-yellow-100' : '' }}">{{ ucwords($data->status_bayar) }}</span>
+                                @if ($data->status_bayar == 'berhasil')
+                                    <button
+                                        class="border rounded-full py-1 px-3 text-sm font-semibold shadow {{ $data->trackings->status == 'pengiriman selesai' ? 'bg-green-200 text-green-900 border-green-300' : 'bg-yellow-200 text-yellow-900 border-yellow-300'}}">{{ ucwords($data->trackings->status) }}</button>
+                                @else
+                                    <button
+                                        class="border rounded-full py-1 px-3 text-sm font-semibold shadow bg-gray-200 border-gray-300 {{ $data->status_bayar == 'gagal' ? 'bg-red-200 text-red-600 border-red-300' : ($data->status_bayar == 'menunggu pembayaran' ? 'bg-yellow-200 text-yellow-600 border-yellow-300' : '')}}">{{ ucwords($data->status_bayar) }}</button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

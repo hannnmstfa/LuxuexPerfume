@@ -15,7 +15,8 @@
         "laravolt/avatar": "^6.3",
         "livewire/livewire": "^3.7",
         "livewire/volt": "^1.7.0",
-        "realrashid/sweet-alert": "^7.3"
+        "realrashid/sweet-alert": "^7.3",
+        "robertogallea/laravel-python": "^0.1.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.16",

@@ -121,16 +121,10 @@
                         </div>
                     </li>
                     <li
-                        class="flex w-full items-center text-fg-brand after:content-[''] after:w-full after:h-1 after:border-b after:border-brand-subtle after:border-4 after:inline-block after:ms-4 after:rounded-full">
+                        class="flex w-full items-center text-fg-brand after:content-[''] after:w-full after:h-1 after:border-b {{ $trx->status_bayar == 'berhasil' && $trx->trackings->status !== 'sedang dikemas' ? 'after:border-green-300' : 'after:border-gray-300' }} after:border-4 after:inline-block after:ms-4 after:rounded-full">
                         <span data-tooltip-target="dikemas" data-tooltip-placement="bottom"
                             class="flex items-center justify-center w-10 h-10 border {{ $trx->status_bayar == 'berhasil' ? ($trx->trackings && $trx->trackings->status !== 'sedang dikemas' ? 'bg-green-200 text-green-800 border-green-500' : 'bg-yellow-200 text-yellow-800 border-yellow-500') : 'bg-gray-200 text-gray-800' }} rounded-full lg:h-12 lg:w-12 shrink-0">
-                            <svg class="w-6 h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                                height="24" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M12.013 6.175 7.006 9.369l5.007 3.194-5.007 3.193L2 12.545l5.006-3.193L2 6.175l5.006-3.194 5.007 3.194ZM6.981 17.806l5.006-3.193 5.006 3.193L11.987 21l-5.006-3.194Z" />
-                                <path
-                                    d="m12.013 12.545 5.006-3.194-5.006-3.176 4.98-3.194L22 6.175l-5.007 3.194L22 12.562l-5.007 3.194-4.98-3.211Z" />
-                            </svg>
+                            <i class="fa-regular fa-box"></i>
                         </span>
                         <div id="dikemas" role="tooltip"
                             class="absolute z-10 {{ $trx->trackings && $trx->trackings->status !== 'sedang dikemas' ? 'invisible opacity-0' : ($trx->status_bayar == 'berhasil' ? '' : 'invisible opacity-0') }} inline-block px-3 py-2 text-sm font-medium text-white bg-gray-700 rounded shadow-xs  tooltip">
@@ -139,20 +133,25 @@
                         </div>
                     </li>
                     <li
-                        class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-default after:border-4 after:inline-block  after:ms-4 after:rounded-full">
-                        <span
-                            class="flex items-center justify-center w-10 h-10 bg-neutral-tertiary rounded-full lg:h-12 lg:w-12 shrink-0">
-                            <svg class="w-5 h-5 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b {{ $trx->status_bayar == 'berhasil' && $trx->trackings->status == 'pengiriman selesai' ? 'after:border-green-300' : 'after:border-gray-300' }} after:border-4 after:inline-block  after:ms-4 after:rounded-full">
+                        <span data-tooltip-target="pengiriman" data-tooltip-placement="bottom"
+                            class="flex items-center justify-center w-10 h-10 border {{ $trx->status_bayar == 'berhasil' && $trx->trackings->status !== 'sedang dikemas' ? ($trx->trackings && $trx->trackings->status == 'dalam pengiriman' ? 'bg-yellow-200 text-yellow-800 border-yellow-500' : 'bg-green-200 text-green-800 border-green-500') : 'bg-gray-200 text-gray-800' }} rounded-full lg:h-12 lg:w-12 shrink-0">
+                            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2"
-                                    d="M15 9h3m-3 3h3m-3 3h3m-6 1c-.306-.613-.933-1-1.618-1H7.618c-.685 0-1.312.387-1.618 1M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm7 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" />
+                                    d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
                             </svg>
                         </span>
+                        <div id="pengiriman" role="tooltip"
+                            class="absolute z-10 {{ $trx->trackings && $trx->trackings->status !== 'dalam pengiriman' ? 'invisible opacity-0' : ($trx->status_bayar == 'berhasil' ? '' : 'invisible opacity-0') }} inline-block px-3 py-2 text-sm font-medium text-white bg-gray-700 rounded shadow-xs  tooltip">
+                            Dalam Pengiriman
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
                     </li>
-                    <li class="flex items-center w-full">
-                        <span
-                            class="flex items-center justify-center w-10 h-10 bg-neutral-tertiary rounded-full lg:h-12 lg:w-12 shrink-0">
+                    <li class="flex items-center">
+                        <span data-tooltip-target="selesai" data-tooltip-placement="bottom"
+                            class="flex items-center justify-center w-10 h-10 border {{ $trx->status_bayar == 'berhasil' && $trx->trackings->status == 'pengiriman selesai' ? 'bg-green-200 text-green-800 border-green-500' : 'bg-gray-200 text-gray-800' }} rounded-full lg:h-12 lg:w-12 shrink-0">
                             <svg class="w-5 h-5 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -160,8 +159,19 @@
                                     d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 7 2 2 4-4m-5-9v4h4V3h-4Z" />
                             </svg>
                         </span>
+                        <div id="selesai" role="tooltip"
+                            class="absolute z-10 {{ $trx->trackings && $trx->trackings->status == 'pengiriman selesai' ? '' : ($trx->status_bayar == 'berhasil' ? 'invisible opacity-0' : 'invisible opacity-0') }} inline-block px-3 py-2 text-sm font-medium text-white bg-gray-700 rounded shadow-xs  tooltip">
+                            Pesanan diterima
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
                     </li>
                 </ol>
+                <div
+                    class="w-full {{ $trx->status_bayar == 'berhasil' && $trx->trackings->status !== 'sedang dikemas' ? 'flex' : 'hidden' }} justify-center items-center">
+                    <button data-modal-target="tracking" data-modal-toggle="tracking"
+                        class="flex text-nowrap text-sm text-white bg-yellow-600 font-semibold py-2 px-4 rounded hover:bg-yellow-700 mt-4">Detail
+                        Pengiriman</button>
+                </div>
             </div>
         </div>
         <div class="overflow-auto rounded shadow-lg mt-16">
@@ -198,4 +208,133 @@
             </table>
         </div>
     </div>
+
+    <!-- Modal Trackings -->
+    @if ($trx->trackings && $trx->trackings->status !== 'sedang dikemas')
+        <div id="tracking" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-2xl max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-gray-50 border border-gray-300 rounded-xl shadow-sm p-4 md:p-6">
+                    <!-- Modal header -->
+                    <div class="flex items-center justify-between border-b border-default pb-4 md:pb-5">
+                        <div class="md:flex justify-start items-center gap-3">
+                            <h3 class="text-lg font-bold">
+                                Rincian Pengiriman
+                            </h3>
+                            <span
+                                class="text-xs font-semibold shadow border rounded py-1 px-2 {{ $trx->trackings->status == 'pengiriman selesai' ? 'border-green-600 text-green-600 bg-green-100' : 'border-yellow-500 text-yellow-500 bg-yellow-100' }}">{{ ucwords($trx->trackings->status) }}</span>
+                        </div>
+                        <button type="button"
+                            class="text-body bg-transparent hover:bg-neutral-tertiary hover:text-heading rounded-base text-sm w-9 h-9 ms-auto inline-flex justify-center items-center"
+                            data-modal-hide="tracking">
+                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18 17.94 6M18 18 6.06 6" />
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="space-y-4 md:space-y-6 py-4 md:py-6 overflow-auto">
+                        <div class="flex justify-start items-center gap-2">
+                            <h4 class="text-xs text-nowrap">No Resi:</h4>
+                            <div class="w-full">
+                                <div class=" relative">
+                                    <label for="resipengiriman" class="sr-only">Label</label>
+                                    <input id="resipengiriman" type="text"
+                                        class="col-span-6 bg-gray-100 border border-gray-200 font-semibold text-sm rounded focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                                        value="{{ $trx->trackings->resi }}" disabled readonly>
+                                    <button data-copy-to-clipboard-target="resipengiriman" class="absolute flex
+                                                                        items-center end-1.5 top-1/2 -translate-y-1/2 text-body bg-gray-50
+                                                                        border border-gray-200 hover:bg-neutral-secondary-strong/70 hover:text-heading
+                                                                        focus:ring-1 focus:ring-yellow-700 font-medium leading-5 rounded text-xs
+                                                                        px-3 py-1.5 focus:outline-none">
+                                        <span id="default-message">
+                                            <span class="flex items-center">
+                                                <svg class="w-4 h-4 me-1.5" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 5h6m-6 4h6M10 3v4h4V3h-4Z" />
+                                                </svg>
+                                                <span class="text-xs font-semibold">Salin</span>
+                                            </span>
+                                        </span>
+                                        <span id="success-message" class="hidden">
+                                            <span class="flex items-center">
+                                                <svg class="w-4 h-4 text-fg-brand me-1.5" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 7 2 2 4-4m-5-9v4h4V3h-4Z" />
+                                                </svg>
+                                                <span class="text-xs font-semibold text-fg-brand">Tersalin</span>
+                                            </span>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        @foreach ($trx->trackings->trackings_details as $index => $track)
+                            <div class="{{ $index == 0 ? 'text-yellow-700' : ' text-gray-600' }} border-b w-full rounded flex p-3
+                                                                                    gap-3 justify-start items-center">
+                                <div>
+                                    @if ($index == 0 && $trx->trackings->status == 'pengiriman selesai')
+                                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                            height="24" fill="currentColor" viewBox="0 0 24 24">
+                                            <path fill-rule="evenodd"
+                                                d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    @else
+                                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                            height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+                                        </svg>
+                                    @endif
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold">{{ $track->deskripsi }}</p>
+                                    <p class="text-[10px] text-gray-500">{{ $track->created_at }}</p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const copyBtn = document.querySelector('[data-copy-to-clipboard-target="resipengiriman"]');
+                const defaultMessage = document.getElementById('default-message');
+                const successMessage = document.getElementById('success-message');
+                if (copyBtn) {
+                    copyBtn.addEventListener('click', function () {
+                        setTimeout(() => {
+                            showSuccess();
+                            setTimeout(() => {
+                                resetToDefault();
+                            }, 2000);
+                        }, 100);
+                    });
+                }
+                const showSuccess = () => {
+                    defaultMessage.classList.add('hidden');
+                    successMessage.classList.remove('hidden');
+                    copyBtn.classList.add('border-yellow-700', 'text-yellow-700');
+                }
+                const resetToDefault = () => {
+                    defaultMessage.classList.remove('hidden');
+                    successMessage.classList.add('hidden');
+                    copyBtn.classList.remove('border-yellow-700', 'text-yellow-700');
+                }
+            })
+        </script>
+    @endif
 </x-guest-layout>
