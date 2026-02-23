@@ -1,7 +1,8 @@
 import './bootstrap';
 import 'flowbite';
-import { CopyClipboard } from 'flowbite';
+import ApexCharts from 'apexcharts'
 import { DataTable } from "simple-datatables";
+window.ApexCharts = ApexCharts;
 window.simpleDatatables = { DataTable };
 
 // Button Loading

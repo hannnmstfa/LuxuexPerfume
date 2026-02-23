@@ -313,3 +313,18 @@ body.chat-open .chat-window-toggle {
   transform: none !important;
   outline: none !important;
 }
+#n8n-chat ol {
+  list-style: decimal !important;
+  padding-left: 1.25rem !important;
+  margin: 0.5rem 0 !important;
+}
+
+#n8n-chat ul {
+  list-style: disc !important;
+  padding-left: 1.25rem !important;
+  margin: 0.5rem 0 !important;
+}
+
+#n8n-chat li {
+  margin: 0.25rem 0 !important;
+}
