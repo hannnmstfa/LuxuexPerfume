@@ -1,4 +1,4 @@
-<div class="max-w-screen-xl w-full bg-white border rounded shadow p-4 md:p-6 mt-5 relative">
+<div class="w-full bg-white border rounded shadow p-4 md:p-6 mt-5 relative">
     <div class="flex justify-between items-start">
         <div>
             <h5 class="text-2xl font-semibold text-heading">Rp{{ number_format($chartData->sum('total_harga')) }}</h5>
