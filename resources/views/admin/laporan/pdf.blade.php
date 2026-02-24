@@ -112,7 +112,7 @@
         <table class="header-table">
             <tr>
                 <td style="width: 50%;">
-                    <img src="{{ public_path('assets/images/logo.png') }}" style="width:90px" alt="Logo">
+                    <img src="{{ public_path('assets/logo.jpg') }}" style="width:50px" alt="Logo">
                 </td>
                 <td class="title" style="width: 50%;">
                     <h1>Laporan Bulanan</h1>
@@ -131,7 +131,7 @@
         <thead>
             <tr>
                 <th style="width: 5%;">No</th>
-                <th style="width: 12%;">Tanggal</th>
+                <th style="width: 12%;">Tanggal Transaksi</th>
                 <th style="width: 16%;">Kode Transaksi</th>
                 <th style="width: 20%;">Customer</th>
                 <th>Produk</th>
@@ -159,13 +159,13 @@
                             @endforeach
                         </ul>
                     </td>
-                    <td class="right nowrap">Rp {{ number_format($item->total_harga, 0, ',', '.') }}</td>
+                    <td class="right nowrap">Rp{{ number_format($item->total_harga, 0, ',', '.') }}</td>
                 </tr>
             @endforeach
 
             <tr class="total-row">
                 <td colspan="5" class="right">Total</td>
-                <td class="right nowrap">Rp {{ number_format($grandTotal, 0, ',', '.') }}</td>
+                <td class="right nowrap">Rp{{ number_format($grandTotal, 0, ',', '.') }}</td>
             </tr>
         </tbody>
     </table>
