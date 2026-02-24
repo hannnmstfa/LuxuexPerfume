@@ -1,0 +1,39 @@
+{
+    "font awesome 6 brands": {
+        "normal": "font_awesome_6_brands_normal_69bc9235188c7779d38e51f72789b193"
+    },
+    "font awesome 6 free": {
+        "normal": "G:\\skripsi\\LuxuexPerfume\\vendor\\dompdf\\dompdf\/lib\/fonts\/font_awesome_6_free_normal_a613ece735316a553529376a66d35b26",
+        "900": "font_awesome_6_free_900_077fea1bc359b74ecdfe991d4b749fee"
+    },
+    "font awesome 5 brands": {
+        "normal": "font_awesome_5_brands_normal_69bc9235188c7779d38e51f72789b193"
+    },
+    "font awesome 5 free": {
+        "900": "G:\\skripsi\\LuxuexPerfume\\vendor\\dompdf\\dompdf\/lib\/fonts\/font_awesome_5_free_900_077fea1bc359b74ecdfe991d4b749fee",
+        "normal": "font_awesome_5_free_normal_a613ece735316a553529376a66d35b26"
+    },
+    "fontawesome": {
+        "normal": "fontawesome_normal_794b3e51d8a95524032140e5479a5af2"
+    },
+    "font awesome 6 duotone": {
+        "900": "font_awesome_6_duotone_900_62c12067f30cab949fc2d931e3f6345d"
+    },
+    "font awesome 6 pro": {
+        "300": "G:\\skripsi\\LuxuexPerfume\\vendor\\dompdf\\dompdf\/lib\/fonts\/font_awesome_6_pro_300_953a1be02ef80a15dc1abea100c14653",
+        "normal": "G:\\skripsi\\LuxuexPerfume\\vendor\\dompdf\\dompdf\/lib\/fonts\/font_awesome_6_pro_normal_7021a2c1b14060debadeceb9a4021f68",
+        "900": "G:\\skripsi\\LuxuexPerfume\\vendor\\dompdf\\dompdf\/lib\/fonts\/font_awesome_6_pro_900_b759af8f43ed2bf7f9de52e64b0299fb",
+        "100": "font_awesome_6_pro_100_c9d85b9fb53318a27ff249b14a8bab58"
+    },
+    "font awesome 5 pro": {
+        "900": "G:\\skripsi\\LuxuexPerfume\\vendor\\dompdf\\dompdf\/lib\/fonts\/font_awesome_5_pro_900_b759af8f43ed2bf7f9de52e64b0299fb",
+        "normal": "G:\\skripsi\\LuxuexPerfume\\vendor\\dompdf\\dompdf\/lib\/fonts\/font_awesome_5_pro_normal_7021a2c1b14060debadeceb9a4021f68",
+        "300": "font_awesome_5_pro_300_953a1be02ef80a15dc1abea100c14653"
+    },
+    "font awesome 5 duotone": {
+        "900": "font_awesome_5_duotone_900_62c12067f30cab949fc2d931e3f6345d"
+    },
+    "font awesome 6 sharp": {
+        "300": "font_awesome_6_sharp_300_15c7cd38870179cf519d2fd7b2a0fad8"
+    }
+}
