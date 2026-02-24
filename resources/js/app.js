@@ -1,9 +1,9 @@
 import './bootstrap';
 import 'flowbite';
 import ApexCharts from 'apexcharts'
-import { DataTable } from "simple-datatables";
+import { DataTable, exportCSV } from "simple-datatables";
 window.ApexCharts = ApexCharts;
-window.simpleDatatables = { DataTable };
+window.simpleDatatables = { DataTable, exportCSV };
 
 // Button Loading
 window.addEventListener("DOMContentLoaded", function () {

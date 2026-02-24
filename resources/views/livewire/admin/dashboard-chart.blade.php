@@ -1,57 +1,24 @@
 <div class="max-w-screen-xl w-full bg-white border rounded shadow p-4 md:p-6 mt-5 relative">
     <div class="flex justify-between items-start">
         <div>
-            <h5 class="text-2xl font-semibold text-heading">{{ $chartData->count() }} Transaksi</h5>
-            <p class="text-body">Rp{{ number_format($chartData->sum('total_harga')) }}</p>
+            <h5 class="text-2xl font-semibold text-heading">Rp{{ number_format($chartData->sum('total_harga')) }}</h5>
+            <div class="flex justify-start items-center gap-1">
+                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16.881 16H7.119a1 1 0 0 1-.772-1.636l4.881-5.927a1 1 0 0 1 1.544 0l4.88 5.927a1 1 0 0 1-.77 1.636Z" />
+                </svg>
+                <span class="text-body">{{ $chartData->count() }} Transaksi</span>
+            </div>
         </div>
         <input type="month" wire:model.live="bulan" id="bulan" class="rounded-lg border-gray-300" />
     </div>
-    <div id="area-chart"></div>
+    <div id="area-chart" wire:ignore></div>
     <div class="grid grid-cols-1 items-center border-light border-t justify-between">
-        <div class="flex justify-between items-center pt-4 md:pt-6">
-            <!-- Button -->
-            <button id="dropdownDefaultButton" data-dropdown-toggle="lastDaysdropdown" data-dropdown-placement="bottom"
-                class="text-sm font-medium text-body hover:text-heading text-center inline-flex items-center"
-                type="button">
-                Last 7 days
-                <svg class="w-4 h-4 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m19 9-7 7-7-7" />
-                </svg>
-            </button>
-            <!-- Dropdown menu -->
-            <div id="lastDaysdropdown"
-                class="z-10 hidden bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44">
-                <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownDefaultButton">
-                    <li>
-                        <a href="#"
-                            class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Yesterday</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Today</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Last
-                            7 days</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Last
-                            30 days</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Last
-                            90 days</a>
-                    </li>
-                </ul>
-            </div>
-            <a href="#"
+        <div class="flex justify-end items-center pt-4 md:pt-6">
+            <a href="{{ route('admLaporan.index') }}"
                 class="inline-flex items-center text-fg-brand bg-transparent box-border border border-transparent hover:bg-neutral-secondary-medium focus:ring-4 focus:ring-neutral-tertiary font-medium leading-5 rounded-base text-sm px-3 py-2 focus:outline-none">
-                Users Report
+                Laporan Bulanan
                 <svg class="w-4 h-4 ms-1.5 -me-0.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -60,85 +27,78 @@
             </a>
         </div>
     </div>
-    <div wire:loading.remove.class="hidden" wire:loading.class="flex"
-        wire:target="bulan()"
+    <div wire:loading.remove.class="hidden" wire:loading.class="flex" wire:target="bulan()"
         class="absolute w-full top-0 left-0 right-0 bottom-0 bg-gray-500 hidden justify-center items-center bg-opacity-50 rounded-lg">
         <x-loader />
     </div>
 
     <script>
+        let chart;
         const brandColor = "#9f580a";
-        const options = {
-            chart: {
-                height: "100%",
-                maxWidth: "100%",
-                type: "area",
-                fontFamily: "Inter, sans-serif",
-                dropShadow: {
-                    enabled: false,
+
+        function initChart(tanggal, jumlah_trx) {
+            const options = {
+                chart: {
+                    height: "100%",
+                    maxWidth: "100%",
+                    type: "area",
+                    fontFamily: "Inter, sans-serif",
+                    toolbar: { show: false },
+                    dropShadow: { enabled: false },
                 },
-                toolbar: {
+                tooltip: { enabled: true, x: { show: false } },
+                fill: {
+                    type: "gradient",
+                    gradient: {
+                        opacityFrom: 0.55,
+                        opacityTo: 0,
+                        shade: brandColor,
+                        gradientToColors: [brandColor],
+                    },
+                },
+                dataLabels: { enabled: false },
+                stroke: { width: 6 },
+                grid: {
                     show: false,
+                    strokeDashArray: 4,
+                    padding: { left: 2, right: 2, top: 0 },
                 },
-            },
-            tooltip: {
-                enabled: true,
-                x: {
-                    show: false,
+                series: [{ name: "Jumlah Transaksi", data: jumlah_trx, color: brandColor }],
+                xaxis: {
+                    categories: tanggal,
+                    labels: { show: false },
+                    axisBorder: { show: false },
+                    axisTicks: { show: false },
                 },
-            },
-            fill: {
-                type: "gradient",
-                gradient: {
-                    opacityFrom: 0.55,
-                    opacityTo: 0,
-                    shade: brandColor,
-                    gradientToColors: [brandColor],
-                },
-            },
-            dataLabels: {
-                enabled: false,
-            },
-            stroke: {
-                width: 6,
-            },
-            grid: {
-                show: false,
-                strokeDashArray: 4,
-                padding: {
-                    left: 2,
-                    right: 2,
-                    top: 0
-                },
-            },
-            series: [
-                {
-                    name: "Jumlah Transaksi",
-                    data: @json($jumlah_trx),
-                    color: brandColor,
-                },
-            ],
-            xaxis: {
-                categories: @json($tanggal),
-                labels: {
-                    show: false,
-                },
-                axisBorder: {
-                    show: false,
-                },
-                axisTicks: {
-                    show: false,
-                },
-            },
-            yaxis: {
-                show: false,
-            },
+                yaxis: { show: false },
+            };
+
+            chart = new ApexCharts(document.querySelector("#area-chart"), options);
+            chart.render();
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const chart = new ApexCharts(document.getElementById("area-chart"), options);
-            chart.render();
-        });
+        document.addEventListener('livewire:init', () => {
+            // init pertama kali dari data awal blade
+            const tanggalAwal = @json($tanggal);
+            const trxAwal = @json($jumlah_trx);
+            initChart(tanggalAwal, trxAwal);
 
+            // LISTEN event dari PHP: $this->dispatch('updateChart', ...)
+            window.addEventListener('updateChart', (e) => {
+                const [tanggal, jumlah_trx] = e.detail;
+
+                if (!chart) return;
+
+                chart.updateOptions({
+                    xaxis: { categories: tanggal }
+                }, false, true);
+
+                chart.updateSeries([{
+                    name: "Jumlah Transaksi",
+                    data: jumlah_trx,
+                    color: brandColor
+                }], true);
+            });
+        });
     </script>
 </div>

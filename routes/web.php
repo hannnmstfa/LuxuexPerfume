@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\ProdukController As AdminProduk;
 use App\Http\Controllers\Admin\TransaksiController as AdminTrx;
+use App\Http\Controllers\Admin\LaporanController as AdmLaporan;
 use App\Http\Controllers\AnalisisController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\GuestController;
@@ -31,6 +32,8 @@ Route::middleware('auth')->group(function () {
         Route::put('/admin/produk/{id}/delete-diskon', [AdminProduk::class, 'delDiskon'])->name('admProduk.delDiskon');
         Route::resource('/admin/transaksi', AdminTrx::class)->names('admTrx');
         Route::put('/admin/transaksi/{kodeTrx}/tracking', [AdminTrx::class, 'tracking'])->name('admTrx.tracking');
+        Route::get('/admin/laporan', [AdmLaporan::class, 'index'])->name('admLaporan.index');
+        Route::get('/admin/laporan/{bulan}/export-pdf', [AdmLaporan::class, 'pdf'])->name('admLaporan.pdf');
     });
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -17,9 +17,9 @@ class DashboardChart extends Component
             ->where('status_bayar', 'berhasil')
             ->orderBy('created_at', 'asc')
             ->get();
-            $this->tanggal = $this->chartData->pluck('created_at')->map(fn($date) => \Carbon\Carbon::parse($date)->format('Y-m-d'))->toArray();
-            // dd($this->tanggal);
+        $this->tanggal = $this->chartData->pluck('created_at')->map(fn($date) => \Carbon\Carbon::parse($date)->format('Y-m-d'))->toArray();
         $this->jumlah_trx = $this->chartData->pluck('total_harga')->toArray();
+        $this->dispatch('updateChart', $this->tanggal, $this->jumlah_trx);
     }
     public function updatedBulan()
     {

@@ -32,12 +32,24 @@
             <li>
                 <a href="{{ route('admTrx.index') }}"
                     class="flex items-center p-2  rounded-lg {{ request()->routeIs('admTrx.*') ? 'bg-yellow-800 text-white dark:bg-gray-700' : 'text-gray-900 hover:text-white hover:bg-yellow-800 dark:text-white dark:hover:bg-gray-700 group' }}">
-                    <svg class="shrink-0 w-6 h-6 transition duration-75 {{ request()->routeIs('admTrx.*') ? 'text-white dark:text-white' : 'text-gray-900 dark:text-gray-400 group-hover:text-white dark:group-hover:text-white' }}" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <svg class="shrink-0 w-6 h-6 transition duration-75 {{ request()->routeIs('admTrx.*') ? 'text-white dark:text-white' : 'text-gray-900 dark:text-gray-400 group-hover:text-white dark:group-hover:text-white' }}"
+                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                        viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M7.99999 10.8571 12 13.1428m-4.00001-2.2857L4 13.1428m3.99999-2.2857.00004-4.57139M12 13.1428v4.5715m0-4.5715-4.00001 2.2857M12 13.1428l4-2.2857m-4 2.2857V8.57143m0 4.57137 4 2.2858m-4 2.2857L7.99999 20M12 17.7143 16 20m-8.00001 0L4 17.7143v-4.5715M7.99999 20v-4.5715M4 13.1428l3.99999 2.2857M16 6.28571 12 4 8.00003 6.28571m7.99997 0v4.57139m0-4.57139-4 2.28572m4 2.28567 4 2.2858M8.00003 6.28571 12 8.57143m8 4.57147v4.5714L16 20m4-6.8571-4 2.2857M16 20v-4.5714" />
                     </svg>
                     <span class="ms-3">Transaksi</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('admLaporan.index') }}"
+                    class="flex items-center p-2  rounded-lg {{ request()->routeIs('admLaporan.*') ? 'bg-yellow-800 text-white dark:bg-gray-700' : 'text-gray-900 hover:text-white hover:bg-yellow-800 dark:text-white dark:hover:bg-gray-700 group' }}">
+                    <svg class="shrink-0 w-6 h-6 transition duration-75 {{ request()->routeIs('admLaporan.*') ? 'text-white dark:text-white' : 'text-gray-900 dark:text-gray-400 group-hover:text-white dark:group-hover:text-white' }}" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 3v4a1 1 0 0 1-1 1H5m4 8h6m-6-4h6m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z" />
+                    </svg>
+                    <span class="ms-3">Laporan</span>
                 </a>
             </li>
             <hr class="my-2">

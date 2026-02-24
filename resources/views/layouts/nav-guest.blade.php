@@ -1,6 +1,6 @@
 <nav
     class="fixed w-full z-40 top-0 start-0 border-b border-gray-200 bg-white/20 backdrop-blur-xl backdrop-saturate-150">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <div class=" max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="{{ route('/') }}" class="flex items-center space-x-3 ">
             <div class="rounded-full overflow-hidden">
                 <img src="{{ asset('assets/logo.jpg') }}" class="h-12" alt="Logo" />
