@@ -39,13 +39,14 @@
         if (cDel2) {
             event.preventDefault();
             Swal.fire({
+                theme: "dark",
                 title: "Konfirmasi !!!",
                 text: cDel2.dataset.caption,
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "red",
                 confirmButtonText: "Ya, lanjutkan!",
-                cancelButtonText: "Batal"
+                cancelButtonText: "Batal",
             }).then(r => {
                 if (r.isConfirmed) {
                     let form = document.createElement('form');

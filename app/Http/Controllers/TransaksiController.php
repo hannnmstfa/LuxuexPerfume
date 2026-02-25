@@ -12,11 +12,13 @@ class TransaksiController extends Controller
     public function trxPayment($kodeTrx){
         $trx = Transaksi::where('kodeTrx', $kodeTrx)->firstOrfail();
         $tripay = new TripayController();
-        $detail_tripay = $tripay->detailTrx($trx->tripay_ref);
-        if(!$detail_tripay['success']){
-            Alert::error($detail_tripay['message']);
+        $respon = $tripay->detailTrx($trx->tripay_ref);
+        if(!$respon['success']){
+            Alert::error($respon['message']);
+            return to_route('trx.show', $kodeTrx);
         }
-        return view('afterlogin.transaksi.bayar', compact('trx', 'detail_tripay'));
+        $tripay = (object) $respon['data'];
+        return view('afterlogin.transaksi.bayar', compact('trx', 'tripay'));
     }
     public function index(){
         $datas = Transaksi::where('users_id', Auth::user()->id)->orderByDesc('created_at')->get();

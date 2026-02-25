@@ -1,7 +1,7 @@
+@import '@sweetalert2/theme-dark/dark.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 [x-cloak] {
     display: none;
@@ -28,6 +28,41 @@ select:focus {
 
 input[type="radio"]:checked {
     accent-color: #f08a1d !important;
+}
+
+.scroll-style::-webkit-scrollbar {
+    width: 3px;
+    height: 5px;
+}
+.scroll-style::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+}
+.scroll-style::-webkit-scrollbar-thumb {
+    background: #FF9800;
+    border: 0px none #FF9800;
+    border-radius: 40px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    -ms-border-radius: 40px;
+    -o-border-radius: 40px;
+}
+.scroll-style::-webkit-scrollbar-thumb:hover {
+    background: #ffb341;
+}
+
+.scroll-style::-webkit-scrollbar-track {
+    background: transparent;
+    border: 0px none transparent;
+    border-radius: 40px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    -ms-border-radius: 40px;
+    -o-border-radius: 40px;
+}
+
+.scroll-style::-webkit-scrollbar-corner {
+    background: #FF9800;
 }
 
 * {

@@ -1,25 +1,11 @@
 <x-guest-layout title="Detail {{ $trx->kodeTrx }}">
-    <div class="flex flex-col justify-center items-center py-9 bg-gray-300 shadow-inner">
-        <div class="inline-flex justify-center items-center gap-1">
-            <a href="{{ route('/') }}" class="text-xs hover:text-yellow-600 hover:underline">
-                Home
-            </a>
-            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="m9 5 7 7-7 7" />
-            </svg>
-            <a href="{{ route('trx.index') }}" class="text-xs hover:text-yellow-600 hover:underline">
-                Transaksi
-            </a>
-            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="m19 9-7 7-7-7" />
-            </svg>
+    <section class="reveal border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-10 md:py-12 text-center">
+            <h1 class="text-3xl md:text-4xl font-semibold tracking-tight">
+                DETAIL <span class="text-[#D4AF37]">TRANSAKSI</span>
+            </h1>
         </div>
-        <h2 class="font-inter text-2xl md:text-3xl font-semibold">DETAIL TRANSAKSI</h2>
-    </div>
+    </section>
     <div class="max-w-screen-xl mx-auto p-2">
         <h3 class="font-bold text-2xl">Informasi Pemesanan</h3>
         <hr class="mb-3">
@@ -63,7 +49,7 @@
                     <h4 class="font-inter text-xl font-semibold">
                         Rp{{ number_format($trx->total_harga + $trx->fee_payment) }}</h4>
                     <button data-tooltip-target="rincian" type="button">
-                        <svg class="w-4 h-4 text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        <svg class="w-4 h-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                             <path fill-rule="evenodd"
                                 d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z"
@@ -175,12 +161,12 @@
             </div>
         </div>
         <div class="overflow-auto rounded shadow-lg mt-16">
-            <table class="w-full">
+            <table class="w-full border rounded">
                 <thead>
-                    <tr class="font-inter text-lg border-b  bg-orange-200">
+                    <tr class="font-inter text-lg border-b  bg-gold">
                         <th colspan="4" class="py-1">Rincian Pesanan</th>
                     </tr>
-                    <tr class="font-inter border-b bg-gray-100">
+                    <tr class="font-inter border-b bg-gray-700">
                         <th class="text-left py-2 px-4">Produk</th>
                         <th class="text-left py-2 px-4">Harga Satuan</th>
                         <th class="text-center py-2 px-4">Jumlah</th>
@@ -215,7 +201,7 @@
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
             <div class="relative p-4 w-full max-w-2xl max-h-full">
                 <!-- Modal content -->
-                <div class="relative bg-gray-50 border border-gray-300 rounded-xl shadow-sm p-4 md:p-6">
+                <div class="relative bg-black/70 backdrop-blur border border-gray-300 rounded-xl shadow-sm p-4 md:p-6">
                     <!-- Modal header -->
                     <div class="flex items-center justify-between border-b border-default pb-4 md:pb-5">
                         <div class="md:flex justify-start items-center gap-3">
@@ -244,13 +230,10 @@
                                 <div class=" relative">
                                     <label for="resipengiriman" class="sr-only">Label</label>
                                     <input id="resipengiriman" type="text"
-                                        class="col-span-6 bg-gray-100 border border-gray-200 font-semibold text-sm rounded focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                                        class="col-span-6 bg-gray-800 border border-gray-200 font-semibold text-sm rounded focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
                                         value="{{ $trx->trackings->resi }}" disabled readonly>
-                                    <button data-copy-to-clipboard-target="resipengiriman" class="absolute flex
-                                                                        items-center end-1.5 top-1/2 -translate-y-1/2 text-body bg-gray-50
-                                                                        border border-gray-200 hover:bg-neutral-secondary-strong/70 hover:text-heading
-                                                                        focus:ring-1 focus:ring-yellow-700 font-medium leading-5 rounded text-xs
-                                                                        px-3 py-1.5 focus:outline-none">
+                                    <button data-copy-to-clipboard-target="resipengiriman"
+                                        class="absolute flex items-center end-1.5 top-1/2 -translate-y-1/2 text-body bg-gray-900 border border-gray-200 hover:bg-neutral-secondary-strong/70 hover:text-heading focus:ring-1 focus:ring-yellow-700 font-medium leading-5 rounded text-xs px-3 py-1.5 focus:outline-none">
                                         <span id="default-message">
                                             <span class="flex items-center">
                                                 <svg class="w-4 h-4 me-1.5" aria-hidden="true"
@@ -280,8 +263,7 @@
                             </div>
                         </div>
                         @foreach ($trx->trackings->trackings_details as $index => $track)
-                            <div class="{{ $index == 0 ? 'text-yellow-700' : ' text-gray-600' }} border-b w-full rounded flex p-3
-                                                                                    gap-3 justify-start items-center">
+                            <div class="{{ $index == 0 ? 'text-gold' : ' text-gray-200' }} border-b w-full rounded flex p-3 gap-3 justify-start items-center">
                                 <div>
                                     @if ($index == 0 && $trx->trackings->status == 'pengiriman selesai')
                                         <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
@@ -301,7 +283,7 @@
                                 </div>
                                 <div>
                                     <p class="text-sm font-semibold">{{ $track->deskripsi }}</p>
-                                    <p class="text-[10px] text-gray-500">{{ $track->created_at }}</p>
+                                    <p class="text-[10px] text-gray-300">{{ $track->created_at }}</p>
                                 </div>
                             </div>
                         @endforeach

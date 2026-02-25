@@ -1,11 +1,11 @@
 <x-app-layout title="Dashboard Admin">
-    <div class="grid lg:grid-cols-3 gap-4">
-        <div class="bg-white rounded-lg shadow p-4 relative">
+    <div class="grid lg:grid-cols-3 gap-4 dark:text-white">
+        <div class="bg-white dark:bg-black/50 dark:backdrop-blur border dark:border-gray-700 rounded-lg shadow p-4 relative">
             <h2 class="text-xl font-semibold mb-2">Total Penjualan</h2>
             <div class="flex justify-start items-center gap-2">
-                <p class="text-3xl font-bold text-yellow-600">Rp{{ number_format($trx->sum('total_harga')) }}</p>
+                <p class="text-3xl font-bold text-yellow-600 dark:text-gold">Rp{{ number_format($trx->sum('total_harga')) }}</p>
                 <button data-tooltip-target="penjualan" type="button" data-tooltip-placement="right">
-                    <svg class="w-4 h-4 text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                    <svg class="w-4 h-4 text-gray-700 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                         height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd"
                             d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z"
@@ -20,13 +20,13 @@
                 <div class="tooltip-arrow" data-popper-arrow></div>
             </div>
         </div>
-        <div class="bg-white rounded-lg shadow p-4 relative">
+        <div class="bg-white dark:bg-black/50 dark:backdrop-blur border dark:border-gray-700 rounded-lg shadow p-4 relative">
             <h2 class="text-xl font-semibold mb-2">Menunggu Diproses</h2>
             <div class="flex justify-start items-center gap-2">
-                <p class="text-3xl font-bold text-yellow-600">{{ number_format($menungguProses->count()) }} Transaksi
+                <p class="text-3xl font-bold text-yellow-600 dark:text-gold">{{ number_format($menungguProses->count()) }} Transaksi
                 </p>
                 <button data-tooltip-target="menunggu" type="button" data-tooltip-placement="right">
-                    <svg class="w-4 h-4 text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                    <svg class="w-4 h-4 text-gray-700 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                         height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd"
                             d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z"
@@ -44,12 +44,12 @@
                 <div class="tooltip-arrow" data-popper-arrow></div>
             </div>
         </div>
-        <div class="bg-white rounded-lg shadow p-4 relative">
+        <div class="bg-white dark:bg-black/50 dark:backdrop-blur border dark:border-gray-700 rounded-lg shadow p-4 relative">
             <h2 class="text-xl font-semibold mb-2">Stok Habis</h2>
             <div class="flex justify-start items-center gap-2">
-                <p class="text-3xl font-bold text-yellow-600">{{ number_format($stokHabis->count()) }} Produk</p>
+                <p class="text-3xl font-bold text-yellow-600 dark:text-gold">{{ number_format($stokHabis->count()) }} Produk</p>
                 <button data-tooltip-target="stok" type="button" data-tooltip-placement="right">
-                    <svg class="w-4 h-4 text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                    <svg class="w-4 h-4 text-gray-700 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                         height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd"
                             d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z"
@@ -68,5 +68,5 @@
             </div>
         </div>
     </div>
-    <livewire:admin.dashboard-chart/>
+    <livewire:admin.dashboard-chart />
 </x-app-layout>

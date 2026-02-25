@@ -19,6 +19,7 @@ class Checkout extends Component
     public $kota = '';
     public $kecamatan = '';
     public $desa = '';
+    public $kodearea = null;
     public $dataProv = [];
     public $dataKota = [];
     public $dataKec = [];
@@ -48,6 +49,7 @@ class Checkout extends Component
         $this->desa = '';
         $this->dataKec = [];
         $this->dataDesa = [];
+        $this->kodearea = null;
     }
     public function updatedKota($code_kota){
         $wilayah = app(WilayahController::class);
@@ -55,11 +57,16 @@ class Checkout extends Component
         $this->kecamatan = '';
         $this->desa = '';
         $this->dataDesa = [];
+        $this->kodearea = null;
     }
     public function updatedKecamatan($code_kec){
         $wilayah = app(WilayahController::class);
         $this->dataDesa = $wilayah->desa($code_kec);
         $this->desa = '';
+        $this->kodearea = null;
+    }
+    public function updatedDesa($code_desa){
+        $this->kodearea = $code_desa;
     }
     
     public function render()

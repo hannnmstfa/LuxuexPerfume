@@ -18,7 +18,7 @@ class CheckoutController extends Controller
             Alert::warning('Keranjang Kosong !!!', 'Silahkan menambahkan beberapa produk kedalam keranjang terlebih dahulu.');
             return to_route('produk');
         }
-        return view('afterlogin.checkout.index');
+        return view('afterlogin.checkout');
     }
     public function store(Request $request){
         $request->validate([

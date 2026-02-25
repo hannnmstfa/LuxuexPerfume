@@ -3,7 +3,7 @@
         class="grid grid-cols-12 gap-4 justify-center items-start space-y-2 lg:space-y-0 p-3 font-inter">
         @csrf
         <div class="col-span-12 lg:col-span-8 space-y-6">
-            <div class="bg-white p-6 rounded shadow">
+            <div class="bg-white dark:bg-black/40 backdrop-blur border dark:border-gray-500 p-6 rounded shadow">
                 <h2 class="font-semibold text-xl mb-2">
                     Data Penerima
                 </h2>
@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <div class="bg-white p-6 rounded shadow relative">
+            <div class="bg-white dark:bg-black/40 backdrop-blur border dark:border-gray-500 p-6 rounded shadow relative">
                 <div wire:loading.remove.class="hidden" wire:loading.class="flex"
                     wire:target="provinsi(), kota(), kecamatan(), desa()"
                     class="absolute w-full top-0 left-0 right-0 bottom-0 bg-gray-500 hidden justify-center items-center bg-opacity-50">
@@ -97,7 +97,7 @@
                             @endif
                         </select>
                     </div>
-                    <div class="col-span-2 {{ empty($dataDesa) ? 'hidden' : '' }}">
+                    <div class="col-span-2 {{ $kodearea == null ? 'hidden' : '' }}">
                         <label for="alamat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat
                             Lengkap<span class="text-red-600">*</span></label>
                         <textarea name="alamat" placeholder="Tulis alamat lengkap atau detail lokasimu disini..." rows="5"
@@ -107,7 +107,7 @@
                 </div>
             </div>
 
-            <div class="bg-white p-6 rounded shadow">
+            <div class="bg-white dark:bg-black/40 backdrop-blur border dark:border-gray-500 p-6 rounded shadow">
                 <div wire:loading.remove.class="hidden" wire:loading.class="flex" wire:target="setPayment"
                     class="absolute w-full top-0 left-0 right-0 bottom-0 bg-gray-500 hidden justify-center items-center bg-opacity-50">
                     <x-loader />
@@ -130,9 +130,9 @@
                                 <input type="radio" name="payment_method" value="{{ $va['code'] }}" class="peer hidden"
                                     id="{{ $va['code'] }}">
                                 <label for="{{ $va['code'] }}" title="{{ $va['name'] }}"
-                                    class="w-full min-h-20 border flex flex-col justify-center peer-checked:bg-yellow-100 peer-checked:border-2 peer-checked:border-yellow-400 gap-2 items-center border-gray-300 bg-gray-100 hover:bg-gray-200 cursor-pointer duration-100 rounded p-2">
+                                    class="w-full min-h-20 border flex flex-col justify-center peer-checked:bg-gold peer-checked:text-gray-400 dark:peer-checked:text-gray-800 peer-checked:border-2 peer-checked:border-yellow-400 gap-2 items-center border-gray-300 bg-gray-100 dark:bg-gray-400 hover:opacity-70 cursor-pointer duration-100 rounded p-2">
                                     <img src="{{ $va['icon_url'] }}" class="w-20" alt="{{ $va['name'] }}">
-                                    <span class="text-xs text-gray-400 font-poppins italic">Fee Rp{{ $va['total_fee']['flat'] }} + PPN {{ $va['total_fee']['percent'] }}%</span>
+                                    <span class="text-xs font-poppins italic">Fee Rp{{ $va['total_fee']['flat'] }} + PPN {{ $va['total_fee']['percent'] }}%</span>
                                 </label>
                             </div>
                         @endif
@@ -144,9 +144,9 @@
                                 <input type="radio" name="payment_method" value="{{ $retail['code'] }}" class="peer hidden"
                                     id="{{ $retail['code'] }}" >
                                 <label for="{{ $retail['code'] }}" title="{{ $retail['name'] }}"
-                                    class="w-full min-h-20 border flex flex-col justify-center peer-checked:bg-yellow-100 peer-checked:border-2 peer-checked:border-yellow-400 gap-2 items-center border-gray-300 bg-gray-100 hover:bg-gray-200 cursor-pointer duration-100 rounded p-2">
+                                    class="w-full min-h-20 border flex flex-col justify-center peer-checked:bg-gold peer-checked:text-gray-400 dark:peer-checked:text-gray-800 peer-checked:border-2 peer-checked:border-yellow-400 gap-2 items-center border-gray-300 bg-gray-100 dark:bg-gray-400 hover:opacity-70 cursor-pointer duration-100 rounded p-2">
                                     <img src="{{ $retail['icon_url'] }}" class="w-20" alt="{{ $retail['name'] }}">
-                                    <span class="text-xs text-gray-400 font-poppins italic">Fee Rp{{ $retail['total_fee']['flat'] }} + PPN {{ $retail['total_fee']['percent'] }}%</span>
+                                    <span class="text-xs font-poppins italic">Fee Rp{{ $retail['total_fee']['flat'] }} + PPN {{ $retail['total_fee']['percent'] }}%</span>
                                 </label>
                             </div>
                         @endif
@@ -158,9 +158,9 @@
                                 <input type="radio" name="payment_method" value="{{ $ewallet['code'] }}" class="peer hidden"
                                     id="{{ $ewallet['code'] }}" >
                                 <label for="{{ $ewallet['code'] }}" title="{{ $ewallet['name'] }}"
-                                    class="w-full min-h-20 border flex flex-col justify-center peer-checked:bg-yellow-100 peer-checked:border-2 peer-checked:border-yellow-400 gap-2 items-center border-gray-300 bg-gray-100 hover:bg-gray-200 cursor-pointer duration-100 rounded p-2">
+                                    class="w-full min-h-20 border flex flex-col justify-center peer-checked:bg-gold peer-checked:text-gray-400 dark:peer-checked:text-gray-800 peer-checked:border-2 peer-checked:border-yellow-400 gap-2 items-center border-gray-300 bg-gray-100 dark:bg-gray-400 hover:opacity-70 cursor-pointer duration-100 rounded p-2">
                                     <img src="{{ $ewallet['icon_url'] }}" class="w-20" alt="{{ $ewallet['name'] }}">
-                                    <span class="text-xs text-gray-400 font-poppins italic">Fee Rp{{ $ewallet['total_fee']['flat'] }} + PPN {{ $ewallet['total_fee']['percent'] }}%</span>
+                                    <span class="text-xs font-poppins italic">Fee Rp{{ $ewallet['total_fee']['flat'] }} + PPN {{ $ewallet['total_fee']['percent'] }}%</span>
                                 </label>
                             </div>
                         @endif

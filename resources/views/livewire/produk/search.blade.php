@@ -1,29 +1,27 @@
-<div class="w-full mx-auto relative">
-    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-        <svg class="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-            fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-                d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
-        </svg>
-    </div>
-    <input type="text" wire:model.live="search"
-        class="peer w-full p-3 ps-9 bg-white border text-sm rounded-xl  shadow-xs"
-        placeholder="Cari Produk" autocomplete="off" />
-    <div class="absolute {{ $search > 0 ? 'block' : 'hidden' }} peer-focus:block top-12 w-full border bg-gray-100 border-gray-300 rounded-md shadow-lg z-20"
+<div class="relative">
+    <form class="relative">
+        <input wire:model.live="search" type="text" placeholder="Cari parfum..." class="w-64 rounded-full bg-white/5 border border-white/10 px-4 py-2 text-sm text-white placeholder:text-white/40 focus:ring-2 focus:ring-[#D4AF37]/40" />
+        <button type="button"
+            class="absolute right-1 top-1/2 -translate-y-1/2 rounded-full bg-[#D4AF37] px-3 py-1.5 text-xs font-semibold text-black hover:opacity-90">
+            CARI
+        </button>
+    </form>
+    <div class="absolute {{ $search > 0 ? 'block' : 'hidden' }} peer-focus:block top-12 w-full border  border-gray-300 rounded shadow-lg z-20"
         id="search-results">
-        <ul class="bg-white shadow rounded w-full max-h-56 overflow-y-auto">
+        <ul class="bg-black/90 backdrop-blur shadow rounded w-full max-h-56 overflow-y-auto">
             @if (strlen($search) < 1)
                 <li class="p-2 text-gray-500 text-xs text-center">Ketik untuk memulai mencari</li>
             @else
                 @forelse($searchResults as $produk)
-                    <li class="p-2 hover:bg-gray-100">
+                    <li class="p-2 hover:bg-gray-800">
                         <a href="{{ route('produk.detail', $produk->slug) }}" class="flex items-center gap-2">
                             <img src="{{ asset($produk->path_foto) }}" alt="{{ $produk->nama }}"
                                 class="w-10 h-10 object-cover rounded" />
                             <div>
                                 <p class="text-sm text-heading line-clamp-1">{{ $produk->nama }}</p>
                                 <p class="text-xs text-gray-500">Rp
-                                    {{ number_format($produk->harga_diskon ? $produk->harga_diskon : $produk->harga) }}</p>
+                                    {{ number_format($produk->harga_diskon ? $produk->harga_diskon : $produk->harga) }}
+                                </p>
                             </div>
                         </a>
                     </li>

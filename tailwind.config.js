@@ -26,6 +26,9 @@ export default {
             animation: {
                 swipeUp: 'swipeUp 0.7s ease-out forwards',
             },
+            colors: {
+                'gold' : '#D4AF37',
+            },
         },
     },
 

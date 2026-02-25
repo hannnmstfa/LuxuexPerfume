@@ -1,31 +1,41 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="id">
 
 <head>
     @include('layouts.head')
     <title>{{ ucwords($title) }} - {{ config('app.name', 'Laravel') }}</title>
+    <style>
+        .datatable-input {
+            background-color: transparent !important;
+            border: 1px solid #D4AF37 !important;
+            color: white !important;
+        }
+
+        .datatable-selector {
+            background-color: transparent !important;
+            border: 1px solid #D4AF37 !important;
+            color: white !important;
+        }
+    </style>
 </head>
 
-<body class="font-poppins antialiased relative">
-    <div class="max-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-        @include('layouts.nav-guest')
-        <main class=" bg-gray-50 min-h-screen pt-20 pb-5">
-            @if ($errors->any())
-                <div class="w-full  px-2 py-3">
-                    <div class="container mx-auto rounded bg-red-200 p-2 border border-red-600">
-                        <p class="font-bold text-md dark:text-black">Error List</p>
-                        <ul class="list-disc ms-5 text-sm">
-                            @foreach ($errors->all() as $error)
-                                <li class="text-red-600">{!! $error !!}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            @endif
-            {{ $slot }}
-        </main>
+<body class="bg-black text-white font-poppins scroll-style dark">
+    <!-- Background Glow -->
+    <div class="fixed inset-0 -z-10">
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-yellow-600/30 blur-3xl rounded-full">
+        </div>
+        <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-white/10 blur-3xl rounded-full"></div>
     </div>
+    @include('layouts.nav-guest')
+    <main class="animated-swipeUp">
+        {{ $slot }}
+    </main>
 
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-8 text-center text-white/50 text-sm">
+        © {{ date('Y') }} LUXUEXPERFUME — All Rights Reserved
+    </footer>
     <!-- Menu Dial -->
     <div class="fixed flex end-6 bottom-[4.5rem]">
         <livewire:keranjang.handle />
@@ -35,9 +45,9 @@
         <div id="login" tabindex="-1" data-modal-backdrop="static"
             class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 top-0 right-0 left-0 z-[100] justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
             <div class="relative p-4 w-full max-w-xl max-h-full">
-                <div class="relative bg-gray-100 border rounded-md shadow-sm">
+                <div class="relative  bg-black/50 backdrop-blur border rounded-md shadow-sm dark:text-white">
                     <button data-modal-hide="login"
-                        class="absolute top-[-10px] right-[-10px] bg-white border border-gray-500 rounded-full p-1">
+                        class="absolute top-[-10px] right-[-10px] bg-white dark:bg-black border border-gray-500 rounded-full p-1">
                         <svg class="w-5 h-5 font-bold hover:animate-spin text-gray-800 dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -50,7 +60,7 @@
                             Silahkan login untuk melanjutkan !!!
                         </h1>
                         <a href="{{ route('google.redirect') }}"
-                            class="border border-gray-500 py-2 rounded-md flex justify-center hover:bg-gray-300 items-center gap-2 w-100 fw-semibold">
+                            class="border border-gray-500 py-2 rounded-md flex justify-center hover:bg-gray-300 dark:hover:bg-gray-700 items-center gap-2 w-100 fw-semibold">
                             <img src="{{ asset('assets/google.webp') }}" class="size-5" alt="Google">
                             Masuk dengan Google
                         </a>

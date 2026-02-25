@@ -1,8 +1,8 @@
 <div class="max-w-screen-xl mx-auto">
     <div class="grid grid-cols-12 gap-4 justify-center items-start space-y-2 lg:space-y-0 p-3">
         <div class="col-span-12 lg:col-span-8 relative overflow-x-auto">
-            <table class="w-full font-inter text-sm text-left text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-yellow-200 border-b border-gray-400">
+            <table class="w-full font-inter text-sm text-left text-gray-500 dark:text-white">
+                <thead class="text-xs text-gray-700 uppercase bg-yellow-200 dark:bg-gold dark:text-white border-b border-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3"></th>
                         <th scope="col" class="px-6 py-3 text-center lg:text-left">
@@ -22,10 +22,10 @@
                 <tbody>
                     @forelse($keranjangs as $item)
                         <tr
-                            class=" border-b border-gray-400 {{ in_array($item->id, $errorStok) ? ' bg-red-200' : ' odd:bg-white even:bg-gray-200' }} hover:bg-gray-300 relative">
+                            class=" border-b border-gray-400 {{ in_array($item->id, $errorStok) ? ' bg-red-200 dark:bg-red-700' : ' odd:bg-white even:bg-gray-200 dark:even:bg-black/80 dark:odd:bg-black/50 dark:backdrop-blur' }} hover:bg-gray-300 relative">
                             <td class="px-6 py-4">
                                 <button wire:click="hapusKeranjang({{ $item->id }})"
-                                    class="flex justify-center items-center rounded p-2 hover:bg-red-300"
+                                    class="flex justify-center items-center rounded p-2 hover:bg-red-300 {{ in_array($item->id, $errorStok) ? 'dark:bg-red-300' : '' }} "
                                     title="Hapus Produk dari Keranjang">
                                     <svg class="w-6 h-6 text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                         width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -40,8 +40,7 @@
                                     <img src="{{ asset($item->produks->path_foto) }}" alt="{{ $item->produks->nama }}"
                                         class="w-14 h-14 object-cover rounded" />
                                     <div class="text-center lg:text-left">
-                                        <a href="{{ route('produk.detail', $item->produks->slug) }}"
-                                            class="font-semibold hover:text-gray-400">{{ $item->produks->nama }}</a>
+                                        <p class="font-semibold">{{ $item->produks->nama }}</p>
                                         <div class="text-xs text-gray-400">Stok tersisa:
                                             {{ $item->produks->stok }}</div>
                                     </div>
@@ -58,7 +57,7 @@
                             <td class="px-6 py-4">
                                 <div class="relative flex items-center max-w-[9rem] shadow-xs">
                                     <button type="button" wire:click="kurangJumlah({{ $item->id }})"
-                                        class="bg-gray-300 {{ $item->jumlah == 1 ? 'hidden' : '' }} box-border border border-default-medium hover:bg-gray-400 focus:ring-2 font-medium leading-5 hover:text-white text-sm px-3 focus:outline-none h-10">
+                                        class="bg-gray-300 {{ $item->jumlah == 1 ? 'hidden' : '' }} box-border border hover:bg-gray-400 focus:ring-2 font-medium leading-5 hover:text-white dark:bg-gray-900 dark:border-gray-600 text-sm px-3 focus:outline-none h-10">
                                         <svg class="w-4 h-4 text-heading" aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                             viewBox="0 0 24 24">
@@ -67,9 +66,9 @@
                                         </svg>
                                     </button>
                                     <input type="text" min="1" value="{{ $item->jumlah }}" readonly
-                                        class="block h-10 text-center border-gray-300 w-16 lg:w-full py-2.5 " required />
+                                        class="block h-10 text-center border-gray-300 w-16 lg:w-full py-2.5 dark:bg-gray-900 dark:border-gray-600" required />
                                     <button type="button" wire:click="addJumlah({{ $item->id }})"
-                                        class="bg-gray-300 box-border border border-default-medium hover:bg-gray-400 focus:ring-2 font-medium leading-5 hover:text-white text-sm px-3 focus:outline-none h-10">
+                                        class="bg-gray-300 box-border border hover:bg-gray-400 focus:ring-2 font-medium leading-5 hover:text-white dark:bg-gray-900 dark:border-gray-600 text-sm px-3 focus:outline-none h-10">
                                         <svg class="w-4 h-4 text-heading" aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                             viewBox="0 0 24 24">

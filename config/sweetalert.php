@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'theme' => env('SWEET_ALERT_THEME', 'default'),
+    'theme' => env('SWEET_ALERT_THEME', 'dark'),
 
     /*
     |--------------------------------------------------------------------------
@@ -116,7 +116,7 @@ return [
     |  The default background is '#fff'.
     */
 
-    'background' => env('SWEET_ALERT_BACKGROUND', '#fff'),
+    'background' => env('SWEET_ALERT_BACKGROUND', 'dark'),
 
     /*
     |--------------------------------------------------------------------------
@@ -232,7 +232,7 @@ return [
     'customClass' => [
 
         'container' => env('SWEET_ALERT_CONTAINER_CLASS'),
-        'popup' => env('SWEET_ALERT_POPUP_CLASS'),
+        'popup' => env('SWEET_ALERT_POPUP_CLASS', 'dark'),
         'header' => env('SWEET_ALERT_HEADER_CLASS'),
         'title' => env('SWEET_ALERT_TITLE_CLASS'),
         'closeButton' => env('SWEET_ALERT_CLOSE_BUTTON_CLASS'),
