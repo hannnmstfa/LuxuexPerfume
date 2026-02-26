@@ -4,19 +4,6 @@
 <head>
     @include('layouts.head')
     <title>{{ ucwords($title) }} - {{ config('app.name', 'Laravel') }}</title>
-    <style>
-        .datatable-input {
-            background-color: transparent !important;
-            border: 1px solid #D4AF37 !important;
-            color: white !important;
-        }
-
-        .datatable-selector {
-            background-color: transparent !important;
-            border: 1px solid #D4AF37 !important;
-            color: white !important;
-        }
-    </style>
 </head>
 
 <body class="bg-black text-white font-poppins scroll-style dark">
@@ -33,7 +20,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-white/10 py-8 text-center text-white/50 text-sm">
+    <footer class="border-t border-white/10 py-8 text-center text-white/50 text-sm mt-10">
         © {{ date('Y') }} LUXUEXPERFUME — All Rights Reserved
     </footer>
     <!-- Menu Dial -->

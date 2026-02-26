@@ -99,7 +99,8 @@
                     <div class="flex flex-col md:flex-row justify-start items-start md:items-center gap-2">
                         @if ($trx->trackings)
                             <div
-                                class="text-xs w-max font-semibold shadow border rounded py-1 px-2 {{ $trx->trackings->status == 'pengiriman selesai' ? 'border-green-600 text-green-600 bg-green-100' : 'border-yellow-500 text-yellow-500 bg-yellow-100' }}">{{ ucwords($trx->trackings->status) }}</div>
+                                class="text-xs w-max font-semibold shadow border rounded py-1 px-2 {{ $trx->trackings->status == 'pengiriman selesai' ? 'border-green-600 text-green-600 bg-green-100' : 'border-yellow-500 text-yellow-500 bg-yellow-100' }}">
+                                {{ ucwords($trx->trackings->status) }}</div>
                             @if (!$trx->trackings->resi)
                                 <button data-modal-target="resi" data-modal-toggle="resi"
                                     class="font-inter rounded shadow py-1 px-3 font-bold bg-yellow-500 hover:bg-yellow-600 text-white">Input
@@ -195,6 +196,10 @@
                     <h1 class="text-lg font-semibold">Rincian Pembayaran</h1>
                 </div>
                 <hr class="my-2 border-gray-300">
+                <div class="flex justify-between items-center">
+                    <p class="text-sm font-semibold text-gray-500">Tripay Reff</p>
+                    <p class=" font-semibold text-gray-900">{{ $trx->tripay_ref }}</p>
+                </div>
                 <div class="flex justify-between items-center">
                     <p class="text-sm font-semibold text-gray-500">Total Bayar</p>
                     <div class="flex justify-end items-center gap-1">
