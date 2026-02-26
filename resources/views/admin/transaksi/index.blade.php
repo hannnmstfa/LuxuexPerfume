@@ -1,5 +1,5 @@
 <x-app-layout title="Daftar Transaksi">
-    <div class="relative overflow-hidden bg-gray-100 shadow-md dark:bg-gray-800 rounded-lg border">
+    <div class="relative overflow-hidden bg-gray-100 shadow-md dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 rounded-lg border">
         <div class="flex-row items-center justify-between p-4 space-y-3 sm:flex sm:space-y-0 sm:space-x-4">
             <div>
                 <h5 class="mr-3 text-xl font-semibold dark:text-white">Kelola Transaksi</h5>
@@ -29,48 +29,48 @@
             </div>
         </div>
     </div>
-    <div class="rounded-lg shadow-lg bg-gray-100 p-3 mt-5 border">
+    <div class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 mt-5 border">
         <x-loader />
         <table id="myTable" class="hidden w-full text-sm text-center dark:text-gray-400 overflow-auto">
             <thead>
                 <tr class="">
-                    <th scope="col" class="bg-yellow-500 text-white text-center w-max">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white text-center w-max">
                         No
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white">
                         Kode Transaksi
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white">
                         Customer
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white">
                         Waktu Transaksi
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white">
                         Status Bayar
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white">
                         Total Bayar
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white">
                         Status Pengiriman
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white">
                         Aksi
                     </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($datas as $data)
-                    <tr class="border-b border-gray-400 odd:bg-white even:bg-gray-200 relative">
+                    <tr class="odd:bg-gray-50 even:bg-gray-200 dark:odd:bg-gray-800/40 dark:even:bg-gray-700/40 dark:backdrop-blur relative">
                         <td class="px-6 py-4 text-center">{{ $loop->iteration }}</td>
                         <td class="px-6 py-4 font-bold">{{ $data->kodeTrx }}</td>
                         <td class="px-6 py-4">
-                            <p class="text-gray-900 text-nowrap">{{ $data->users->name }}</p>
+                            <p class="text-gray-900 dark:text-white text-nowrap">{{ $data->users->name }}</p>
                             <p class="text-xs text-gray-500">{{ $data->users->email }}</p>
                         </td>
                         <td class="px-6 py-4">
-                            <p class="text-nowrap text-gray-800">{{ $data->created_at->isoFormat('dddd, D MMM YYYY') }}</p>
+                            <p class="text-nowrap text-gray-800 dark:text-white">{{ $data->created_at->isoFormat('dddd, D MMM YYYY') }}</p>
                             <p class="text-xs text-gray-500">{{ $data->created_at->isoFormat('HH:mm') }} WIB</p>
                         </td>
                         <td class="px-6 py-4">

@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'theme' => env('SWEET_ALERT_THEME', 'dark'),
+    'theme' => env('SWEET_ALERT_THEME', 'default'),
 
     /*
     |--------------------------------------------------------------------------
@@ -116,7 +116,7 @@ return [
     |  The default background is '#fff'.
     */
 
-    'background' => env('SWEET_ALERT_BACKGROUND', 'dark'),
+    'background' => env('SWEET_ALERT_BACKGROUND', 'default'),
 
     /*
     |--------------------------------------------------------------------------

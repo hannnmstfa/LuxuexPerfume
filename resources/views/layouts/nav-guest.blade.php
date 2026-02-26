@@ -11,7 +11,6 @@
             <nav class="hidden md:flex items-center gap-8 text-xs tracking-[0.22em] text-white/80">
                 <a href="{{ route('/') }}" class="hover:text-white">HOME</a>
                 <a href="{{ route('produk') }}" class="hover:text-white">PRODUK</a>
-                <a href="{{ route('analisis.index') }}" class="hover:text-white">ANALISIS</a>
             </nav>
             <div class="hidden md:flex items-center gap-3">
                 <livewire:produk.search/>

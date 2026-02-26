@@ -1,5 +1,5 @@
 <x-app-layout title="Detail Transaksi {{ $trx->kodeTrx }}">
-    <div class="relative overflow-hidden bg-gray-100 shadow-md dark:bg-gray-800 rounded-lg border">
+    <div class="relative overflow-hidden bg-gray-100 shadow-md dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 rounded-lg border">
         <div class="flex-row items-center justify-between p-4 space-y-3 sm:flex sm:space-y-0 sm:space-x-4">
             <div>
                 <h5 class="mr-3 text-xl font-semibold dark:text-white">Detail Transaksi</h5>
@@ -50,13 +50,13 @@
     </div>
     <div class="lg:grid grid-cols-3 gap-4 mt-5 space-y-3 md:space-y-0 w-full">
         <div class="col-span-2 flex flex-col gap-4">
-            <div class="rounded-lg shadow-lg bg-gray-100 p-3 border">
+            <div class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border">
                 <h1 class="text-lg font-semibold">Item yang Dibeli</h1>
-                <hr class="my-2 border-gray-300">
+                <hr class="my-2 border-gray-300 dark:border-gray-600">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm">
                         <thead>
-                            <tr class="bg-yellow-800 text-white text-left">
+                            <tr class="bg-yellow-800 dark:bg-gold text-white text-left">
                                 <th class="w-max"></th>
                                 <th class="py-1 px-2">Produk</th>
                                 <th class="py-1 px-2">Harga</th>
@@ -66,7 +66,7 @@
                         </thead>
                         <tbody>
                             @foreach ($trx->transaksi_items as $item)
-                                <tr class="border-b odd:bg-white even:bg-yellow-50">
+                                <tr class="border-b odd:bg-white even:bg-yellow-50 dark:odd:bg-gray-800/40 dark:even:bg-gray-700/40 dark:backdrop-blur">
                                     <td class="py-1 px-2 size-20 block">
                                         <img src="{{ asset($item->produks->path_foto) }}" alt="{{ $item->produks->nama }}"
                                             class=" size-16 object-cover rounded-md border">
@@ -83,7 +83,7 @@
                                     <td class="text-right py-1 px-2">Rp{{ number_format($item->subtotal) }}</td>
                                 </tr>
                             @endforeach
-                            <tr class="bg-yellow-100 text-right font-bold text-lg border-b">
+                            <tr class="bg-yellow-100 dark:text-black text-right font-bold text-lg border-b">
                                 <td colspan="4" class="py-1 px-2">Total:</td>
                                 <td class=" py-1 px-2">
                                     Rp{{ number_format($trx->subtotal) }}
@@ -93,7 +93,7 @@
                     </table>
                 </div>
             </div>
-            <div class="rounded-lg shadow-lg bg-gray-100 p-3 border">
+            <div class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border">
                 <div class="flex-row items-center justify-between space-y-2 sm:flex sm:space-y-0 sm:space-x-4">
                     <h1 class="text-lg font-semibold">Tracking Pengiriman</h1>
                     <div class="flex flex-col md:flex-row justify-start items-start md:items-center gap-2">
@@ -116,7 +116,7 @@
                         @endif
                     </div>
                 </div>
-                <hr class="my-2 border-gray-300">
+                <hr class="my-2 border-gray-300 dark:border-gray-600">
                 @if (!$trx->trackings)
                     <p class="text-center italic text-sm font-semibold text-red-600">Tagihan belum dibayar</p>
                 @else
@@ -128,7 +128,7 @@
                         @else
                             @foreach ($trx->trackings->trackings_details as $index => $track)
                                 <div
-                                    class="{{ $index == 0 ? 'text-yellow-700' : ' text-gray-600' }} border-b w-full rounded flex p-3 gap-3 justify-start items-center">
+                                    class="{{ $index == 0 ? 'text-yellow-700 dark:text-gold' : ' text-gray-600 dark:text-gray-300' }} border-b w-full rounded flex p-3 gap-3 justify-start items-center">
                                     <div>
                                         @if ($index == 0 && $trx->trackings->status == 'pengiriman selesai')
                                             <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
@@ -157,16 +157,16 @@
             </div>
         </div>
         <div class="col-span-1 flex flex-col gap-4">
-            <div class="rounded-lg shadow-lg bg-gray-100 p-3 border">
+            <div class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border">
                 <h1 class="text-lg font-semibold">Rincian Pemesan</h1>
-                <hr class="my-2 border-gray-300">
+                <hr class="my-2 border-gray-300 dark:border-gray-600">
                 <p class="text-sm font-bold">{{ $trx->users->name }}</p>
                 <p class="text-sm">{{ $trx->users->phone }}</p>
                 <p class="text-sm">{{ $trx->users->email }}</p>
             </div>
-            <div class="rounded-lg shadow-lg bg-gray-100 p-3 border">
+            <div class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border">
                 <h1 class="text-lg font-semibold">Rincian Penerima</h1>
-                <hr class="my-2 border-gray-300">
+                <hr class="my-2 border-gray-300 dark:border-gray-600">
                 <p class="text-sm font-bold">{{ $trx->transaksi_details->nama_penerima }}</p>
                 <p class="text-sm">{{ $trx->transaksi_details->no_penerima }}</p>
                 <p class="text-sm">{{ $trx->transaksi_details->alamat_penerima }}</p>
@@ -191,27 +191,27 @@
                     </div>
                 </div> -->
             </div>
-            <div class="rounded-lg shadow-lg bg-gray-100 p-3 border">
+            <div class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border">
                 <div class="flex-row items-center justify-between space-y-3 sm:flex sm:space-y-0 sm:space-x-4">
                     <h1 class="text-lg font-semibold">Rincian Pembayaran</h1>
                 </div>
-                <hr class="my-2 border-gray-300">
+                <hr class="my-2 border-gray-300 dark:border-gray-600">
                 <div class="flex justify-between items-center">
                     <p class="text-sm font-semibold text-gray-500">Tripay Reff</p>
-                    <p class=" font-semibold text-gray-900">{{ $trx->tripay_ref }}</p>
+                    <p class=" font-semibold text-gray-900 dark:text-white">{{ $trx->tripay_ref }}</p>
                 </div>
                 <div class="flex justify-between items-center">
                     <p class="text-sm font-semibold text-gray-500">Total Bayar</p>
                     <div class="flex justify-end items-center gap-1">
                         <button data-tooltip-target="rincian_harga" type="button">
-                            <svg class="w-4 h-4 text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            <svg class="w-4 h-4 text-gray-700 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                 <path fill-rule="evenodd"
                                     d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z"
                                     clip-rule="evenodd" />
                             </svg>
                         </button>
-                        <p class="font-bold text-gray-900">
+                        <p class="font-bold text-gray-900 dark:text-white">
                             Rp{{ number_format($trx->total_harga + $trx->fee_payment) }}</p>
                     </div>
                     <div id="rincian_harga" role="tooltip"
@@ -227,7 +227,7 @@
                 </div>
                 <div class="flex justify-between items-center">
                     <p class="text-sm font-semibold text-gray-500">Metode Pembayaran</p>
-                    <p class=" font-semibold text-gray-900">{{ $trx->metode_bayar }}</p>
+                    <p class=" font-semibold text-gray-900 dark:text-white">{{ $trx->metode_bayar }}</p>
                 </div>
                 <div class="flex justify-between items-center">
                     <p class="text-sm font-semibold text-gray-500">Status</p>
@@ -245,7 +245,7 @@
                 </div>
                 <div class="flex justify-between items-center">
                     <p class="text-sm font-semibold text-gray-500">Waktu Bayar</p>
-                    <p class=" font-semibold text-gray-900">{{ $trx->pay_at ?? '-' }}</p>
+                    <p class=" font-semibold text-gray-900 dark:text-white">{{ $trx->pay_at ?? '-' }}</p>
                 </div>
             </div>
         </div>
@@ -284,7 +284,7 @@
                             <div class="mb-3">
                                 <label for="layanan" class="font-medium text-sm">Nama Layanan<span
                                         class="text-red-600">*</span></label>
-                                <select name="layanan" id="layanan" class="block w-full text-sm rounded border-gray-300 "
+                                <select name="layanan" id="layanan" class="block w-full text-sm rounded border-gray-300 dark:bg-gray-800 dark:border-gray-500"
                                     required>
                                     <option value="" selected disabled>-- Pilih Layanan --</option>
                                     <option value="jne" {{ old('layanan', $trx->trackings->ekspedisi) == 'jne' ? 'selected' : '' }}>JNE</option>
@@ -298,7 +298,7 @@
                             <div class="mb-3">
                                 <label for="resi" class="font-medium text-sm">Nomor Resi<span
                                         class="text-red-600">*</span></label>
-                                <input type="text" class="rounded w-full border-gray-300 text-sm" name="resi"
+                                <input type="text" class="rounded w-full border-gray-300 text-sm dark:bg-gray-800 dark:border-gray-500" name="resi"
                                     value="{{ old('resi', $trx->trackings->resi) }}"
                                     placeholder="Masukkan No Resi dari pengiriman" required>
                             </div>

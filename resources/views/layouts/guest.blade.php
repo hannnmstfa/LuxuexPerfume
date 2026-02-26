@@ -15,7 +15,7 @@
         <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-white/10 blur-3xl rounded-full"></div>
     </div>
     @include('layouts.nav-guest')
-    <main class="animated-swipeUp">
+    <main>
         {{ $slot }}
     </main>
 

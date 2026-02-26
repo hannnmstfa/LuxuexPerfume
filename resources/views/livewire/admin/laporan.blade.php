@@ -1,5 +1,5 @@
 <div class="w-full">
-    <div class="relative overflow-hidden bg-gray-100 shadow-md dark:bg-gray-800 rounded-lg border">
+    <div class="relative overflow-hidden bg-gray-100 shadow-md dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 rounded-lg border">
         <div class="flex-row items-center justify-between p-4 space-y-3 sm:flex sm:space-y-0 sm:space-x-4">
             <div>
                 <h5 class="mr-3 text-xl font-semibold dark:text-white">Laporan Bulanan</h5>
@@ -28,10 +28,10 @@
                 </ol>
             </div>
             <input type="month" wire:model.live="bulan"
-                class="rounded-lg border-gray-300 focus:ring-yellow-500 focus:border-yellow-500 block sm:text-sm">
+                class="rounded-lg border-gray-300 focus:ring-yellow-500 focus:border-yellow-500 block sm:text-sm dark:bg-gray-800 text-gray-900 dark:border-gray-500 dark:text-white">
         </div>
     </div>
-    <div class="rounded-lg shadow-lg bg-gray-100 p-3 mt-5 border" wire:key="laporan-{{ $bulan }}"
+    <div class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 mt-5 border" wire:key="laporan-{{ $bulan }}"
         wire:loading.class="opacity-50">
         <div
             class="flex justify-end items-center gap-2 text-sm font-semibold {{ $laporans->isEmpty() ? 'hidden' : '' }}">
@@ -46,34 +46,34 @@
         <table id="myTable" class="hidden w-full text-sm text-center dark:text-gray-400 overflow-auto">
             <thead>
                 <tr class="">
-                    <th scope="col" class="bg-yellow-500 text-white text-center w-max">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white text-center w-max">
                         No
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white">
                         Tgl Transaksi
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white">
                         Kode Transaksi
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white">
                         Customer
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white">
                         Produk Dibeli
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white">
                         Subtotal
                     </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($laporans as $data)
-                    <tr class="border-b border-gray-400 odd:bg-white even:bg-gray-200 relative">
+                    <tr class="border-b border-gray-400 odd:bg-white even:bg-gray-200 dark:odd:bg-gray-800/40 dark:even:bg-gray-700/40 dark:backdrop-blur relative">
                         <td class="px-6 py-4 text-center">{{ $loop->iteration }}</td>
                         <td class="px-6 py-4">{{ $data->created_at->isoFormat('DD-MM-YYYY') }}</td>
                         <td class="px-6 py-4 font-bold">{{ $data->kodeTrx }}</td>
                         <td class="px-6 py-4">
-                            <p class="text-gray-900 text-nowrap">{{ $data->users->name }}</p>
+                            <p class="text-gray-900 dark:text-white text-nowrap">{{ $data->users->name }}</p>
                             <p class="text-xs text-gray-500">{{ $data->users->email }}</p>
                         </td>
                         <td class="px-6 py-4">
