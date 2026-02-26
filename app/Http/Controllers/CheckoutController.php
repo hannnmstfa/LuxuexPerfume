@@ -18,6 +18,12 @@ class CheckoutController extends Controller
             Alert::warning('Keranjang Kosong !!!', 'Silahkan menambahkan beberapa produk kedalam keranjang terlebih dahulu.');
             return to_route('produk');
         }
+        $tripay = new TripayController();
+        $payment = $tripay->getPayment();
+        if(!$payment['success']){
+            Alert::error('Error Payment !!!', $payment['message']);
+            return to_route('keranjang');
+        }
         return view('afterlogin.checkout');
     }
     public function store(Request $request){

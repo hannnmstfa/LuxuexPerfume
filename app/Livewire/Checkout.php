@@ -12,7 +12,6 @@ class Checkout extends Component
     public $keranjangs;
     public $payment_method;
     public $ongkir = 15000;
-    // public $fee_payment = 0;
     public $subtotal = 0;
     public $total = 0;
     public $provinsi = '';
@@ -24,11 +23,8 @@ class Checkout extends Component
     public $dataKota = [];
     public $dataKec = [];
     public $dataDesa = [];
-    public $payment = [];
     public function mount(){
         $wilayah = app(WilayahController::class);
-        $tripay = app(TripayController::class);
-        $this->payment = $tripay->getPayment();
         $this->dataProv = $wilayah->provinsi();
         $this->keranjangs = Keranjang::with(['produks'])->where('users_id', auth()->id())->get();
         $this->subtotal = $this->keranjangs->sum(function ($item) {
