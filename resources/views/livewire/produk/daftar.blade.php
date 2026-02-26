@@ -99,7 +99,11 @@
                 this.showDetail = true;
             }
         }">
-            <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+                <div wire:loading.remove.class="hidden" wire:loading.class="flex"
+                    class="absolute w-full z-50 rounded-xl top-0 left-0 right-0 bottom-0 bg-black/80 backdrop-blur hidden justify-center items-center bg-opacity-50">
+                    <x-loader />
+                </div>
                 @foreach ($products as $i => $product)
                     <div
                         class="reveal group rounded-3xl border border-white/10 bg-white/5 overflow-hidden relative hover:border-[#D4AF37]/35 transition">
@@ -150,14 +154,14 @@
                                     @endif
                                 </button>
                                 <button @click="openDetail({
-                                            id: {{ $product->id }},
-                                            nama: @js($product->nama),
-                                            deskripsi: @js($product->deskripsi),
-                                            harga: '{{ number_format($product->harga, 0, ',', '.') }}',
-                                            harga_diskon: {{ $product->harga_diskon ? ('\'' . number_format($product->harga_diskon, 0, ',', '.') . '\'') : 'null' }},
-                                            stok: {{ $product->stok }},
-                                            path_foto: '{{ asset($product->path_foto) }}'
-                                        })"
+                                                id: {{ $product->id }},
+                                                nama: @js($product->nama),
+                                                deskripsi: @js($product->deskripsi),
+                                                harga: '{{ number_format($product->harga, 0, ',', '.') }}',
+                                                harga_diskon: {{ $product->harga_diskon ? ('\'' . number_format($product->harga_diskon, 0, ',', '.') . '\'') : 'null' }},
+                                                stok: {{ $product->stok }},
+                                                path_foto: '{{ asset($product->path_foto) }}'
+                                            })"
                                     class="col-span-1 w-full grid place-items-center rounded-full border border-white/15 bg-white/5 text-white/85 hover:bg-white/10">
                                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                         height="24" fill="none" viewBox="0 0 24 24">
@@ -186,14 +190,14 @@
                                     @endif
                                 </button>
                                 <button @click="openDetail({
-                                            id: {{ $product->id }},
-                                            nama: @js($product->nama),
-                                            deskripsi: @js($product->deskripsi),
-                                            harga: '{{ number_format($product->harga, 0, ',', '.') }}',
-                                            harga_diskon: {{ $product->harga_diskon ? ('\'' . number_format($product->harga_diskon, 0, ',', '.') . '\'') : 'null' }},
-                                            stok: {{ $product->stok }},
-                                            path_foto: '{{ asset($product->path_foto) }}'
-                                        })"
+                                                id: {{ $product->id }},
+                                                nama: @js($product->nama),
+                                                deskripsi: @js($product->deskripsi),
+                                                harga: '{{ number_format($product->harga, 0, ',', '.') }}',
+                                                harga_diskon: {{ $product->harga_diskon ? ('\'' . number_format($product->harga_diskon, 0, ',', '.') . '\'') : 'null' }},
+                                                stok: {{ $product->stok }},
+                                                path_foto: '{{ asset($product->path_foto) }}'
+                                            })"
                                     class="col-span-1 w-full flex justify-center items-center text-xs rounded-2xl border border-white/15 bg-white/5 text-white/85 hover:bg-white/10">
                                     <span class="sr-only">Detail</span>
                                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
@@ -244,7 +248,8 @@
                                 <img :src="detail.path_foto" :alt="detail.nama"
                                     class="size-72 h-auto rounded-lg shadow-lg">
                             </div>
-                            <div class="md:w-1/2 flex flex-col justify-between" x-data="{ addedToCart: false }" x-init="$watch('showDetail', v => { if(!v) addedToCart = false })">
+                            <div class="md:w-1/2 flex flex-col justify-between" x-data="{ addedToCart: false }"
+                                x-init="$watch('showDetail', v => { if(!v) addedToCart = false })">
                                 <div>
                                     <h1 class="text-3xl font-bold mb-4" x-text="detail.nama"></h1>
                                     <p class="text-gray-300 mb-4" x-text="detail.deskripsi"></p>
@@ -264,7 +269,8 @@
                                 </div>
                                 <div class="mt-6">
                                     <template x-if="!addedToCart">
-                                        <button @click="$dispatch('addKeranjang', { productId: detail.id }); addedToCart = true"
+                                        <button
+                                            @click="$dispatch('addKeranjang', { productId: detail.id }); addedToCart = true"
                                             class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300">
                                             Tambah ke Keranjang
                                         </button>
@@ -272,7 +278,13 @@
                                     <template x-if="addedToCart">
                                         <button disabled
                                             class="w-full bg-yellow-500 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
-                                            <svg class="w-5 h-5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11.917 9.724 16.5 19 7.5"/></svg>
+                                            <svg class="w-5 h-5 mr-2" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                                viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="M5 11.917 9.724 16.5 19 7.5" />
+                                            </svg>
                                             Ditambahkan
                                         </button>
                                     </template>
