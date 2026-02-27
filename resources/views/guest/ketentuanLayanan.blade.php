@@ -64,7 +64,7 @@
             <p class="text-white/70 text-sm ">
                 Produk yang sudah dibeli tidak dapat dikembalikan,
                 kecuali terdapat cacat produksi atau kesalahan pengiriman.
-                Permohonan refund harus diajukan maksimal 2x24 jam setelah produk diterima.
+                Permohonan refund harus diajukan maksimal 2x24 jam setelah produk diterima disertai video unboxing.
             </p>
         </section>
 
