@@ -14,7 +14,6 @@ body.chat-open .chat-window-toggle {
   right: 24px !important;
   z-index: 9999 !important;
   /* border: 1px solid white !important; */
-  box-shadow: #e4e4e4 0px 1px 2px !important;
   border-radius: 100% !important;
 }
 
@@ -294,7 +293,7 @@ body.chat-open .chat-window-toggle {
   background: #000000 !important;
   /* hitam */
   border: none !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, .35) !important;
+  box-shadow: #e4e4e4 0px 1px 2px !important;
   width: 57px !important;
   height: 57px !important;
 }

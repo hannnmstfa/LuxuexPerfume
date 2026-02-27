@@ -113,7 +113,7 @@
                                 </a>
                                 <button data-modal-target="diskon-{{ $index }}" title="Atur Harga Diskon"
                                     data-modal-toggle="diskon-{{ $index }}"
-                                    class="text-center text-nowrap bg-gray-300 dark:bg-gray-500 dark:text-white font-semibold hover:opacity-75 rounded py-1 px-2">
+                                    class="text-center w-full text-nowrap bg-gray-300 dark:bg-gray-500 dark:text-white font-semibold hover:opacity-75 rounded py-1 px-2">
                                     Atur Diskon
                                 </button>
                             </div>

@@ -34,7 +34,7 @@
         <!-- Footer -->
         @include('layouts.footer-guest')
         <!-- Menu Dial -->
-        <div class="fixed flex end-6 bottom-[4.5rem]">
+        <div class="fixed flex end-6 {{ Auth::check() ? 'bottom-[4.5rem]' : 'bottom-6' }}">
             <livewire:keranjang.handle />
         </div>
         @guest

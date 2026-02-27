@@ -10,8 +10,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css">
 <link rel="stylesheet" href="{{ asset('assets/css/chat-custom.css') }}">
 <!-- Styles / Scripts -->
- <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
-<script type="module" src="{{ asset('assets/js/chat.js') }}"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+@auth
+    <script type="module" src="{{ asset('assets/js/chat.js') }}"></script>
+@endauth
 <!-- Scripts -->
 @vite(['resources/css/font.css', 'resources/css/app.css', 'resources/js/app.js'])
