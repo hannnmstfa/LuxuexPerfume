@@ -42,12 +42,12 @@
                         </a>
                     </div>
 
-                    <div>
+                    <!-- <div>
                         <p class="text-white/50 text-xs">Email</p>
                         <a href="mailto:cs@luxuexperfume.com" class="hover:text-white transition">
                             cs@luxuexperfume.com
                         </a>
-                    </div>
+                    </div> -->
 
                     <div>
                         <p class="text-white/50 text-xs">Jam Operasional</p>
@@ -65,11 +65,11 @@
 
                 <div class="space-y-4 text-sm text-white/70">
 
-                    <a href="" class="block hover:text-white transition">
+                    <a href="#" class="block hover:text-white transition">
                         Ketentuan Layanan
                     </a>
 
-                    <a href="" class="block hover:text-white transition">
+                    <a href="#" class="block hover:text-white transition">
                         Kebijakan Privasi
                     </a>
 
