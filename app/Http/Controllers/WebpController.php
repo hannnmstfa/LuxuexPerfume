@@ -9,15 +9,21 @@ use Illuminate\Support\Str;
 
 class WebpController extends Controller
 {
-    public static function convert($image, $path, $nama){
+    public static function convert($image, $path, $nama)
+    {
         $nama = Str::slug($nama);
-        $newPath = '/storage/' . trim($path, '/');
-        Storage::disk('public')->makeDirectory($newPath);
-        if($image->extension() !== 'webp'){
-            Webp::make($image)->save(public_path($newPath) . '/' . $nama . '.webp');
-        }else{
-            $image->move(public_path($newPath), $nama . '.webp');
+        $path = trim($path, '/');
+
+        Storage::disk('public')->makeDirectory($path);
+
+        $fullPath = storage_path('app/public/' . $path . '/' . $nama . '.webp');
+
+        if ($image->extension() !== 'webp') {
+            Webp::make($image)->save($fullPath);
+        } else {
+            $image->move(storage_path('app/public/' . $path), $nama . '.webp');
         }
-        return $newPath . '/' . $nama . '.webp';
+
+        return '/storage/' . $path . '/' . $nama . '.webp';
     }
 }
