@@ -1,5 +1,5 @@
 <x-guest-layout title="Home">
-    <section class="max-w-screen-xl mx-auto py-20 md:py-24 grid md:grid-cols-2 gap-14 items-center">
+    <section class="max-w-screen-xl mx-auto py-20 md:py-24 grid md:grid-cols-2 gap-14 items-center px-3">
         <div>
             <h2 class="text-[2.5rem] md:text-6xl font-bold leading-tight ">
                 LUXUEXPERFUME
