@@ -87,7 +87,7 @@
                                 {{ ucfirst($parfum->kategori) }}
                             </span>
                         </td>
-                        <td class="text-xs">{{ $parfum->deskripsi}}</td>
+                        <td class="text-xs" title="{{ $parfum->deskripsi }}">{{ Str::limit($parfum->deskripsi, 100) }}</td>
                         <td>
                             <p class="{{ $parfum->harga_diskon ? 'line-through text-xs text-red-500' : 'font-bold' }}">
                                 Rp{{ number_format($parfum->harga) }}</p>
