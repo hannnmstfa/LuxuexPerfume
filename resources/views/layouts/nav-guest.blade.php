@@ -1,7 +1,7 @@
 <header x-data="{ open:false }" class="sticky top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
         <!-- Brand -->
-        <a href="#" class="flex items-center gap-3">
+        <a href="{{ route('/') }}" class="flex items-center gap-3">
             <img src="{{ asset('assets/logo.jpg') }}" class="size-9 rounded-full border border-gold" alt="Logo">
             <span class="text-sm md:text-base tracking-[0.28em] font-semibold text-[#D4AF37]">
                 LUXUEXPERFUME

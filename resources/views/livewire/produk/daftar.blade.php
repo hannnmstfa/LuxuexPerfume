@@ -154,19 +154,19 @@
                                     @endif
                                 </button>
                                 <button @click="openDetail({
-                                                id: {{ $product->id }},
-                                                nama: @js($product->nama),
-                                                deskripsi: @js($product->deskripsi),
-                                                harga: '{{ number_format($product->harga, 0, ',', '.') }}',
-                                                harga_diskon: {{ $product->harga_diskon ? ('\'' . number_format($product->harga_diskon, 0, ',', '.') . '\'') : 'null' }},
-                                                stok: {{ $product->stok }},
-                                                path_foto: '{{ asset($product->path_foto) }}'
-                                            })"
+                                                    id: {{ $product->id }},
+                                                    nama: @js($product->nama),
+                                                    deskripsi: @js($product->deskripsi),
+                                                    harga: '{{ number_format($product->harga, 0, ',', '.') }}',
+                                                    harga_diskon: {{ $product->harga_diskon ? ('\'' . number_format($product->harga_diskon, 0, ',', '.') . '\'') : 'null' }},
+                                                    stok: {{ $product->stok }},
+                                                    path_foto: '{{ asset($product->path_foto) }}'
+                                                })"
                                     class="col-span-1 w-full grid place-items-center rounded-full border border-white/15 bg-white/5 text-white/85 hover:bg-white/10">
                                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                         height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                                            d="m21 21-3.5-3.5M10 7v6m-3-3h6m4 0a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
                                     </svg>
                                 </button>
                             </div>
@@ -190,14 +190,14 @@
                                     @endif
                                 </button>
                                 <button @click="openDetail({
-                                                id: {{ $product->id }},
-                                                nama: @js($product->nama),
-                                                deskripsi: @js($product->deskripsi),
-                                                harga: '{{ number_format($product->harga, 0, ',', '.') }}',
-                                                harga_diskon: {{ $product->harga_diskon ? ('\'' . number_format($product->harga_diskon, 0, ',', '.') . '\'') : 'null' }},
-                                                stok: {{ $product->stok }},
-                                                path_foto: '{{ asset($product->path_foto) }}'
-                                            })"
+                                                    id: {{ $product->id }},
+                                                    nama: @js($product->nama),
+                                                    deskripsi: @js($product->deskripsi),
+                                                    harga: '{{ number_format($product->harga, 0, ',', '.') }}',
+                                                    harga_diskon: {{ $product->harga_diskon ? ('\'' . number_format($product->harga_diskon, 0, ',', '.') . '\'') : 'null' }},
+                                                    stok: {{ $product->stok }},
+                                                    path_foto: '{{ asset($product->path_foto) }}'
+                                                })"
                                     class="col-span-1 w-full flex justify-center items-center text-xs rounded-2xl border border-white/15 bg-white/5 text-white/85 hover:bg-white/10">
                                     <span class="sr-only">Detail</span>
                                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"

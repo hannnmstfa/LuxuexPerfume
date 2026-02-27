@@ -20,9 +20,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-white/10 py-8 text-center text-white/50 text-sm mt-10">
-        © {{ date('Y') }} LUXUEXPERFUME — All Rights Reserved
-    </footer>
+    @include('layouts.footer-guest')
     <!-- Menu Dial -->
     <div class="fixed flex end-6 bottom-[4.5rem]">
         <livewire:keranjang.handle />
