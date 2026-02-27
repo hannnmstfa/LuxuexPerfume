@@ -41,7 +41,7 @@
             </div>
             <div class="col-span-2 md:col-span-1">
                 <p class="text-sm text-gray-500 italic">Metode Pembayaran</p>
-                <h4 class="font-inter text-lg font-semibold">{{ $trx->metode_bayar }}</h4>
+                <h4 class="font-inter text-lg font-semibold">{{ $trx->metode_bayar == 'QRIS (Customizable)' ? 'QRIS' : $trx->metode_bayar }}</h4>
             </div>
             <div class="col-span-2 md:col-span-1">
                 <p class="text-sm text-gray-500 italic">Total Bayar</p>

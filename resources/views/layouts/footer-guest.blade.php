@@ -65,11 +65,11 @@
 
                 <div class="space-y-4 text-sm text-white/70">
 
-                    <a href="#" class="block hover:text-white transition">
+                    <a href="{{ route('ketentuan.layanan') }}" class="block hover:text-white transition">
                         Ketentuan Layanan
                     </a>
 
-                    <a href="#" class="block hover:text-white transition">
+                    <a href="{{ route('kebijakan.privasi') }}" class="block hover:text-white transition">
                         Kebijakan Privasi
                     </a>
 

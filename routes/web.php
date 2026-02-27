@@ -23,6 +23,8 @@ Route::get('/produk', [GuestController::class, 'produk'])->name('produk');
 Route::get('/produk/{produk}', [GuestController::class, 'detailProduk'])->name('produk.detail');
 Route::get('/keranjang', [GuestController::class, 'keranjang'])->name('keranjang');
 Route::post('/transaksi/callback', [TripayController::class, 'trxCallback'])->name('trx.callback')->withoutMiddleware(VerifyCsrfToken::class);
+Route::get('/ketentuan-layanan', [GuestController::class, 'ketentuanLayanan'])->name('ketentuan.layanan');
+Route::get('/kebijakan-privasi', [GuestController::class, 'kebijakanPrivasi'])->name('kebijakan.privasi');
 Route::resource('/analisis', AnalisisController::class)->names('analisis');
 Route::middleware('auth')->group(function () {
     Route::middleware(Admin::class)->group(function(){

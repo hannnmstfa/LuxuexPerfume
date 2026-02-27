@@ -25,4 +25,10 @@ class GuestController extends Controller
         session(['url.intended' => url()->current()]);
         return view('guest.keranjang');
     }
+    public function ketentuanLayanan(){
+        return view('guest.ketentuanLayanan');
+    }
+    public function kebijakanPrivasi(){
+        return view('guest.kebijakanPrivasi');
+    }
 }
