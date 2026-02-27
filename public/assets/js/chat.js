@@ -1,7 +1,7 @@
 import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
 createChat({
-  webhookUrl: 'https://workflow.hannnmstfa.my.id/webhook/fe325a7b-b0ca-4530-aee1-758a6e90bab2',
+  webhookUrl: 'https://workflow.hannnmstfa.my.id/webhook/fe325a7b-b0ca-4530-aee1-758a6e90bab2/chat',
   mode: 'window',
   showWelcomeScreen: true,
   initialMessages: ['Halo 👋', 'Ada yang bisa saya bantu?'],
