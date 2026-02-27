@@ -7,8 +7,8 @@
 </head>
 
 <body class="max-h-screen font-poppins scroll-style dark">
-    <div class=" dark:bg-black/60 dark:text-white">
-        <div class="fixed inset-0 -z-10">
+    <div class="bg-white text-black dark:bg-black dark:text-white">
+        <div class="fixed inset-0 -z-5">
             <div
                 class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-yellow-600/30 blur-3xl rounded-full">
             </div>
