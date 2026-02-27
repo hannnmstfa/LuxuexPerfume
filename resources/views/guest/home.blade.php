@@ -1,7 +1,7 @@
 <x-guest-layout title="Home">
-    <section class="max-w-7xl mx-auto px-6 py-20 md:py-24 grid md:grid-cols-2 gap-14 items-center">
+    <section class="max-w-screen-xl mx-auto py-20 md:py-24 grid md:grid-cols-2 gap-14 items-center">
         <div>
-            <h2 class="text-5xl md:text-6xl font-bold leading-tight ">
+            <h2 class="text-[2.5rem] md:text-6xl font-bold leading-tight ">
                 LUXUEXPERFUME
             </h2>
 

@@ -6,7 +6,7 @@
     <title>{{ ucwords($title) }} - {{ config('app.name', 'Laravel') }}</title>
 </head>
 
-<body class="bg-black text-white font-poppins scroll-style dark">
+<body class="bg-black text-white font-poppins scroll-style dark container w-full border border-red-500">
     <!-- Background Glow -->
     <div class="fixed inset-0 -z-10">
         <div
@@ -17,7 +17,7 @@
     @include('layouts.nav-guest')
     @if ($errors->any())
         <div
-            class="container max-w-screen-xl mx-auto rounded bg-red-200 p-2 border border-red-600 dark:bg-red-500/30 dark:backdrop-blur mb-2 mt-2">
+            class="container max-w-screen-xl mx-auto rounded bg-red-200 p-2 border border-red-600 dark:bg-red-500/30 dark:backdrop-blur my-2">
             <p class="font-bold text-md dark:text-white">Error List</p>
             <ul class="list-disc ms-5 text-sm">
                 @foreach ($errors->all() as $error)
