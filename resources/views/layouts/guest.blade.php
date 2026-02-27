@@ -15,6 +15,17 @@
         <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-white/10 blur-3xl rounded-full"></div>
     </div>
     @include('layouts.nav-guest')
+    @if ($errors->any())
+        <div
+            class="container max-w-screen-xl mx-auto rounded bg-red-200 p-2 border border-red-600 dark:bg-red-500/30 dark:backdrop-blur mb-2 mt-2">
+            <p class="font-bold text-md dark:text-white">Error List</p>
+            <ul class="list-disc ms-5 text-sm">
+                @foreach ($errors->all() as $error)
+                    <li class="text-red-600 dark:text-red-500">{!! $error !!}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <main>
         {{ $slot }}
     </main>

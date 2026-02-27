@@ -40,7 +40,8 @@ class RegisteredUserController extends Controller
             'email.unique' => 'Email sudah terdaftar',
             'password.confirmed' => 'Password konfirmasi harus sama',
             'password.min' => 'Password minimal 8 karakter',
-            'phone.regex' => 'No Telepon harus diawali <b>08xxxxxxxxx</b>'
+            'phone.regex' => 'No Telepon harus diawali <b>08xxxxxxxxx</b>',
+            'phone.unique' => 'No Telepon sudah terdaftar'
         ]);
 
         $user = User::create([
