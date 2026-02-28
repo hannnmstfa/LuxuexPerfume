@@ -37,7 +37,7 @@ Route::match(['POST', 'OPTIONS'], '/n8n/chat', function (Request $request) {
     return response($resp->body(), $resp->status())
         ->header('Content-Type', $resp->header('Content-Type', 'application/json'));
 })->withoutMiddleware(VerifyCsrfToken::class);
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::middleware(Admin::class)->group(function () {
         Route::get('/admin/dashboard', [AdminDashboard::class, 'index'])->name('admin.dashboard');
         Route::resource('/admin/produk', AdminProduk::class)->names('admProduk')->except('show');
