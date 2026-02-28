@@ -11,7 +11,7 @@ class WebpController extends Controller
 {
     public static function convert($image, $path, $nama)
     {
-        $nama = Str::slug($nama);
+        $nama = Str::slug($nama) . '-' . Str::random(10);
         $path = trim($path, '/');
 
         Storage::disk('public')->makeDirectory($path);

@@ -40,10 +40,16 @@ class Index extends Component
 
     public function viewKeranjangs()
     {
-        $this->keranjangs = Keranjang::with(['produks'])->where(
+        $keranjangs = Keranjang::with(['produks'])->where(
             Auth::check() ? 'users_id' : 'sessions_id',
             Auth::check() ? Auth::id() : session()->getId()
         )->get();
+
+        // Filter hanya produk yang belum di-soft delete dan relasi tidak null
+        $this->keranjangs = $keranjangs->filter(function ($item) {
+            return $item->produks && (!isset($item->produks->deleted_at) || $item->produks->deleted_at === null);
+        })->values();
+
         $this->subtotal = $this->keranjangs->sum(function ($item) {
             return ($item->produks->harga_diskon ? $item->produks->harga_diskon : $item->produks->harga) * $item->jumlah;
         });
@@ -56,18 +62,19 @@ class Index extends Component
         $this->dispatch('keranjangDiupdate');
     }
 
-    public function cek(){
+    public function cek()
+    {
         $this->errorStok = [];
         $this->daftarProduk = [];
-        foreach($this->keranjangs as $item){
+        foreach ($this->keranjangs as $item) {
             $stok = $item->produks->stok;
-            if($stok < 1 || $stok < $item->jumlah){
+            if ($stok < 1 || $stok < $item->jumlah) {
                 $this->errorStok[] = $item->id;
-            }else{
+            } else {
                 $this->daftarProduk[] = $item->id;
             }
         }
-        if($this->errorStok){
+        if ($this->errorStok) {
             return;
         }
         session()->put('checkout.produk');
