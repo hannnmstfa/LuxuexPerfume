@@ -160,9 +160,9 @@
             <div class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border">
                 <h1 class="text-lg font-semibold">Rincian Pemesan</h1>
                 <hr class="my-2 border-gray-300 dark:border-gray-600">
-                <p class="text-sm font-bold">{{ $trx->users->name }}</p>
-                <p class="text-sm">{{ $trx->users->phone }}</p>
-                <p class="text-sm">{{ $trx->users->email }}</p>
+                <p class="text-sm font-bold">{{ $trx->users->name ?? 'deleted user' }}</p>
+                <p class="text-sm">{{ $trx->users->phone ?? 'deleted user' }}</p>
+                <p class="text-sm">{{ $trx->users->email ?? 'deleted user' }}</p>
             </div>
             <div class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border">
                 <h1 class="text-lg font-semibold">Rincian Penerima</h1>

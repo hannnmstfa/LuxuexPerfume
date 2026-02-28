@@ -66,8 +66,8 @@
                         <td class="px-6 py-4 text-center">{{ $loop->iteration }}</td>
                         <td class="px-6 py-4 font-bold">{{ $data->kodeTrx }}</td>
                         <td class="px-6 py-4">
-                            <p class="text-gray-900 dark:text-white text-nowrap">{{ $data->users->name }}</p>
-                            <p class="text-xs text-gray-500">{{ $data->users->email }}</p>
+                            <p class="text-gray-900 dark:text-white text-nowrap">{{ $data->users->name ?? 'deleted user' }}</p>
+                            <p class="text-xs text-gray-500">{{ $data->users->email ?? 'deleted user' }}</p>
                         </td>
                         <td class="px-6 py-4">
                             <p class="text-nowrap text-gray-800 dark:text-white">{{ $data->created_at->isoFormat('dddd, D MMM YYYY') }}</p>

@@ -73,8 +73,8 @@
                         <td class="px-6 py-4">{{ $data->created_at->isoFormat('DD-MM-YYYY') }}</td>
                         <td class="px-6 py-4 font-bold">{{ $data->kodeTrx }}</td>
                         <td class="px-6 py-4">
-                            <p class="text-gray-900 dark:text-white text-nowrap">{{ $data->users->name }}</p>
-                            <p class="text-xs text-gray-500">{{ $data->users->email }}</p>
+                            <p class="text-gray-900 dark:text-white text-nowrap">{{ $data->users->name ?? 'deleted user' }}</p>
+                            <p class="text-xs text-gray-500">{{ $data->users->email ?? 'deleted user' }}</p>
                         </td>
                         <td class="px-6 py-4">
                             <ul class="list-disc">

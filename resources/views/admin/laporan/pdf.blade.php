@@ -149,8 +149,8 @@
                     <td class="center nowrap">{{ $item->created_at->format('d-m-Y') }}</td>
                     <td class="nowrap"><b>{{ $item->kodeTrx }}</b></td>
                     <td>
-                        <b>{{ $item->users->name }}</b><br>
-                        <span style="font-size: 10px; color:#555;">{{ $item->users->email }}</span>
+                        <b>{{ $item->users->name ?? 'deleted user' }}</b><br>
+                        <span style="font-size: 10px; color:#555;">{{ $item->users->email ?? 'deleted user' }}</span>
                     </td>
                     <td>
                         <ul class="products">
