@@ -1,4 +1,4 @@
-<header x-data="{ open:false }" class="sticky w-full top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur">
+<header x-data="{ open:false }" class="fixed w-full top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur">
     <div class="max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
         <!-- Brand -->
         <a href="{{ route('/') }}" class="flex items-center gap-3">

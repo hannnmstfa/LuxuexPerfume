@@ -10,9 +10,9 @@ class Handle extends Component
 {
     public $jumlah_keranjang = 0;
     protected $listeners = [
-    'keranjangDiupdate' => 'updateKeranjang',
-    'addKeranjang',
-];
+        'keranjangDiupdate' => 'updateKeranjang',
+        'addKeranjang',
+    ];
 
     public function addKeranjang($productId, $jumlah = 1)
     {
@@ -55,12 +55,15 @@ class Handle extends Component
 
     public function updateKeranjang()
     {
-        if (Auth::check()) {
-            $this->jumlah_keranjang = Keranjang::where('users_id', Auth::user()->id)->count();
-        } else {
-            $sessionId = session()->getId();
-            $this->jumlah_keranjang = Keranjang::where('sessions_id', $sessionId)->count();
-        }
+        $keranjangs = Keranjang::with(['produks'])->where(
+            Auth::check() ? 'users_id' : 'sessions_id',
+            Auth::check() ? Auth::id() : session()->getId()
+        )->get();
+
+        // Filter hanya produk yang belum di-soft delete dan relasi tidak null
+        $this->jumlah_keranjang = $keranjangs->filter(function ($item) {
+            return $item->produks && (!isset($item->produks->deleted_at) || $item->produks->deleted_at === null);
+        })->count();
     }
 
     public function render()

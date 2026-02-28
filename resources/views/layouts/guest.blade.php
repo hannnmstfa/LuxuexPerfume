@@ -7,7 +7,7 @@
 </head>
 
 <body class="bg-black text-white font-poppins scroll-style dark">
-    <div class="w-full !overflow-hidden">
+    <div class="w-full !overflow-hidden min-h-screen">
         <!-- Background Glow -->
         <div class="fixed inset-0 -z-10">
             <div
@@ -27,7 +27,7 @@
                 </ul>
             </div>
         @endif
-        <main>
+        <main class="min-h-[80vh] pt-24 sm:pt-18">
             {{ $slot }}
         </main>
 

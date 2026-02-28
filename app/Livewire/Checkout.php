@@ -5,6 +5,8 @@ namespace App\Livewire;
 use App\Http\Controllers\TripayController;
 use App\Http\Controllers\WilayahController;
 use App\Models\Keranjang;
+use Illuminate\Container\Attributes\Auth;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Livewire\Component;
 
 class Checkout extends Component
@@ -29,7 +31,14 @@ class Checkout extends Component
         $this->dataProv = $wilayah->provinsi();
         $payment = app(TripayController::class);
         $this->payment = $payment->getPayment();
-        $this->keranjangs = Keranjang::with(['produks'])->where('users_id', auth()->id())->get();
+        $keranjangs = Keranjang::with(['produks'])->where(
+            FacadesAuth::check() ? 'users_id' : 'sessions_id',
+            FacadesAuth::check() ? FacadesAuth::id() : session()->getId()
+        )->get();
+        // Filter hanya produk yang belum di-soft delete dan relasi tidak null
+        $this->keranjangs = $keranjangs->filter(function ($item) {
+            return $item->produks && (!isset($item->produks->deleted_at) || $item->produks->deleted_at === null);
+        })->values();
         $this->subtotal = $this->keranjangs->sum(function ($item) {
             return ($item->produks->harga_diskon ? $item->produks->harga_diskon : $item->produks->harga) * $item->jumlah;
         });
