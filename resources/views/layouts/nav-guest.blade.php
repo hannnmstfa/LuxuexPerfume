@@ -11,9 +11,12 @@
             <nav class="hidden md:flex items-center gap-8 text-xs tracking-[0.22em] text-white/80">
                 <a href="{{ route('/') }}" class="hover:text-white">HOME</a>
                 <a href="{{ route('produk') }}" class="hover:text-white">PRODUK</a>
+                @auth
+                    <a target="_blank" href="https://forms.gle/Skp4tLmyGaAM7TEa9" class="hover:text-white">SURVEY</a>
+                @endauth
             </nav>
             <div class="hidden md:flex items-center gap-3">
-                <livewire:produk.search/>
+                <livewire:produk.search />
                 @guest
                     <a href="{{ route('login') }}"
                         class="rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs tracking-[0.18em] text-white/85 hover:bg-white/10">
@@ -42,7 +45,7 @@
                             </div>
 
                             <div class="p-2 text-sm">
-                                <a href="{{ route('profile') }}"
+                                <a href="{{ route('profile.index') }}"
                                     class="block rounded-xl px-3 py-2 text-white/80 hover:bg-white/10 hover:text-white">
                                     Profile
                                 </a>
@@ -73,7 +76,7 @@
             </div>
         </div>
         <button @click="open = !open" x-cloak
-            class="md:hidden inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 p-2 hover:bg-white/10"
+            class="md:hidden inline-flex items-center justify-center dark:text-white rounded-full border dark:border-white/15 dark:bg-white/5 p-2 dark:hover:bg-white/10"
             aria-label="Toggle menu">
             <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -92,13 +95,12 @@
                     class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10">HOME</a>
                 <a href="{{ route('produk') }}"
                     class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10">PRODUK</a>
+                @auth
+                    <a target="_blank" href="https://forms.gle/Skp4tLmyGaAM7TEa9"
+                        class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10">SURVEY</a>
+                @endauth
             </nav>
-            <form action="#" method="GET" class="grid gap-3">
-                <input name="q" type="text" placeholder="Cari parfum..."
-                    class="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/40" />
-                <button type="submit"
-                    class="w-full rounded-xl bg-[#D4AF37] px-4 py-3 text-sm font-semibold text-black hover:opacity-90">CARI</button>
-            </form>
+            <livewire:produk.search />
             @guest
                 <div class="w-full flex justify-center items-center">
                     <a href="{{ route('login') }}"
@@ -112,15 +114,15 @@
                         class="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-2 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/40 w-full">
                         <img class="w-8 h-8 rounded-full" src="{{ Avatar::create(Auth::user()->name)->toBase64() }}"
                             alt="user photo">
-                            <div class="flex flex-col items-start">
-                                <div class="text-sm font-semibold text-white">{{ Auth::user()->name }}</div>
-                                <div class="text-xs text-white/60 truncate">{{ Auth::user()->email }}</div>
-                            </div>
-                        </button>
+                        <div class="flex flex-col items-start">
+                            <div class="text-sm font-semibold text-white">{{ Auth::user()->name }}</div>
+                            <div class="text-xs text-white/60 truncate">{{ Auth::user()->email }}</div>
+                        </div>
+                    </button>
                     <div x-show="userOpen" x-transition x-cloak
                         class="mt-3 w-full overflow-hidden rounded-2xl border border-white/10 bg-black/90 shadow-2xl shadow-black/50">
                         <div class="p-2 text-sm flex flex-col gap-1">
-                            <a href="{{ route('profile') }}"
+                            <a href="{{ route('profile.index') }}"
                                 class="block rounded-xl px-3 py-2 text-white/80 hover:bg-white/10 hover:text-white">Profile</a>
                             <a href="{{ route('trx.index') }}"
                                 class="block rounded-xl px-3 py-2 text-white/80 hover:bg-white/10 hover:text-white">Transaksi</a>

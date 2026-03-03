@@ -13,7 +13,7 @@
         </div>
         <input type="month" wire:model.live="bulan" id="bulan" class="rounded-lg border-gray-300 dark:bg-gray-800 text-gray-900 dark:text-white" />
     </div>
-    <div id="area-chart" wire:ignore></div>
+    <div id="area-chart" class="!text-black" wire:ignore></div>
     <div class="grid grid-cols-1 items-center border-light border-t justify-between dark:text-white">
         <div class="flex justify-end items-center pt-4 md:pt-6">
             <a href="{{ route('admLaporan.index') }}"

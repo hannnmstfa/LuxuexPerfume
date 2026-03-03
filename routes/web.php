@@ -37,7 +37,7 @@ Route::match(['POST', 'OPTIONS'], '/n8n/chat', function (Request $request) {
     return response($resp->body(), $resp->status())
         ->header('Content-Type', $resp->header('Content-Type', 'application/json'));
 })->withoutMiddleware(VerifyCsrfToken::class);
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(Admin::class)->group(function () {
         Route::get('/admin/dashboard', [AdminDashboard::class, 'index'])->name('admin.dashboard');
         Route::resource('/admin/produk', AdminProduk::class)->names('admProduk')->except('show');
@@ -48,9 +48,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admin/laporan', [AdmLaporan::class, 'index'])->name('admLaporan.index');
         Route::get('/admin/laporan/{bulan}/export-pdf', [AdmLaporan::class, 'pdf'])->name('admLaporan.pdf');
     });
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('/profile', ProfileController::class)->names('profile');
     Route::resource('/checkout', CheckoutController::class)->names('checkout')->except('show');
     Route::get('/transaksi/{kodeTrx}/payment', [TransaksiController::class, 'trxPayment'])->name('trx.pay');
     Route::get('/transaksi/{kodeTrx}/payment/downloadQRIS', [TransaksiController::class, 'downloadQris'])->name('downloadQris');

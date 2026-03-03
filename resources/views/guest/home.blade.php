@@ -1,5 +1,5 @@
 <x-guest-layout title="Home">
-    <section class="max-w-screen-xl mx-auto py-20 md:py-24 grid md:grid-cols-2 gap-14 items-center px-3">
+    <section class="max-w-screen-xl border-b border-white/10 mx-auto py-20 md:py-24 grid md:grid-cols-2 gap-14 items-center px-3">
         <div>
             <h2 class="text-[2.5rem] md:text-6xl font-bold leading-tight ">
                 LUXUEXPERFUME
@@ -35,7 +35,7 @@
     </section>
 
     <!-- Alasan Memilih Brand -->
-    <section class="border-t border-white/10 py-16 md:py-20">
+    <section class="  py-16 md:py-20">
         <div class="max-w-6xl mx-auto px-6 text-center">
             <h3 class="text-2xl font-semibold mb-10">
                 Mengapa Memilih <span class="text-[#D4AF37]">LUXUEXPERFUME</span>?

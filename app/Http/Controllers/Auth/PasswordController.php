@@ -15,15 +15,19 @@ class PasswordController extends Controller
      */
     public function update(Request $request): RedirectResponse
     {
-        $validated = $request->validateWithBag('updatePassword', [
+        $validated = $request->validate([
             'current_password' => ['required', 'current_password'],
             'password' => ['required', Password::defaults(), 'confirmed'],
+        ], [
+            'current_password.current_password' => 'Kata sandi lama yang anda masukkan salah',
+            'password.confirmed' => 'Konfirmasi kata sandi tidak sama',
+            'password.min'=> 'Panjang kata sandi minimal 8 karakter',
         ]);
 
         $request->user()->update([
             'password' => Hash::make($validated['password']),
         ]);
-
-        return back()->with('status', 'password-updated');
+        toast('Kata sandi baru berhasil disimpan','success')->width('max-content');
+        return back();
     }
 }

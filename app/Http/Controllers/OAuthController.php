@@ -21,9 +21,13 @@ class OAuthController extends Controller
     public function callbackGoogle()
     {
         $googleUser = Socialite::driver('google')->user();
-        $user = User::whereEmail($googleUser->email)->first();
+        $user = User::withTrashed()->whereEmail($googleUser->email)->first();
         if (!$user) {
             Alert::error('Gagal Login', 'Email tidak terdaftar, silahkan daftarkan akun anda terlebih dahulu.');
+            return to_route('login');
+        }
+        if ($user->trashed()) {
+            Alert::warning('Akun Nonaktif !!!', 'Silahkan hubungi CS untuk informasi lebih lanjut');
             return to_route('login');
         }
         $user->update([

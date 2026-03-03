@@ -1,5 +1,4 @@
-<footer class="sticky bottom-0 mt-24 bg-black text-white border-t border-white/10">
-
+<footer class="sticky bottom-0 dark:bg-black dark:text-white border-t border-white/10">
     <!-- Glow -->
     <div class="absolute inset-0 -z-10 pointer-events-none">
         <div

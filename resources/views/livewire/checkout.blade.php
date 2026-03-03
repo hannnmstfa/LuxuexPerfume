@@ -15,7 +15,7 @@
                                 class="text-red-600">*</span></label>
                         <input type="text" name="nama_penerima" id="nama_penerima"
                             value="{{ old('nama_penerima', Auth::user()->name) }}"
-                            class="bg-gray-50 border text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            class="bg-gray-50 border text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                             placeholder="Cth: Friska Laguna" required autofocus>
                     </div>
                     <div class="col-span-2 lg:col-span-1">
@@ -24,7 +24,7 @@
                             Telepon<span class="text-red-600">*</span></label>
                         <input type="tel" pattern="08[0-9]{8,11}" name="no_penerima" id="no_penerima"
                             value="{{ old('no_penerima', Auth::user()->phone) }}"
-                            class="bg-gray-50 border text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            class="bg-gray-50 border text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                             placeholder="Cth: 08xxxxxxxxx" required>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi<span
                                 class="text-red-600">*</span></label>
                         <select wire:model.live="provinsi" autocomplete="off" id="provinsi"
-                            class="bg-gray-50 border text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            class="bg-gray-50 border text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                             required>
                             <option value="" disabled selected>-- Pilih Provinsi --</option>
                             @foreach ($dataProv['data'] as $prov)
@@ -57,7 +57,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kabupaten/Kota<span
                                 class="text-red-600">*</span></label>
                         <select wire:model.live="kota" id="kota"
-                            class="bg-gray-50 border text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            class="bg-gray-50 border text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                             required>
                             <option value="" selected disabled>-- Pilih Kota --</option>
                             @if ($dataKota)
@@ -72,7 +72,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan<span
                                 class="text-red-600">*</span></label>
                         <select wire:model.live="kecamatan" id="kecamatan"
-                            class="bg-gray-50 border text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            class="bg-gray-50 border text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                             required>
                             <option value="" selected disabled>-- Pilih Kecamatan --</option>
                             @if ($dataKec)
@@ -87,7 +87,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kelurahan/Desa<span
                                 class="text-red-600">*</span></label>
                         <select name="kode_area" wire:model.live="desa" id="desa"
-                            class="bg-gray-50 border text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            class="bg-gray-50 border text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                             required>
                             <option value="" selected disabled>-- Pilih desa --</option>
                             @if ($dataDesa)
@@ -101,8 +101,8 @@
                         <label for="alamat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat
                             Lengkap<span class="text-red-600">*</span></label>
                         <textarea name="alamat" placeholder="Tulis alamat lengkap atau detail lokasimu disini..." rows="5"
-                            class="bg-gray-50 border text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            id="alamat" required>{{ old('alamat') }}</textarea>
+                            class="bg-gray-50 border text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                            id="alamat" required>{{ old('alamat', Auth::user()->alamat) }}</textarea>
                     </div>
                 </div>
             </div>
@@ -171,7 +171,7 @@
 
 
         <!-- KANAN -->
-        <div class="col-span-12 lg:col-span-4 sticky top-24">
+        <div class="col-span-12 lg:col-span-4 !sticky top-24">
             <div class="border border-gray-300 rounded-md p-4 shadow-md relative font-inter">
                 <div wire:loading.remove.class="hidden" wire:loading.class="flex" wire:target="hitungPayment()"
                     class="absolute w-full top-0 left-0 right-0 bottom-0 bg-gray-500 hidden justify-center items-center bg-opacity-50">
@@ -217,8 +217,9 @@
                     <h4>Rp{{ number_format($total) }}</h4>
                 </div>
                 <hr>
+                <p class="text-xs mt-3 italic text-red-600"><span class="text-red-700">*</span> Pastikan semua data sudah terisi dengan benar</p>
                 <button type="submit"
-                    class="w-full mt-3 font-semibold bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-md">
+                    class="w-full mt-1 font-semibold bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-md">
                     Lanjut ke Pembayaran
                 </button>
             </div>

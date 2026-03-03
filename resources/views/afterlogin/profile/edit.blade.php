@@ -1,4 +1,11 @@
-<x-guest-layout>
+<x-guest-layout title="Profile">
+    <section class="reveal border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-10 md:py-12 text-center">
+            <h1 class="text-3xl md:text-4xl font-semibold tracking-tight">
+                INFORMASI <span class="text-gold">PROFIL</span>
+            </h1>
+        </div>
+    </section>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Profile') }}

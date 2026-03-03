@@ -42,12 +42,16 @@ class LoginRequest extends FormRequest
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
-        
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        $user = User::withTrashed()->whereEmail($this->email)->first();
+        if ($user && $user->trashed()) {
+            Alert::warning('Akun Nonaktif !!!', 'Silahkan hubungi CS untuk informasi lebih lanjut');
+            throw ValidationException::withMessages([]);
+        }
+        if (!Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
-            if(!User::whereEmail($this->email)->exists()){
+            if (!User::whereEmail($this->email)->exists()) {
                 Alert::error('Gagal Login', 'Email tidak terdaftar, silahkan daftarkan akun anda terlebih dahulu.');
-            }else{
+            } else {
                 Alert::warning('Login Gagal !!!', 'Silahkan cek email atau password anda');
             }
             throw ValidationException::withMessages([]);
@@ -63,7 +67,7 @@ class LoginRequest extends FormRequest
      */
     public function ensureIsNotRateLimited(): void
     {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
 
@@ -84,6 +88,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->string('email')) . '|' . $this->ip());
     }
 }
