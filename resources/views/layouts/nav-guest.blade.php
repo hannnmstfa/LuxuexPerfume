@@ -12,7 +12,7 @@
                 <a href="{{ route('/') }}" class="hover:text-white">HOME</a>
                 <a href="{{ route('produk') }}" class="hover:text-white">PRODUK</a>
                 @auth
-                    <a target="_blank" href="https://forms.gle/Skp4tLmyGaAM7TEa9" class="hover:text-white">SURVEY</a>
+                    <a target="_blank" href="https://forms.gle/VXjv9a6LMDviqSe69" class="hover:text-white">SURVEY</a>
                 @endauth
             </nav>
             <div class="hidden md:flex items-center gap-3">
@@ -96,7 +96,7 @@
                 <a href="{{ route('produk') }}"
                     class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10">PRODUK</a>
                 @auth
-                    <a target="_blank" href="https://forms.gle/Skp4tLmyGaAM7TEa9"
+                    <a target="_blank" href="https://forms.gle/VXjv9a6LMDviqSe69"
                         class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10">SURVEY</a>
                 @endauth
             </nav>

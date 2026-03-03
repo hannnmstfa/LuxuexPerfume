@@ -73,9 +73,9 @@
                 </button>
                 <ul id="users-menu" class="hidden py-2 space-y-2">
                     <li>
-                        <a href=""
-                            class="flex justify-between items-center p-2 w-full  rounded-lg dark:text-white dark:hover:bg-gray-700 pl-11 group {{ request()->routeIs('users.index') ? 'bg-yellow-800 dark:bg-gray-700' : 'text-gray-100 hover:text-gray-900 hover:bg-yellow-800' }}">
-                            Active Users
+                        <a href="{{ route('users.admin') }}"
+                            class="flex justify-between items-center p-2 w-full  rounded-lg dark:text-white dark:hover:bg-gray-700 pl-11 group {{ request()->routeIs('users.admin') ? 'bg-yellow-800 dark:bg-gray-700' : 'text-gray-100 hover:text-gray-900 hover:bg-yellow-800' }}">
+                            Admin
                             <span
                                 class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-yellow-800 bg-yellow-100 rounded-full dark:bg-yellow-900 dark:text-yellow-300">
 
@@ -85,7 +85,7 @@
                     <li>
                         <a href=""
                             class="flex justify-between items-center p-2 w-full  rounded-lg dark:text-white dark:hover:bg-gray-700 pl-11 group {{ request()->routeIs('users.delete') ? 'bg-yellow-800 dark:bg-gray-700' : 'text-gray-100 hover:text-gray-900 hover:bg-yellow-800' }}">
-                            Deleted Users
+                            Customer
                             <span
                                 class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-yellow-800 bg-yellow-100 rounded-full dark:bg-yellow-900 dark:text-yellow-300">
 

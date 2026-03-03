@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\ProdukController as AdminProduk;
 use App\Http\Controllers\Admin\TransaksiController as AdminTrx;
 use App\Http\Controllers\Admin\LaporanController as AdmLaporan;
+use App\Http\Controllers\Admin\UserController as AdmUser;
 use App\Http\Controllers\AnalisisController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\GuestController;
@@ -39,14 +40,15 @@ Route::match(['POST', 'OPTIONS'], '/n8n/chat', function (Request $request) {
 })->withoutMiddleware(VerifyCsrfToken::class);
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(Admin::class)->group(function () {
-        Route::get('/admin/dashboard', [AdminDashboard::class, 'index'])->name('admin.dashboard');
-        Route::resource('/admin/produk', AdminProduk::class)->names('admProduk')->except('show');
-        Route::put('/admin/produk/{id}/atur-diskon', [AdminProduk::class, 'setDiskon'])->name('admProduk.setDiskon');
-        Route::put('/admin/produk/{id}/delete-diskon', [AdminProduk::class, 'delDiskon'])->name('admProduk.delDiskon');
-        Route::resource('/admin/transaksi', AdminTrx::class)->names('admTrx');
-        Route::put('/admin/transaksi/{kodeTrx}/tracking', [AdminTrx::class, 'tracking'])->name('admTrx.tracking');
-        Route::get('/admin/laporan', [AdmLaporan::class, 'index'])->name('admLaporan.index');
-        Route::get('/admin/laporan/{bulan}/export-pdf', [AdmLaporan::class, 'pdf'])->name('admLaporan.pdf');
+        Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('admin.dashboard');
+        Route::resource('/dashboard/produk', AdminProduk::class)->names('admProduk')->except('show');
+        Route::put('/dashboard/produk/{id}/atur-diskon', [AdminProduk::class, 'setDiskon'])->name('admProduk.setDiskon');
+        Route::put('/dashboard/produk/{id}/delete-diskon', [AdminProduk::class, 'delDiskon'])->name('admProduk.delDiskon');
+        Route::resource('/dashboard/transaksi', AdminTrx::class)->names('admTrx');
+        Route::put('/dashboard/transaksi/{kodeTrx}/tracking', [AdminTrx::class, 'tracking'])->name('admTrx.tracking');
+        Route::get('/dashboard/laporan', [AdmLaporan::class, 'index'])->name('admLaporan.index');
+        Route::get('/dashboard/laporan/{bulan}/export-pdf', [AdmLaporan::class, 'pdf'])->name('admLaporan.pdf');
+        Route::get('/dashboard/manage-users/admin', [AdmUser::class, 'admin'])->name('users.admin');
     });
     Route::resource('/profile', ProfileController::class)->names('profile');
     Route::resource('/checkout', CheckoutController::class)->names('checkout')->except('show');
