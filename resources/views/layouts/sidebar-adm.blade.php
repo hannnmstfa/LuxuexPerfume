@@ -44,8 +44,9 @@
             <li>
                 <a href="{{ route('admLaporan.index') }}"
                     class="flex items-center p-2  rounded-lg {{ request()->routeIs('admLaporan.*') ? 'bg-yellow-800 text-white dark:bg-gray-700' : 'text-gray-900 hover:text-white hover:bg-yellow-800 dark:text-white dark:hover:bg-gray-700 group' }}">
-                    <svg class="shrink-0 w-6 h-6 transition duration-75 {{ request()->routeIs('admLaporan.*') ? 'text-white dark:text-white' : 'text-gray-900 dark:text-gray-400 group-hover:text-white dark:group-hover:text-white' }}" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <svg class="shrink-0 w-6 h-6 transition duration-75 {{ request()->routeIs('admLaporan.*') ? 'text-white dark:text-white' : 'text-gray-900 dark:text-gray-400 group-hover:text-white dark:group-hover:text-white' }}"
+                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                        viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M10 3v4a1 1 0 0 1-1 1H5m4 8h6m-6-4h6m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z" />
                     </svg>
@@ -64,7 +65,7 @@
                             d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H6Zm7.25-2.095c.478-.86.75-1.85.75-2.905a5.973 5.973 0 0 0-.75-2.906 4 4 0 1 1 0 5.811ZM15.466 20c.34-.588.535-1.271.535-2v-1a5.978 5.978 0 0 0-1.528-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2h-4.535Z"
                             clip-rule="evenodd" />
                     </svg>
-                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Manage Users</span>
+                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Kelola Pengguna</span>
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 10 6">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -73,22 +74,22 @@
                 </button>
                 <ul id="users-menu" class="hidden py-2 space-y-2">
                     <li>
-                        <a href="{{ route('users.admin') }}"
-                            class="flex justify-between items-center p-2 w-full  rounded-lg dark:text-white dark:hover:bg-gray-700 pl-11 group {{ request()->routeIs('users.admin') ? 'bg-yellow-800 dark:bg-gray-700' : 'text-gray-100 hover:text-gray-900 hover:bg-yellow-800' }}">
-                            Admin
+                        <a href="{{ route('users.aktif') }}"
+                            class="flex justify-between items-center p-2 w-full  rounded-lg dark:text-white dark:hover:bg-gray-700 pl-11 group {{ request()->routeIs('users.aktif') ? 'bg-yellow-800 dark:bg-gray-700' : 'text-gray-100 hover:text-gray-900 hover:bg-yellow-800' }}">
+                            Aktif
                             <span
                                 class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-yellow-800 bg-yellow-100 rounded-full dark:bg-yellow-900 dark:text-yellow-300">
-
+                                {{ \App\Models\User::aktif() }}
                             </span>
                         </a>
                     </li>
                     <li>
-                        <a href=""
-                            class="flex justify-between items-center p-2 w-full  rounded-lg dark:text-white dark:hover:bg-gray-700 pl-11 group {{ request()->routeIs('users.delete') ? 'bg-yellow-800 dark:bg-gray-700' : 'text-gray-100 hover:text-gray-900 hover:bg-yellow-800' }}">
-                            Customer
+                        <a href="{{ route('users.nonaktif') }}"
+                            class="flex justify-between items-center p-2 w-full  rounded-lg dark:text-white dark:hover:bg-gray-700 pl-11 group {{ request()->routeIs('users.nonaktif') ? 'bg-yellow-800 dark:bg-gray-700' : 'text-gray-100 hover:text-gray-900 hover:bg-yellow-800' }}">
+                            Nonaktif
                             <span
                                 class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-yellow-800 bg-yellow-100 rounded-full dark:bg-yellow-900 dark:text-yellow-300">
-
+                                {{ \App\Models\User::nonaktif() }}
                             </span>
                         </a>
                     </li>

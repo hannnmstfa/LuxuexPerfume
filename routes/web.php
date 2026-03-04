@@ -48,7 +48,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/dashboard/transaksi/{kodeTrx}/tracking', [AdminTrx::class, 'tracking'])->name('admTrx.tracking');
         Route::get('/dashboard/laporan', [AdmLaporan::class, 'index'])->name('admLaporan.index');
         Route::get('/dashboard/laporan/{bulan}/export-pdf', [AdmLaporan::class, 'pdf'])->name('admLaporan.pdf');
-        Route::get('/dashboard/manage-users/admin', [AdmUser::class, 'admin'])->name('users.admin');
+        Route::get('/dashboard/users/aktif', [AdmUser::class, 'aktif'])->name('users.aktif');
+        Route::delete('/dashboard/users/aktif/{id}/destroy', [AdmUser::class, 'softDelete'])->name('users.destroy');
+        Route::put('/dashboard/users/aktif/{id}/switch-role', [AdmUser::class,'role'])->name('users.role');
+        Route::get('/dashboard/users/nonaktif', [AdmUser::class,'nonaktif'])->name('users.nonaktif');
+        Route::put('/dashboard/users/nonaktif/{id}/restore', [AdmUser::class,'restore'])->name('users.restore');
+        Route::delete('/dashboard/users/nonaktif/{id}/forceDestroy', [AdmUser::class, 'forceDestroy'])->name('users.forceDestroy');
     });
     Route::resource('/profile', ProfileController::class)->names('profile');
     Route::resource('/checkout', CheckoutController::class)->names('checkout')->except('show');

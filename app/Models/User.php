@@ -51,4 +51,13 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+    public static function aktif(){
+        return self::count();
+    }
+    public static function nonaktif(){
+        return self::onlyTrashed()->count();
+    }
+    public function transaksi_sukses(){
+        return $this->hasMany(Transaksi::class, 'users_id')->where('status_bayar', 'berhasil');
+    }
 }

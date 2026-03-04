@@ -39,7 +39,6 @@
         if (cDel2) {
             event.preventDefault();
             Swal.fire({
-                theme: "dark",
                 title: "Konfirmasi !!!",
                 text: cDel2.dataset.caption,
                 icon: "warning",
