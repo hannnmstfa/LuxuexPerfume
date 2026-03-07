@@ -1,4 +1,4 @@
-<aside id="logo-sidebar"
+<aside id="adm-sidebar"
     class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-gray-100 border-r border-gray-300 sm:translate-x-0 dark:bg-black dark:border-gray-700"
     aria-label="Sidebar">
     <div class="h-full px-3 pb-4 overflow-y-auto">
@@ -20,11 +20,10 @@
                 <a href="{{ route('admProduk.index') }}"
                     class="flex items-center p-2  rounded-lg {{ request()->routeIs('admProduk.*') ? 'bg-yellow-800 text-white dark:bg-gray-700' : 'text-gray-900 hover:text-white hover:bg-yellow-800 dark:text-white dark:hover:bg-gray-700 group' }}">
                     <svg class="shrink-0 w-6 h-6 transition duration-75 {{ request()->routeIs('admProduk.*') ? 'text-white dark:text-white' : 'text-gray-900 dark:text-gray-400 group-hover:text-white dark:group-hover:text-white' }}"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                         viewBox="0 0 24 24">
-                        <path fill-rule="evenodd"
-                            d="M14 7h-4v3a1 1 0 0 1-2 0V7H6a1 1 0 0 0-.997.923l-.917 11.924A2 2 0 0 0 6.08 22h11.84a2 2 0 0 0 1.994-2.153l-.917-11.924A1 1 0 0 0 18 7h-2v3a1 1 0 1 1-2 0V7Zm-2-3a2 2 0 0 0-2 2v1H8V6a4 4 0 0 1 8 0v1h-2V6a2 2 0 0 0-2-2Z"
-                            clip-rule="evenodd" />
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 10V6a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v4m3-2 .917 11.923A1 1 0 0 1 17.92 21H6.08a1 1 0 0 1-.997-1.077L6 8h12Z" />
                     </svg>
                     <span class="ms-3">Produk</span>
                 </a>
@@ -95,6 +94,18 @@
                     </li>
 
                 </ul>
+            </li>
+            <li>
+                <a href="{{ route('admAnalis.index') }}"
+                    class="flex items-center p-2  rounded-lg {{ request()->routeIs('admAnalis.*') ? 'bg-yellow-800 text-white dark:bg-gray-700' : 'text-gray-900 hover:text-white hover:bg-yellow-800 dark:text-white dark:hover:bg-gray-700 group' }}">
+                    <svg class="shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white {{ request()->routeIs('admAnalisis.*') ? 'text-gray-900 dark:text-white' : 'text-gray-500' }}"
+                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                        viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 5h6m-6 4h6M10 3v4h4V3h-4Z" />
+                    </svg>
+                    <span class="ms-3">Analisis</span>
+                </a>
             </li>
         </ul>
     </div>

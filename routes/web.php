@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\ProdukController as AdminProduk;
 use App\Http\Controllers\Admin\TransaksiController as AdminTrx;
 use App\Http\Controllers\Admin\LaporanController as AdmLaporan;
 use App\Http\Controllers\Admin\UserController as AdmUser;
-use App\Http\Controllers\AnalisisController;
+use App\Http\Controllers\Admin\AnalisisController as AdmAnalis;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\OAuthController;
@@ -28,7 +28,6 @@ Route::get('/keranjang', [GuestController::class, 'keranjang'])->name('keranjang
 Route::post('/transaksi/callback', [TripayController::class, 'trxCallback'])->name('trx.callback')->withoutMiddleware(VerifyCsrfToken::class);
 Route::get('/ketentuan-layanan', [GuestController::class, 'ketentuanLayanan'])->name('ketentuan.layanan');
 Route::get('/kebijakan-privasi', [GuestController::class, 'kebijakanPrivasi'])->name('kebijakan.privasi');
-Route::resource('/analisis', AnalisisController::class)->names('analisis');
 Route::match(['POST', 'OPTIONS'], '/n8n/chat', function (Request $request) {
     if ($request->isMethod('options'))
         return response('', 204);
@@ -54,6 +53,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard/users/nonaktif', [AdmUser::class,'nonaktif'])->name('users.nonaktif');
         Route::put('/dashboard/users/nonaktif/{id}/restore', [AdmUser::class,'restore'])->name('users.restore');
         Route::delete('/dashboard/users/nonaktif/{id}/forceDestroy', [AdmUser::class, 'forceDestroy'])->name('users.forceDestroy');
+        Route::resource('/dashboard/analisis', AdmAnalis::class)->names('admAnalis');
     });
     Route::resource('/profile', ProfileController::class)->names('profile');
     Route::resource('/checkout', CheckoutController::class)->names('checkout')->except('show');

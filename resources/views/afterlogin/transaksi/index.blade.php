@@ -39,7 +39,7 @@
                                         class="border rounded-full py-1 px-3 text-nowrap text-sm font-semibold shadow {{ $data->trackings->status == 'pengiriman selesai' ? 'bg-green-200 text-green-900 border-green-300' : 'bg-yellow-200 text-yellow-900 border-yellow-300'}}">{{ ucwords($data->trackings->status) }}</button>
                                 @else
                                     <button
-                                        class="border rounded-full py-1 px-3 text-nowrap text-sm font-semibold shadow bg-gray-200 border-gray-300 {{ $data->status_bayar == 'gagal' ? 'bg-red-200 text-red-600 border-red-300' : ($data->status_bayar == 'menunggu pembayaran' ? 'bg-yellow-200 text-yellow-600 border-yellow-300' : '')}}">{{ ucwords($data->status_bayar) }}</button>
+                                        class="border rounded-full py-1 px-3 text-nowrap dark:text-black text-sm font-semibold shadow bg-gray-200 border-gray-300 {{ $data->status_bayar == 'gagal' ? 'bg-red-200 text-red-600 border-red-300' : ($data->status_bayar == 'menunggu pembayaran' ? 'bg-yellow-200 text-yellow-600 border-yellow-300' : '')}}">{{ ucwords($data->status_bayar) }}</button>
                                 @endif
                             </td>
                         </tr>
