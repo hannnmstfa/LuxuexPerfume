@@ -35,10 +35,10 @@
                 <div class="space-y-4 text-sm text-white/70">
 
                     <div>
-                        <p class="text-white/50 text-xs">WhatsApp</p>
-                        <a href="https://wa.me/6287773549905" class="hover:text-white transition">
-                            +62 87773549905
-                        </a>
+                        <p class="text-white/50 text-xs">Chat Asisten</p>
+                        <button onclick="setOpenState(isOpen); return false;" class="hover:text-white transition">
+                            Buka Chat
+                        </button>
                     </div>
 
                     <!-- <div>

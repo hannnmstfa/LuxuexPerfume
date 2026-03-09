@@ -64,7 +64,10 @@ class TransaksiController extends Controller
                 'status' => 'pengiriman selesai'
             ]);
         }
-        foreach ($respon['data']['manifest'] as $data) {
+        // $datas = file_get_contents(public_path('assets/contoh.json'));
+        // $datas = json_decode($datas, true);
+        // foreach ($datas['data']['manifest'] as $data) {
+            foreach ($respon['data']['manifest'] as $data) {
             if (isset($data['manifest_date'])) {
                 if (str_contains($data['manifest_date'], ' ')) {
                     $datetime = $data['manifest_date'];

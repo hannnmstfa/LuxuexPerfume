@@ -112,16 +112,51 @@
             AKUN</button>
     </div>
 </x-guest-layout>
+<div id="hapusAkun" tabindex="-1" data-modal-backdrop="static"
+    class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 top-0 right-0 left-0 z-[100] justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-xl max-h-full">
+        <div class="relative  bg-black/50 backdrop-blur border rounded-md shadow-sm dark:text-white">
+            <button data-modal-hide="hapusAkun"
+                class="absolute top-[-10px] right-[-10px] bg-white dark:bg-black border border-gray-500 rounded-full p-1">
+                <svg class="w-5 h-5 font-bold hover:animate-spin text-gray-800 dark:text-white" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M6 18 17.94 6M18 18 6.06 6" />
+                </svg>
+            </button>
+            <div class="p-6 space-y-4 md:space-y-5 sm:p-8">
+                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                    Konfirmasi hapus akun
+                </h1>
+                <hr class="dark:border-gray-700 my-3">
+                <form method="post" action="{{ route('profile.destroy', Auth::user()->email) }}">
+                    @csrf
+                    @method('delete')
+                    <div class="mb-4">
+                        <label for="password" class="block mb-1 text-sm font-medium ">Kata sandi saat ini<span
+                                class="text-red-600">*</span></label>
+                        <input type="text" name="password" id="password" autocomplete="off"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="Kata sandi saat ini" required>
+                    </div>
+                    <button type="submit"
+                        class="bg-red-700 w-full text-center text-sm mb-4 rounded-lg text-white py-2 font-bold hover:opacity-85">HAPUS
+                        AKUN</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
-        const gantiEmailBtn = document.getElementById('gantiEmailBtn');
-        if (gantiEmailBtn) {
-            gantiEmailBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                const emailInput = document.getElementById('email');
-                if (emailInput) {
-                    emailInput.disabled = false;
-                    emailInput.focus();
-                }
-            });
-        }
-    </script>
+    const gantiEmailBtn = document.getElementById('gantiEmailBtn');
+    if (gantiEmailBtn) {
+        gantiEmailBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('email');
+            if (emailInput) {
+                emailInput.disabled = false;
+                emailInput.focus();
+            }
+        });
+    }
+</script>

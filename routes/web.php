@@ -14,7 +14,7 @@ use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\TripayController;
 use App\Http\Middleware\Admin;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 

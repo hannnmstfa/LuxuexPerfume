@@ -9,9 +9,9 @@
 <body class="max-h-screen font-poppins scroll-style dark">
     @include('layouts.nav-guest')
     <div
-        class="w-full overflow-hidden min-h-screen bg-white text-black dark:bg-black dark:backdrop-blur dark:text-white">
-        <!-- Background Glow -->
-        <main class="min-h-[80vh] py-24 sm:py-18">
+        class="w-full overflow-hidden min-h-screen">
+        <main class="min-h-[80vh] py-24 sm:py-18 bg-white text-black dark:bg-black backdrop-blur  dark:text-white">
+            <!-- Background Glow -->
             <div class="fixed inset-0 -z-10">
                 <div
                     class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-yellow-600/30 blur-3xl rounded-full">
@@ -36,7 +36,6 @@
         @include('layouts.footer-guest')
         <!-- Menu Dial -->
     </div>
-    <x-globalModal />
     <div class="fixed end-6 {{ Auth::check() ? 'bottom-[4.5rem]' : 'bottom-6' }} z-[100]">
         <livewire:keranjang.handle />
     </div>
