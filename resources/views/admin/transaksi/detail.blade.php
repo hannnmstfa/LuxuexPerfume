@@ -1,5 +1,6 @@
 <x-app-layout title="Detail Transaksi {{ $trx->kodeTrx }}">
-    <div class="relative overflow-hidden bg-gray-100 shadow-md dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 rounded-lg border">
+    <div
+        class="relative overflow-hidden bg-gray-100 shadow-md dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 rounded-lg border">
         <div class="flex-row items-center justify-between p-4 space-y-3 sm:flex sm:space-y-0 sm:space-x-4">
             <div>
                 <h5 class="mr-3 text-xl font-semibold dark:text-white">Detail Transaksi</h5>
@@ -43,14 +44,15 @@
                         class="border rounded-full py-1 px-3 text-sm font-semibold shadow {{ $trx->trackings->status == 'pengiriman selesai' ? 'bg-green-200 text-green-900 border-green-300' : 'bg-yellow-200 text-yellow-900 border-yellow-300'}}">{{ ucwords($trx->trackings->status) }}</button>
                 @else
                     <button
-                        class="border rounded-full py-1 px-3 text-sm font-semibold shadow bg-gray-200 border-gray-300 {{ $trx->status_bayar == 'gagal' ? 'bg-red-200 text-red-600 border-red-300' : ($trx->status_bayar == 'menunggu pembayaran' ? 'bg-yellow-200 text-yellow-600 border-yellow-300' : '')}}">{{ ucwords($trx->status_bayar) }}</button>
+                        class="border rounded-full py-1 px-3 text-sm font-semibold shadow bg-gray-200 border-gray-300 text-black {{ $trx->status_bayar == 'gagal' ? 'bg-red-200 text-red-600 border-red-300' : ($trx->status_bayar == 'menunggu pembayaran' ? 'bg-yellow-200 text-yellow-600 border-yellow-300' : '')}}">{{ ucwords($trx->status_bayar) }}</button>
                 @endif
             </div>
         </div>
     </div>
     <div class="lg:grid grid-cols-3 gap-4 mt-5 space-y-3 md:space-y-0 w-full">
         <div class="col-span-2 flex flex-col gap-4">
-            <div class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border">
+            <div
+                class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border">
                 <h1 class="text-lg font-semibold">Item yang Dibeli</h1>
                 <hr class="my-2 border-gray-300 dark:border-gray-600">
                 <div class="overflow-x-auto">
@@ -66,7 +68,8 @@
                         </thead>
                         <tbody>
                             @foreach ($trx->transaksi_items as $item)
-                                <tr class="border-b odd:bg-white even:bg-yellow-50 dark:odd:bg-gray-800/40 dark:even:bg-gray-700/40 dark:backdrop-blur">
+                                <tr
+                                    class="border-b odd:bg-white even:bg-yellow-50 dark:odd:bg-gray-800/40 dark:even:bg-gray-700/40 dark:backdrop-blur">
                                     <td class="py-1 px-2 size-20 block">
                                         <img src="{{ asset($item->produks->path_foto) }}" alt="{{ $item->produks->nama }}"
                                             class=" size-16 object-cover rounded-md border">
@@ -93,14 +96,16 @@
                     </table>
                 </div>
             </div>
-            <div class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border">
+            <div
+                class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border max-h-[50dvh]">
                 <div class="flex-row items-center justify-between space-y-2 sm:flex sm:space-y-0 sm:space-x-4">
                     <h1 class="text-lg font-semibold">Tracking Pengiriman</h1>
                     <div class="flex flex-col md:flex-row justify-start items-start md:items-center gap-2">
                         @if ($trx->trackings)
                             <div
                                 class="text-xs w-max font-semibold shadow border rounded py-1 px-2 {{ $trx->trackings->status == 'pengiriman selesai' ? 'border-green-600 text-green-600 bg-green-100' : 'border-yellow-500 text-yellow-500 bg-yellow-100' }}">
-                                {{ ucwords($trx->trackings->status) }}</div>
+                                {{ ucwords($trx->trackings->status) }}
+                            </div>
                             @if (!$trx->trackings->resi)
                                 <button data-modal-target="resi" data-modal-toggle="resi"
                                     class="font-inter rounded shadow py-1 px-3 font-bold bg-yellow-500 hover:bg-yellow-600 text-white">Input
@@ -117,54 +122,59 @@
                     </div>
                 </div>
                 <hr class="my-2 border-gray-300 dark:border-gray-600">
-                @if (!$trx->trackings)
-                    <p class="text-center italic text-sm font-semibold text-red-600">Tagihan belum dibayar</p>
-                @else
-                    @if (!$trx->trackings->resi)
-                        <p class="text-center italic text-sm font-semibold text-red-600">No.Resi belum ditambahkan</p>
+                <div class="max-h-[40dvh] overflow-auto scroll-style">
+                    @if (!$trx->trackings)
+                        <p class="text-center italic text-sm font-semibold text-red-600">Tagihan belum dibayar</p>
                     @else
-                        @if($trx->trackings->trackings_details->count() == 0)
-                            <div class="text-center text-sm">Track belum ada. Pastikan nomor resi sudah benar.</div>
+                        @if (!$trx->trackings->resi)
+                            <p class="text-center italic text-sm font-semibold text-red-600">No.Resi belum ditambahkan</p>
                         @else
-                            @foreach ($trx->trackings->trackings_details as $index => $track)
-                                <div
-                                    class="{{ $index == 0 ? 'text-yellow-700 dark:text-gold' : ' text-gray-600 dark:text-gray-300' }} border-b w-full rounded flex p-3 gap-3 justify-start items-center">
-                                    <div>
-                                        @if ($index == 0 && $trx->trackings->status == 'pengiriman selesai')
-                                            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                                                height="24" fill="currentColor" viewBox="0 0 24 24">
-                                                <path fill-rule="evenodd"
-                                                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        @else
-                                            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                                                height="24" fill="none" viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
-                                            </svg>
-                                        @endif
+                            @if($trx->trackings->trackings_details->count() == 0)
+                                <div class="text-center text-sm">Track belum ada. Pastikan nomor resi sudah benar.</div>
+                            @else
+                                @foreach ($trx->trackings->trackings_details as $index => $track)
+                                    <div
+                                        class="{{ $index == 0 ? 'text-yellow-700 dark:text-gold' : ' text-gray-600 dark:text-gray-300' }} border-b w-full rounded flex p-3 gap-3 justify-start items-center">
+                                        <div>
+                                            @if ($index == 0 && $trx->trackings->status == 'pengiriman selesai')
+                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                    height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path fill-rule="evenodd"
+                                                        d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                            @else
+                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                    height="24" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+                                                </svg>
+                                            @endif
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-semibold">{{ $track->deskripsi }}</p>
+                                            <p class="text-[10px] text-gray-500">{{ $track->created_at }}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p class="text-sm font-semibold">{{ $track->deskripsi }}</p>
-                                        <p class="text-[10px] text-gray-500">{{ $track->created_at }}</p>
-                                    </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            @endif
                         @endif
                     @endif
-                @endif
+                </div>
             </div>
         </div>
         <div class="col-span-1 flex flex-col gap-4">
-            <div class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border">
+            <div
+                class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border">
                 <h1 class="text-lg font-semibold">Rincian Pemesan</h1>
                 <hr class="my-2 border-gray-300 dark:border-gray-600">
                 <p class="text-sm font-bold">{{ $trx->users->name ?? 'deleted user' }}</p>
                 <p class="text-sm">{{ $trx->users->phone ?? 'deleted user' }}</p>
                 <p class="text-sm">{{ $trx->users->email ?? 'deleted user' }}</p>
             </div>
-            <div class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border">
+            <div
+                class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border">
                 <h1 class="text-lg font-semibold">Rincian Penerima</h1>
                 <hr class="my-2 border-gray-300 dark:border-gray-600">
                 <p class="text-sm font-bold">{{ $trx->transaksi_details->nama_penerima }}</p>
@@ -191,7 +201,8 @@
                     </div>
                 </div> -->
             </div>
-            <div class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border">
+            <div
+                class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border">
                 <div class="flex-row items-center justify-between space-y-3 sm:flex sm:space-y-0 sm:space-x-4">
                     <h1 class="text-lg font-semibold">Rincian Pembayaran</h1>
                 </div>
@@ -204,8 +215,9 @@
                     <p class="text-sm font-semibold text-gray-500">Total Bayar</p>
                     <div class="flex justify-end items-center gap-1">
                         <button data-tooltip-target="rincian_harga" type="button">
-                            <svg class="w-4 h-4 text-gray-700 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-gray-700 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                viewBox="0 0 24 24">
                                 <path fill-rule="evenodd"
                                     d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z"
                                     clip-rule="evenodd" />
@@ -284,7 +296,8 @@
                             <div class="mb-3">
                                 <label for="layanan" class="font-medium text-sm">Nama Layanan<span
                                         class="text-red-600">*</span></label>
-                                <select name="layanan" id="layanan" class="block w-full text-sm rounded border-gray-300 dark:bg-gray-800 dark:border-gray-500"
+                                <select name="layanan" id="layanan"
+                                    class="block w-full text-sm rounded border-gray-300 dark:bg-gray-800 dark:border-gray-500"
                                     required>
                                     <option value="" selected disabled>-- Pilih Layanan --</option>
                                     <option value="jne" {{ old('layanan', $trx->trackings->ekspedisi) == 'jne' ? 'selected' : '' }}>JNE</option>
@@ -298,8 +311,9 @@
                             <div class="mb-3">
                                 <label for="resi" class="font-medium text-sm">Nomor Resi<span
                                         class="text-red-600">*</span></label>
-                                <input type="text" class="rounded w-full border-gray-300 text-sm dark:bg-gray-800 dark:border-gray-500" name="resi"
-                                    value="{{ old('resi', $trx->trackings->resi) }}"
+                                <input type="text"
+                                    class="rounded w-full border-gray-300 text-sm dark:bg-gray-800 dark:border-gray-500"
+                                    name="resi" value="{{ old('resi', $trx->trackings->resi) }}"
                                     placeholder="Masukkan No Resi dari pengiriman" required>
                             </div>
                             <button type="submit"

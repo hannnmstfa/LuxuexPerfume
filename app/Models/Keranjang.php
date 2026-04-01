@@ -16,7 +16,7 @@ class Keranjang extends Model
     ];
     public function produks()
     {
-        return $this->belongsTo(Produk::class, 'produks_id');
+        return $this->belongsTo(Produk::class);
     }
     public static function updateKeranjang(string $session)
     {

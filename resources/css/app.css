@@ -65,6 +65,18 @@ input[type="radio"]:checked {
     background: #FF9800;
 }
 
+.filepond--panel-root {
+    background-color: #111827 !important;
+    border: 1px solid #4b5563;
+}
+.filepond--drop-label {
+    color: #909090 !important;
+}
+
+.filepond--root .filepond--credits {
+    display: hidden !important;
+}
+
 * {
     /* border: 1px solid red; */
 }

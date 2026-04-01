@@ -29,8 +29,8 @@
                 </ol>
             </div>
             <button data-modal-target="parfum" data-modal-toggle="parfum"
-                class="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-yellow-700 dark:bg-gold hover:opacity-75 focus:ring-4 focus:ring-yellow-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                <svg class="w-5 h-5 mr-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                class="flex items-center justify-center px-4 py-2 text-sm font-semibold text-white rounded-lg bg-yellow-700 dark:bg-gold dark:text-black hover:opacity-75 focus:ring-4 focus:ring-yellow-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                <svg class="w-5 h-5 mr-2 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                     height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -46,25 +46,25 @@
         <table id="myTable" class="hidden w-full text-sm text-center dark:text-gray-400">
             <thead>
                 <tr class="">
-                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold text-center">
+                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold dark:text-black text-center">
                         No
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold text-center">
+                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold dark:text-black text-center">
                         Produk
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold text-center">
+                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold dark:text-black text-center">
                         Kategori
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold">
+                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold dark:text-black">
                         Deskripsi
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold">
+                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold dark:text-black">
                         Harga
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold">
+                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold dark:text-black">
                         Stok
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold">
+                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold dark:text-black">
                         Aksi
                     </th>
                 </tr>
@@ -101,7 +101,7 @@
                         <td>
                             <div class="flex flex-col justify-center items-center gap-1">
                                 <button
-                                    class="bg-yellow-400 text-center  rounded font-semibold text-white py-1 px-3 w-full dark:bg-yellow-300 hover:opacity-75"
+                                    class="bg-yellow-400 text-center  rounded font-semibold text-white py-1 px-3 w-full dark:bg-yellow-300 dark:text-black hover:opacity-75"
                                     data-modal-target="parfum-{{ $index }}" data-modal-toggle="parfum-{{ $index }}"
                                     title="Edit">
                                     Edit

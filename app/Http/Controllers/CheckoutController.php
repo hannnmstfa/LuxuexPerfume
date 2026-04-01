@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Keranjang;
+use App\Models\TokoSetting;
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
 use App\Models\TransaksiItem;
@@ -12,32 +13,47 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class CheckoutController extends Controller
 {
-    public function index(){
-        $cek = Keranjang::where('users_id', Auth::id())->exists();
-        if (!$cek) {
+    public function index()
+    {
+        $cek = Keranjang::where('users_id', Auth::id())->get();
+        $cek = $cek->filter(function ($item) {
+            return $item->produks && (!isset($item->produks->deleted_at) || $item->produks->deleted_at === null);
+        })->values();
+        if ($cek->count() < 1) {
             Alert::warning('Keranjang Kosong !!!', 'Silahkan menambahkan beberapa produk kedalam keranjang terlebih dahulu.');
             return to_route('produk');
         }
+        if (!TokoSetting::data() || !TokoSetting::data()->kode_area) {
+            Alert::error('Gagal Checkout', 'Silahkan hubungi Customer Service jika masalah terus berlanjut');
+            return to_route('keranjang');
+        }
         $tripay = new TripayController();
         $payment = $tripay->getPayment();
-        if(!$payment['success']){
+        if (!$payment['success']) {
             Alert::error('Error Payment !!!', $payment['message']);
             return to_route('keranjang');
         }
         return view('afterlogin.checkout');
     }
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'nama_penerima' => 'required|string',
             'no_penerima' => ['required', 'string', 'regex:/^08[0-9]{8,11}/'],
             'kode_area' => 'required|string',
             'alamat' => 'required|string',
+            'ongkir' => 'required|integer',
             'payment_method' => 'required|string',
         ], [
+            'kode_area.required' => 'Silahkan pilih area terlebih dahulu',
             'payment_method.required' => 'Silahkan Pilih metode pembayaran terlebih dahulu'
         ]);
+        dd($request->all());
         $kodeTrx = 'LX' . date('YmdHis');
-        $keranjangs = Keranjang::where('users_id', Auth::id())->get();
+        $keranjangs = Keranjang::with('produks')->where('users_id', Auth::id())->get();
+        $keranjangs = $keranjangs->filter(function ($chart) {
+            return $chart->produks && (!isset($chart->produks->deleted_at) || $chart->produks->deleted_at === null);
+        })->values();
         $orderItems = [];
         foreach ($keranjangs as $item) {
             $orderItems[] = [

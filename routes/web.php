@@ -6,9 +6,11 @@ use App\Http\Controllers\Admin\TransaksiController as AdminTrx;
 use App\Http\Controllers\Admin\LaporanController as AdmLaporan;
 use App\Http\Controllers\Admin\UserController as AdmUser;
 use App\Http\Controllers\Admin\AnalisisController as AdmAnalis;
+use App\Http\Controllers\Admin\TokoController as AdmToko;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\OAuthController;
+use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\TripayController;
@@ -54,12 +56,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/dashboard/users/nonaktif/{id}/restore', [AdmUser::class,'restore'])->name('users.restore');
         Route::delete('/dashboard/users/nonaktif/{id}/forceDestroy', [AdmUser::class, 'forceDestroy'])->name('users.forceDestroy');
         Route::resource('/dashboard/analisis', AdmAnalis::class)->names('admAnalis');
+        Route::get('/dashboard/manage-toko', [AdmToko::class, 'index'])->name('admToko.index');
+        Route::post('dashboard/manage-toko/store-data', [AdmToko::class, 'store'])->name('admToko.store');
     });
     Route::resource('/profile', ProfileController::class)->names('profile');
     Route::resource('/checkout', CheckoutController::class)->names('checkout')->except('show');
     Route::get('/transaksi/{kodeTrx}/payment', [TransaksiController::class, 'trxPayment'])->name('trx.pay');
     Route::get('/transaksi/{kodeTrx}/payment/downloadQRIS', [TransaksiController::class, 'downloadQris'])->name('downloadQris');
     Route::resource('/transaksi', TransaksiController::class)->names('trx');
+    Route::resource('/transaksi/{kodeTrx}/pengembalian', PengembalianController::class)->names('pengembalian'); 
 
 });
 

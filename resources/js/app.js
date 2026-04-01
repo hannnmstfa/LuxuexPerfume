@@ -1,33 +1,16 @@
 import './bootstrap';
 import 'flowbite';
 import ApexCharts from 'apexcharts'
+import 'filepond/dist/filepond.min.css';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+import * as FilePond from 'filepond';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import { DataTable, exportCSV } from "simple-datatables";
-import { createChat } from '@n8n/chat';
 window.ApexCharts = ApexCharts;
 window.simpleDatatables = { DataTable, exportCSV };
-createChat({
-    webhookUrl: '/n8n/chat',
-    mode: 'window',
-    showWelcomeScreen: true,
-    initialMessages: ['Halo 👋', 'Ada yang bisa saya bantu?'],
-    target: '#n8n-chat',
-    chatInputKey: 'chatInput',
-    chatSessionKey: 'sessionId',
-    loadPreviousSession: true,
-    metadata: {},
-    defaultLanguage: 'id',
-    i18n: {
-		id: {
-			title: 'Halooo! 👋',
-			subtitle: "Mulai chat. Asisten kami online 24 Jam.",
-			footer: '',
-			getStarted: 'Percakapan baru',
-			inputPlaceholder: 'Ketik petanyaanmu..',
-		},
-	},
-    // enableStreaming: true,
-});
-
+window.FilePond = FilePond;
+FilePond.registerPlugin(FilePondPluginImagePreview, FilePondPluginFileValidateType);
 // Button Loading
 window.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll("form").forEach(form => {

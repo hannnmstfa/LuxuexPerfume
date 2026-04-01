@@ -1,0 +1,80 @@
+{
+    "name": "rahulhaque/laravel-filepond",
+    "description": "Use FilePond the Laravel way",
+    "keywords": [
+        "filepond-laravel",
+        "laravel-filepond",
+        "filepond"
+    ],
+    "homepage": "https://github.com/rahulhaque/laravel-filepond",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Rahul Haque",
+            "email": "rahulhaque07@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^12.0"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.23",
+        "laravel/pail": "^1.2.2",
+        "laravel/pint": "^1.13",
+        "laravel/sail": "^1.41",
+        "league/flysystem-aws-s3-v3": "^3.0",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.6",
+        "orchestra/testbench": "^10.0",
+        "phpunit/phpunit": "^11.5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "RahulHaque\\Filepond\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RahulHaque\\Filepond\\Tests\\": "tests",
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve"
+        ],
+        "lint": [
+            "@php vendor/bin/pint",
+            "@php vendor/bin/phpstan analyse"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "RahulHaque\\Filepond\\FilepondServiceProvider"
+            ],
+            "aliases": {
+                "Filepond": "RahulHaque\\Filepond\\Facades\\Filepond"
+            }
+        }
+    }
+}

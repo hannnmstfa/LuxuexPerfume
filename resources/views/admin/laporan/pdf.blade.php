@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Laporan {{ $bulan }} - {{ config('app.name') }}</title>
+    <title>Laporan {{ $bulan }} - {{ \App\Models\TokoSetting::data()->nama_toko ?? config('app.name') }}</title>
 
     <style>
         @page {
@@ -112,7 +112,7 @@
         <table class="header-table">
             <tr>
                 <td style="width: 50%;">
-                    <img src="{{ public_path('assets/logo.jpg') }}" style="width:50px" alt="Logo">
+                    <img src="{{ asset(\App\Models\TokoSetting::data()->path_logo ?? '') }}" style="width:50px" alt="Logo">
                 </td>
                 <td class="title" style="width: 50%;">
                     <h1>Laporan Bulanan</h1>

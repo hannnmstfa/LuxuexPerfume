@@ -12,19 +12,10 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): View
-    {
-        return view('afterlogin.profile.edit', [
-            'user' => $request->user(),
-        ]);
-    }
     public function index()
     {
         $user = User::where('id', Auth::id())->first();
-        return view('afterlogin.profile.index', compact('user'));
+        return view('afterlogin.profile', compact('user'));
     }
 
     /**
@@ -36,7 +27,6 @@ class ProfileController extends Controller
             'name' => 'required|string|max:225',
             'email' => ['nullable', 'email', Rule::unique('users')->ignore(Auth::user()->id)],
             'phone' => ['required', 'string', 'regex:/^08[0-9]{8,11}$/', Rule::unique('users')->ignore(Auth::user()->id)],
-            'alamat' => 'required|string'
         ], [
             'email.unique' => 'Email sudah terdaftar sebagai pengguna lain',
             'phone.regex' => 'No Telepon harus diawali <b>08xxxxxxxxx</b>',
@@ -46,7 +36,6 @@ class ProfileController extends Controller
             'name' => $request->name,
             'email' => $request->email ?? Auth::user()->email,
             'phone' => $request->phone,
-            'alamat' => $request->alamat,
         ]);
 
         if ($request->user()->isDirty('email')) {

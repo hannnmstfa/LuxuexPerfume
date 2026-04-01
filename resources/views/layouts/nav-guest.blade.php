@@ -2,9 +2,9 @@
     <div class="max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between gap-4 dark:text-white">
         <!-- Brand -->
         <a href="{{ route('/') }}" class="flex items-center gap-3">
-            <img src="{{ asset('assets/logo.jpg') }}" class="size-9 rounded-full border border-gold" alt="Logo">
-            <span class="text-sm md:text-base tracking-[0.28em] font-semibold text-[#D4AF37]">
-                LUXUEXPERFUME
+            <img src="{{ asset(\App\Models\TokoSetting::data()->path_logo ?? '') }}" class="size-9 rounded-full border border-gold" alt="Logo">
+            <span class="text-sm md:text-base tracking-[0.28em] font-semibold text-[#D4AF37] uppercase">
+                {{ \App\Models\TokoSetting::data()->nama_toko ??  config('app.name', 'Laravel') }}
             </span>
         </a>
         <div class="flex items-center gap-4">

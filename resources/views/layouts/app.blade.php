@@ -3,10 +3,10 @@
 
 <head>
     @include('layouts.head')
-    <title>{{ ucwords($title) }} - Admin {{ config('app.name', 'Laravel') }}</title>
+    <title>{{ ucwords($title) }} - Admin {{ \App\Models\TokoSetting::data()->nama_toko ??  config('app.name', 'Laravel') }}</title>
 </head>
 
-<body class="max-h-screen font-poppins scroll-style dark">
+<body class="max-h-screen font-poppins scroll-style dark" x-data>
     <div class="bg-white text-black dark:bg-black dark:text-white">
         <div class="fixed inset-0 -z-5">
             <div

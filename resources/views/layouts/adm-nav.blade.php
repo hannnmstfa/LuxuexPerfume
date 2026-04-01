@@ -14,7 +14,7 @@
                     </svg>
                 </button>
                 <a href="{{ route('admin.dashboard') }}" class="flex ms-2 md:me-24">
-                    <img src="{{ asset('assets/logo.jpg') }}" class="h-8 rounded-full me-3" alt="Logo" />
+                    <img src="{{ asset(\App\Models\TokoSetting::data()->path_logo ?? '') }}" class="h-8 rounded-full me-3 border border-gold" alt="Logo" />
                     <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Admin
                         Panel</span>
                 </a>

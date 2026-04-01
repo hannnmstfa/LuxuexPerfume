@@ -1,8 +1,8 @@
 <x-guest-layout title="Home">
-    <section class="max-w-screen-xl border-b border-white/10 mx-auto py-20 md:py-24 grid md:grid-cols-2 gap-14 items-center px-3">
+    <div class="max-w-screen-xl border-b border-white/10 mx-auto py-20 md:py-24 grid md:grid-cols-2 gap-14 items-center px-3">
         <div>
-            <h2 class="text-[2.5rem] md:text-6xl font-bold leading-tight ">
-                LUXUEXPERFUME
+            <h2 class="text-[2.5rem] md:text-6xl font-bold leading-tight uppercase">
+                {{ \App\Models\TokoSetting::data()->nama_toko ??  config('app.name', 'Laravel') }}
             </h2>
 
             <p class="mt-6 text-white/70 text-lg">Elegan. Mewah. Berkelas.</p>
@@ -14,7 +14,7 @@
             <div class="mt-10 flex flex-wrap gap-3">
                 <a href="{{ route('produk') }}"
                     class="bg-[#D4AF37] text-black px-8 py-3 rounded-full font-semibold tracking-wider hover:opacity-90">
-                    JELAJAHI PRODUK
+                    JELAJAHI PRODUK 
                 </a>
             </div>
         </div>
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- Alasan Memilih Brand -->
     <section class="  py-16 md:py-20">

@@ -13,13 +13,13 @@ class Checkout extends Component
 {
     public $keranjangs;
     public $payment_method;
-    public $ongkir = 15000;
+    public $ongkir = 1;
     public $subtotal = 0;
     public $total = 0;
     public $provinsi = '';
     public $kota = '';
     public $kecamatan = '';
-    public $desa = '';
+    public $desa = null;
     public $kodearea = null;
     public $dataProv = [];
     public $dataKota = [];
@@ -43,6 +43,17 @@ class Checkout extends Component
             return ($item->produks->harga_diskon ? $item->produks->harga_diskon : $item->produks->harga) * $item->jumlah;
         });
         $this->total = $this->subtotal + $this->ongkir;
+        if(old('kode_area')){
+            $kode_area = explode('.', old('kode_area'));
+            $this->provinsi = $kode_area[0];
+            $this->updatedProvinsi($this->provinsi);
+            $this->kota = $kode_area[0] . '.' .$kode_area[1];
+            $this->updatedKota($this->kota);
+            $this->kecamatan = $kode_area[0] . '.' .$kode_area[1] . '.' . $kode_area[2];
+            $this->updatedKecamatan($this->kecamatan);
+            $this->desa = $kode_area[0] . '.' .$kode_area[1] . '.' . $kode_area[2] . '.' . $kode_area[3];
+            $this->updatedDesa($this->desa);
+        }
     }
     // public function hitungPayment(int $flat = 0, float $percent = 0){
     //     $this->fee_payment = 0;

@@ -104,9 +104,9 @@ class ProdukController extends Controller
     public function destroy($id)
     {
         $data = Produk::findOrFail($id);
-        if (file_exists(public_path($data->path_foto)) && is_file(public_path($data->path_foto))) {
-            unlink(public_path($data->path_foto));
-        }
+        // if (file_exists(public_path($data->path_foto)) && is_file(public_path($data->path_foto))) {
+        //     unlink(public_path($data->path_foto));
+        // }
         $data->delete();
         Alert::success('Sukses', 'Berhasil menghapus parfum');
         return back();

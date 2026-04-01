@@ -30,7 +30,8 @@
                 </div>
             </div>
 
-            <div class="bg-white dark:bg-black/40 backdrop-blur border dark:border-gray-500 p-6 rounded shadow relative">
+            <div
+                class="bg-white dark:bg-black/40 backdrop-blur border dark:border-gray-500 p-6 rounded shadow relative">
                 <div wire:loading.remove.class="hidden" wire:loading.class="flex"
                     wire:target="provinsi(), kota(), kecamatan(), desa()"
                     class="absolute w-full top-0 left-0 right-0 bottom-0 bg-gray-500 hidden justify-center items-center bg-opacity-50">
@@ -100,9 +101,10 @@
                     <div class="col-span-2 {{ $kodearea == null ? 'hidden' : '' }}">
                         <label for="alamat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat
                             Lengkap<span class="text-red-600">*</span></label>
-                        <textarea name="alamat" placeholder="Tulis alamat lengkap atau detail lokasimu disini..." rows="5"
+                        <textarea name="alamat" placeholder="Tulis alamat lengkap atau detail lokasimu disini..."
+                            rows="5"
                             class="bg-gray-50 border text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                            id="alamat" required>{{ old('alamat', Auth::user()->alamat) }}</textarea>
+                            id="alamat" required>{{ old('alamat') }}</textarea>
                     </div>
                 </div>
             </div>
@@ -112,9 +114,10 @@
                     class="absolute w-full top-0 left-0 right-0 bottom-0 bg-gray-500 hidden justify-center items-center bg-opacity-50">
                     <x-loader />
                 </div>
-                <div class="border {{ $errors->has('payment_method') ? '' : 'hidden' }} rounded border-red-500 mb-3 text-red-500 bg-red-200 p-2 flex justify-start items-center gap-2">
-                    <svg class="w-6 h-6" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <div
+                    class="border {{ $errors->has('payment_method') ? '' : 'hidden' }} rounded border-red-500 mb-3 text-red-500 bg-red-200 p-2 flex justify-start items-center gap-2">
+                    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
@@ -128,11 +131,12 @@
                         @if ($va['group'] == 'Virtual Account')
                             <div class="col-span-3 md:col-span-1">
                                 <input type="radio" name="payment_method" value="{{ $va['code'] }}" class="peer hidden"
-                                    id="{{ $va['code'] }}">
+                                    id="{{ $va['code'] }}" {{ old('payment_method') == $va['code'] ? 'checked' : '' }}>
                                 <label for="{{ $va['code'] }}" title="{{ $va['name'] }}"
-                                    class="w-full min-h-20 border flex flex-col justify-center peer-checked:bg-gold peer-checked:text-gray-400 dark:peer-checked:text-gray-800 peer-checked:border-2 peer-checked:border-yellow-400 gap-2 items-center border-gray-300 bg-gray-100 dark:bg-gray-400 hover:opacity-70 cursor-pointer duration-100 rounded p-2">
+                                    class="w-full min-h-20 border flex flex-col justify-center peer-checked:bg-gold peer-checked:text-gray-400 dark:peer-checked:text-gray-800 peer-checked:border-2 peer-checked:border-yellow-400 gap-2 items-center border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-900 hover:opacity-70 cursor-pointer duration-100 rounded p-2">
                                     <img src="{{ $va['icon_url'] }}" class="w-20" alt="{{ $va['name'] }}">
-                                    <span class="text-xs font-poppins italic">Fee Rp{{ $va['total_fee']['flat'] }} + PPN {{ $va['total_fee']['percent'] }}%</span>
+                                    <span class="text-xs font-poppins italic">Fee Rp{{ $va['total_fee']['flat'] }} + PPN
+                                        {{ $va['total_fee']['percent'] }}%</span>
                                 </label>
                             </div>
                         @endif
@@ -142,11 +146,12 @@
                         @if ($retail['group'] == 'Convenience Store')
                             <div class="col-span-3 md:col-span-1">
                                 <input type="radio" name="payment_method" value="{{ $retail['code'] }}" class="peer hidden"
-                                    id="{{ $retail['code'] }}" >
+                                    id="{{ $retail['code'] }}" {{ old('payment_method') == $retail['code'] ? 'checked' : '' }}>
                                 <label for="{{ $retail['code'] }}" title="{{ $retail['name'] }}"
-                                    class="w-full min-h-20 border flex flex-col justify-center peer-checked:bg-gold peer-checked:text-gray-400 dark:peer-checked:text-gray-800 peer-checked:border-2 peer-checked:border-yellow-400 gap-2 items-center border-gray-300 bg-gray-100 dark:bg-gray-400 hover:opacity-70 cursor-pointer duration-100 rounded p-2">
+                                    class="w-full min-h-20 border flex flex-col justify-center peer-checked:bg-gold peer-checked:text-gray-400 dark:peer-checked:text-gray-800 peer-checked:border-2 peer-checked:border-yellow-400 gap-2 items-center border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-900 hover:opacity-70 cursor-pointer duration-100 rounded p-2">
                                     <img src="{{ $retail['icon_url'] }}" class="w-20" alt="{{ $retail['name'] }}">
-                                    <span class="text-xs font-poppins italic">Fee Rp{{ $retail['total_fee']['flat'] }} + PPN {{ $retail['total_fee']['percent'] }}%</span>
+                                    <span class="text-xs font-poppins italic">Fee Rp{{ $retail['total_fee']['flat'] }} + PPN
+                                        {{ $retail['total_fee']['percent'] }}%</span>
                                 </label>
                             </div>
                         @endif
@@ -156,11 +161,12 @@
                         @if ($ewallet['group'] == 'E-Wallet')
                             <div class="col-span-3 md:col-span-1">
                                 <input type="radio" name="payment_method" value="{{ $ewallet['code'] }}" class="peer hidden"
-                                    id="{{ $ewallet['code'] }}" >
+                                    id="{{ $ewallet['code'] }}" {{ old('payment_method') == $ewallet['code'] ? 'checked' : '' }}>
                                 <label for="{{ $ewallet['code'] }}" title="{{ $ewallet['name'] }}"
-                                    class="w-full min-h-20 border flex flex-col justify-center peer-checked:bg-gold peer-checked:text-gray-400 dark:peer-checked:text-gray-800 peer-checked:border-2 peer-checked:border-yellow-400 gap-2 items-center border-gray-300 bg-gray-100 dark:bg-gray-400 hover:opacity-70 cursor-pointer duration-100 rounded p-2">
+                                    class="w-full min-h-20 border flex flex-col justify-center peer-checked:bg-gold peer-checked:text-gray-400 dark:peer-checked:text-gray-800 peer-checked:border-2 peer-checked:border-yellow-400 gap-2 items-center border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-900 hover:opacity-70 cursor-pointer duration-100 rounded p-2">
                                     <img src="{{ $ewallet['icon_url'] }}" class="w-20" alt="{{ $ewallet['name'] }}">
-                                    <span class="text-xs font-poppins italic">Fee Rp{{ $ewallet['total_fee']['flat'] }} + PPN {{ $ewallet['total_fee']['percent'] }}%</span>
+                                    <span class="text-xs font-poppins italic">Fee Rp{{ $ewallet['total_fee']['flat'] }} + PPN
+                                        {{ $ewallet['total_fee']['percent'] }}%</span>
                                 </label>
                             </div>
                         @endif
@@ -201,7 +207,6 @@
                                 <td colspan="3" class="text-center italic border-b">Belum ada data</td>
                             </tr>
                         @endforelse
-                        <tr></tr>
                     </tbody>
                 </table>
                 <div class="flex justify-between items-center text-sm text-gray-500">
@@ -210,20 +215,21 @@
                 </div>
                 <div class="flex justify-between items-center text-sm text-gray-500">
                     <h4 class="font-semibold ">Ongkir</h4>
-                    <h4 class="font-semibold ">Rp{{ number_format($ongkir) }}</h4>
+                    <h4 class="font-semibold ">{{ $ongkir ? 'Rp' . number_format($ongkir) : '-' }}</h4>
+                    <input type="hidden" value="{{ old('ongkir', $ongkir) }}" name="ongkir" required>
                 </div>
                 <div class="flex justify-between items-center text-lg font-bold">
                     <h4>Total Bayar</h4>
                     <h4>Rp{{ number_format($total) }}</h4>
                 </div>
                 <hr>
-                <p class="text-xs mt-3 italic text-red-600"><span class="text-red-700">*</span> Pastikan semua data sudah terisi dengan benar</p>
+                <p class="text-xs mt-3 italic text-red-600"><span class="text-red-700">*</span> Pastikan semua data
+                    sudah terisi dengan benar</p>
                 <button type="submit"
                     class="w-full mt-1 font-semibold bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-md">
                     Lanjut ke Pembayaran
                 </button>
             </div>
         </div>
-
     </form>
 </div>

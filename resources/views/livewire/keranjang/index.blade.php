@@ -22,7 +22,7 @@
                 <tbody>
                     @forelse($keranjangs as $item)
                         <tr
-                            class=" border-b border-gray-400 {{ in_array($item->id, $errorStok) ? ' bg-red-200 dark:bg-red-700' : ' odd:bg-white even:bg-gray-200 dark:even:bg-black/80 dark:odd:bg-black/50 dark:backdrop-blur' }} hover:bg-gray-300 relative">
+                            class=" border-b border-gray-400 {{ in_array($item->id, $errorStok) ? ' bg-red-200 dark:bg-red-600' : ' odd:bg-white even:bg-gray-200 dark:even:bg-black/80 dark:odd:bg-black/50 dark:backdrop-blur' }} hover:bg-gray-300 relative">
                             <td class="px-6 py-4">
                                 <button wire:click="hapusKeranjang({{ $item->id }})"
                                     class="flex justify-center items-center rounded p-2 hover:bg-red-300 {{ in_array($item->id, $errorStok) ? 'dark:bg-red-300' : '' }} "
@@ -77,7 +77,7 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <p class="text-xs text-red-600 {{ $item->produks->stok < $item->jumlah ? 'block' : 'hidden' }}">Jumlah melebihi stok tersisa</p>
+                                <p class="text-xs {{ in_array($item->id, $errorStok) ? 'text-red-200' : 'text-red-600' }} {{ $item->produks->stok < $item->jumlah ? 'block' : 'hidden' }}">Jumlah melebihi stok tersisa</p>
                             </td>
                             <td class="px-6 py-4 font-semibold">
                                 Rp{{ number_format(($item->produks->harga_diskon ? $item->produks->harga_diskon : $item->produks->harga) * $item->jumlah) }}

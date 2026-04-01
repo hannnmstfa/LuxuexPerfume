@@ -4,7 +4,7 @@
         <button type="button"
             class="absolute right-1 md:right-2 top-1/2 -translate-y-1/2 rounded-full bg-[#D4AF37] px-3 py-1.5 text-xs font-semibold text-black hover:opacity-90">CARI</button>
     </form>
-    <div class="absolute {{ $search > 0 ? 'block' : 'hidden' }} peer-focus:block top-12 w-full border  border-gray-300 rounded shadow-lg z-20"
+    <div class="absolute {{ $search > 0 ? 'block' : 'hidden' }} peer-focus:block top-12 w-full border  border-gray-600 rounded shadow-lg z-20"
         id="search-results">
         <ul class="bg-black/90 backdrop-blur shadow rounded w-full max-h-56 overflow-y-auto">
             @if (strlen($search) < 1)

@@ -12,11 +12,12 @@ class Tracking extends Model
         'ekspedisi',
         'last_phone',
         'status',
+        'received_at',
     ];
 
     public function transaksi()
     {
-        return $this->belongsTo(Transaksi::class);
+        return $this->belongsTo(Transaksi::class, 'transaksi_id');
     }
     public function trackings_details(){
         return $this->hasMany(TrackingDetails::class, 'trackings_id')->orderBy('created_at', 'desc');

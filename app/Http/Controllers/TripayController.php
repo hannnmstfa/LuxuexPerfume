@@ -165,7 +165,7 @@ class TripayController extends Controller
                     }
                     Tracking::create([
                         'transaksi_id' => $invoice->id,
-                        'last_phone' => substr($invoice->transaksi_details->no_penerima, -4),
+                        'last_phone' => substr($invoice->transaksi_details->no_penerima, -5),
                     ]);
                     Mail::to('burhanmusthofa1@gmail.com')->queue(new Pesanan($invoice));
                     break;
@@ -176,6 +176,10 @@ class TripayController extends Controller
 
                 case 'FAILED':
                     $invoice->update(['status_bayar' => 'gagal']);
+                    break;
+
+                case 'REFUND':
+                    $invoice->update(['status_bayar' => 'refund']);
                     break;
 
                 default:

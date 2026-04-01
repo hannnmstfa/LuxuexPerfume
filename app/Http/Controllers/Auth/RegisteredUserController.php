@@ -35,7 +35,6 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', Rules\Password::defaults(), 'confirmed'],
             'phone' => ['required', 'string', 'regex:/^08[0-9]{8,11}$/', 'unique:' . User::class],
-            'alamat' => 'required|string',
         ], [
             'email.unique' => 'Email sudah terdaftar',
             'password.confirmed' => 'Password konfirmasi harus sama',
@@ -49,7 +48,6 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
-            'alamat' => $request->alamat,
         ]);
         $session = session()->getId();
         event(new Registered($user));

@@ -48,6 +48,7 @@ return array(
     'RealRashid\\SweetAlert\\' => array($vendorDir . '/realrashid/sweet-alert/src'),
     'Ramsey\\Uuid\\' => array($vendorDir . '/ramsey/uuid/src'),
     'Ramsey\\Collection\\' => array($vendorDir . '/ramsey/collection/src'),
+    'RahulHaque\\Filepond\\' => array($vendorDir . '/rahulhaque/laravel-filepond/src'),
     'Psy\\' => array($vendorDir . '/psy/psysh/src'),
     'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/src'),

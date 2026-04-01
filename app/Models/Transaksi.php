@@ -31,4 +31,10 @@ class Transaksi extends Model
     public function trackings(){
         return $this->hasOne(Tracking::class, 'transaksi_id');
     }
+    public function pengembalian(){
+        return $this->hasOne(Pengembalian::class, 'transaksi_id');
+    }
+    public function tracking_sukses(){
+        return $this->hasOne(Tracking::class, 'transaksi_id')->where('status', 'pengiriman selesai');
+    }
 }

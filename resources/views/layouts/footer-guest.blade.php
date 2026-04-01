@@ -1,4 +1,4 @@
-<footer class="sticky bottom-0 dark:bg-black dark:text-white border-t border-white/10">
+<footer class="sticky bottom-0 dark:bg-black dark:text-white border-t border-white/10 w-full">
     <!-- Glow -->
     <div class="absolute inset-0 -z-10 pointer-events-none">
         <div
@@ -10,9 +10,9 @@
             <!-- Brand -->
             <div>
                 <div class="flex items-center gap-3 mb-5">
-                    <img src="{{ asset('assets/logo.jpg') }}" class="size-9 rounded-full border border-gold" alt="Logo">
-                    <span class="text-lg tracking-[0.28em] font-semibold text-[#D4AF37]">
-                        LUXUEXPERFUME
+                    <img src="{{ asset(\App\Models\TokoSetting::data()->path_logo ?? '') }}" class="size-9 rounded-full border border-gold" alt="Logo">
+                    <span class="text-lg tracking-[0.28em] font-semibold text-[#D4AF37] uppercase">
+                        {{ \App\Models\TokoSetting::data()->nama_toko ??  config('app.name', 'Laravel') }}
                     </span>
                 </div>
 
@@ -35,9 +35,9 @@
                 <div class="space-y-4 text-sm text-white/70">
 
                     <div>
-                        <p class="text-white/50 text-xs">Chat Asisten</p>
-                        <button onclick="setOpenState(isOpen); return false;" class="hover:text-white transition">
-                            Buka Chat
+                        <p class="text-white/50 text-xs">Asisten Chat</p>
+                        <button class="hover:text-white transition">
+                            24 Jam Online Assistant
                         </button>
                     </div>
 

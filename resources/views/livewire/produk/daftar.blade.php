@@ -154,14 +154,14 @@
                                     @endif
                                 </button>
                                 <button @click="openDetail({
-                                                    id: {{ $product->id }},
-                                                    nama: @js($product->nama),
-                                                    deskripsi: @js($product->deskripsi),
-                                                    harga: '{{ number_format($product->harga, 0, ',', '.') }}',
-                                                    harga_diskon: {{ $product->harga_diskon ? ('\'' . number_format($product->harga_diskon, 0, ',', '.') . '\'') : 'null' }},
-                                                    stok: {{ $product->stok }},
-                                                    path_foto: '{{ asset($product->path_foto) }}'
-                                                })"
+                                                                id: {{ $product->id }},
+                                                                nama: @js($product->nama),
+                                                                deskripsi: @js($product->deskripsi),
+                                                                harga: '{{ number_format($product->harga, 0, ',', '.') }}',
+                                                                harga_diskon: {{ $product->harga_diskon ? ('\'' . number_format($product->harga_diskon, 0, ',', '.') . '\'') : 'null' }},
+                                                                stok: {{ $product->stok }},
+                                                                path_foto: '{{ asset($product->path_foto) }}'
+                                                            })"
                                     class="col-span-1 w-full grid place-items-center rounded-full border border-white/15 bg-white/5 text-white/85 hover:bg-white/10">
                                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                         height="24" fill="none" viewBox="0 0 24 24">
@@ -190,14 +190,14 @@
                                     @endif
                                 </button>
                                 <button @click="openDetail({
-                                                    id: {{ $product->id }},
-                                                    nama: @js($product->nama),
-                                                    deskripsi: @js($product->deskripsi),
-                                                    harga: '{{ number_format($product->harga, 0, ',', '.') }}',
-                                                    harga_diskon: {{ $product->harga_diskon ? ('\'' . number_format($product->harga_diskon, 0, ',', '.') . '\'') : 'null' }},
-                                                    stok: {{ $product->stok }},
-                                                    path_foto: '{{ asset($product->path_foto) }}'
-                                                })"
+                                                                id: {{ $product->id }},
+                                                                nama: @js($product->nama),
+                                                                deskripsi: @js($product->deskripsi),
+                                                                harga: '{{ number_format($product->harga, 0, ',', '.') }}',
+                                                                harga_diskon: {{ $product->harga_diskon ? ('\'' . number_format($product->harga_diskon, 0, ',', '.') . '\'') : 'null' }},
+                                                                stok: {{ $product->stok }},
+                                                                path_foto: '{{ asset($product->path_foto) }}'
+                                                            })"
                                     class="col-span-1 w-full flex justify-center items-center text-xs rounded-2xl border border-white/15 bg-white/5 text-white/85 hover:bg-white/10">
                                     <span class="sr-only">Detail</span>
                                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
@@ -211,89 +211,93 @@
                     </div>
                 @endforeach
             </div>
-            <!-- Image Modal -->
-            <div x-show="showImg" x-transition class="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
-                style="display: none;">
-                <div class="absolute inset-0" @click="showImg = false"></div>
-                <img :src="imgSrc" class="max-h-[80vh] max-w-[90vw] rounded-2xl shadow-2xl border-4 border-white"
-                    alt="Preview" />
-                <button @click="showImg = false"
-                    class="absolute top-6 right-6 text-white bg-black/60 rounded-full p-2 hover:bg-black/80">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <!-- Product Detail Modal -->
-            <div x-show="showDetail" x-transition
-                class="fixed inset-0 z-50 flex items-center justify-center bg-black/80" style="display: none;">
-                <div class="absolute inset-0" @click="showDetail = false"></div>
-                <div
-                    class="relative bg-black/10 backdrop-blur border border-gray-300 rounded-xl shadow-sm p-4 md:p-6 max-w-screen-xl w-full mx-4 overflow-auto">
-                    <div class="flex items-center justify-between border-b border-default pb-4 md:pb-5">
-                        <h3 class="text-lg font-bold text-gold">Rincian Produk</h3>
-                        <button type="button" @click="showDetail = false"
-                            class="text-body bg-transparent hover:bg-neutral-tertiary hover:text-heading rounded-base text-sm w-9 h-9 ms-auto inline-flex justify-center items-center">
-                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                                height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
-                    </div>
-                    <div class="space-y-4 md:space-y-6 py-4 md:py-6 overflow-auto">
-                        <div class="rounded-lg p-6 flex flex-col md:flex-row gap-6">
-                            <div class="md:w-1/2 flex justify-center items-center">
-                                <img :src="detail.path_foto" :alt="detail.nama"
-                                    class="size-72 h-auto rounded-lg shadow-lg">
-                            </div>
-                            <div class="md:w-1/2 flex flex-col justify-between" x-data="{ addedToCart: false }"
-                                x-init="$watch('showDetail', v => { if(!v) addedToCart = false })">
-                                <div>
-                                    <h1 class="text-3xl font-bold mb-4" x-text="detail.nama"></h1>
-                                    <p class="text-gray-300 mb-4" x-text="detail.deskripsi"></p>
-                                    <template x-if="detail.harga_diskon && detail.harga_diskon !== 'null'">
-                                        <p class="text-xs font-semibold text-gray-400 mb-2 line-through">Rp <span
-                                                x-text="detail.harga"></span></p>
-                                    </template>
-                                    <p class="text-2xl font-bold text-yellow-400 mb-4">Rp <span
-                                            x-text="detail.harga_diskon && detail.harga_diskon !== 'null' ? detail.harga_diskon : detail.harga"></span>
-                                    </p>
-                                    <p class="text-gray-400">
-                                        <span
-                                            :class="detail.stok < 1 ? 'text-red-600 border p-1 rounded bg-red-100 border-red-400' : ''"
-                                            class="font-semibold"
-                                            x-text="detail.stok < 1 ? 'Stok Habis' : 'Stok tersisa: ' + detail.stok"></span>
-                                    </p>
+            <template x-teleport="body">
+                <!-- Image Modal -->
+                <div x-show="showImg" x-transition
+                    class="fixed inset-0 z-50 flex items-center justify-center bg-black/80" style="display: none;">
+                    <div class="absolute inset-0" @click="showImg = false"></div>
+                    <img :src="imgSrc" class="max-h-[80vh] max-w-[90vw] rounded-2xl shadow-2xl border-4 border-white"
+                        alt="Preview" />
+                    <button @click="showImg = false"
+                        class="absolute top-6 right-6 text-white bg-black/60 rounded-full p-2 hover:bg-black/80">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </template>
+            <template x-teleport="body">
+                <!-- Product Detail Modal -->
+                <div x-show="showDetail" x-transition
+                    class="fixed inset-0 z-50 flex items-center justify-center bg-black/80" style="display: none;">
+                    <div class="absolute inset-0" @click="showDetail = false"></div>
+                    <div
+                        class="relative bg-black/10 backdrop-blur border border-gray-300 rounded-xl shadow-sm p-4 md:p-6 max-w-screen-xl w-full mx-4 overflow-auto">
+                        <div class="flex items-center justify-between border-b border-default pb-4 md:pb-5">
+                            <h3 class="text-lg font-bold text-gold">Rincian Produk</h3>
+                            <button type="button" @click="showDetail = false"
+                                class="text-body bg-transparent hover:bg-neutral-tertiary hover:text-heading rounded-base text-sm w-9 h-9 ms-auto inline-flex justify-center items-center">
+                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                    height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        <div class="space-y-4 md:space-y-6 py-4 md:py-6 overflow-auto">
+                            <div class="rounded-lg p-6 flex flex-col md:flex-row gap-6">
+                                <div class="md:w-1/2 flex justify-center items-center">
+                                    <img :src="detail.path_foto" :alt="detail.nama"
+                                        class="size-72 h-auto rounded-lg shadow-lg">
                                 </div>
-                                <div class="mt-6">
-                                    <template x-if="!addedToCart">
-                                        <button
-                                            @click="$dispatch('addKeranjang', { productId: detail.id }); addedToCart = true"
-                                            class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300">
-                                            Tambah ke Keranjang
-                                        </button>
-                                    </template>
-                                    <template x-if="addedToCart">
-                                        <button disabled
-                                            class="w-full bg-yellow-500 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
-                                            <svg class="w-5 h-5 mr-2" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                                viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2"
-                                                    d="M5 11.917 9.724 16.5 19 7.5" />
-                                            </svg>
-                                            Ditambahkan
-                                        </button>
-                                    </template>
+                                <div class="md:w-1/2 flex flex-col justify-between" x-data="{ addedToCart: false }"
+                                    x-init="$watch('showDetail', v => { if(!v) addedToCart = false })">
+                                    <div>
+                                        <h1 class="text-3xl font-bold mb-4" x-text="detail.nama"></h1>
+                                        <p class="text-gray-300 mb-4" x-text="detail.deskripsi"></p>
+                                        <template x-if="detail.harga_diskon && detail.harga_diskon !== 'null'">
+                                            <p class="text-xs font-semibold text-gray-400 mb-2 line-through">Rp <span
+                                                    x-text="detail.harga"></span></p>
+                                        </template>
+                                        <p class="text-2xl font-bold text-yellow-400 mb-4">Rp <span
+                                                x-text="detail.harga_diskon && detail.harga_diskon !== 'null' ? detail.harga_diskon : detail.harga"></span>
+                                        </p>
+                                        <p class="text-gray-400">
+                                            <span
+                                                :class="detail.stok < 1 ? 'text-red-600 border p-1 rounded bg-red-100 border-red-400' : ''"
+                                                class="font-semibold"
+                                                x-text="detail.stok < 1 ? 'Stok Habis' : 'Stok tersisa: ' + detail.stok"></span>
+                                        </p>
+                                    </div>
+                                    <div class="mt-6">
+                                        <template x-if="!addedToCart">
+                                            <button
+                                                @click="$dispatch('addKeranjang', { productId: detail.id }); addedToCart = true"
+                                                class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300">
+                                                Tambah ke Keranjang
+                                            </button>
+                                        </template>
+                                        <template x-if="addedToCart">
+                                            <button disabled
+                                                class="w-full bg-yellow-500 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
+                                                <svg class="w-5 h-5 mr-2" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M5 11.917 9.724 16.5 19 7.5" />
+                                                </svg>
+                                                Ditambahkan
+                                            </button>
+                                        </template>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </template>
             <div class="reveal mt-6">
                 {{ $products->links() }}
             </div>

@@ -31,7 +31,7 @@
     </div>
     <div class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 mt-5 border">
         <x-loader />
-        <table id="myTable" class="hidden w-full text-sm text-center dark:text-gray-400 overflow-auto">
+        <table id="myTable" class="hidden w-full text-sm text-center dark:text-gray-400 overflow-auto scroll-style">
             <thead>
                 <tr class="">
                     <th scope="col" class="bg-yellow-500 dark:bg-gold text-white text-center w-max">

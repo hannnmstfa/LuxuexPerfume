@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('ekspedisi')->nullable();
             $table->string('last_phone');
             $table->enum('status', ['sedang dikemas', 'dalam pengiriman', 'pengiriman selesai'])->default('sedang dikemas');
+            $table->dateTime('received_at')->nullable();
             $table->timestamps();
         });
 

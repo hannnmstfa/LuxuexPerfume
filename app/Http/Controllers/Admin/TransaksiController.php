@@ -27,6 +27,9 @@ class TransaksiController extends Controller
         // confirmDelete('sdfdfdf', 'fdfdfdfd');
         $trx = Transaksi::with(['transaksi_items', 'transaksi_details', 'trackings', 'users'])
             ->where('kodeTrx', $kodeTrx)->first();
+        if (!$trx) {
+            abort(404, 'Transaksi tidak ditemukan');
+        }
         return view('admin.transaksi.detail', compact('trx'));
     }
     public function tracking(Request $request, $kodeTrx)
@@ -38,7 +41,7 @@ class TransaksiController extends Controller
         $trx = Transaksi::with(['trackings', 'transaksi_details'])
             ->where('kodeTrx', $kodeTrx)
             ->where('status_bayar', 'berhasil')
-            ->firstOrFail();
+            ->first();
         foreach ($trx->trackings->trackings_details as $trackLama) {
             $trackLama->delete();
         }
@@ -60,14 +63,25 @@ class TransaksiController extends Controller
             'status' => 'dalam pengiriman',
         ]);
         if ($respon['data']['delivered']) {
+            if (isset($respon['data']['delivery_status'])) {
+                if (str_contains($respon['data']['delivery_status']['pod_date'], ' ')) {
+                    $datetime = $respon['data']['delivery_status']['pod_date'];
+                } else {
+                    $manifestTime = $respon['data']['delivery_status']['pod_time'] ?? '00:00:00';
+                    $datetime = trim($respon['data']['delivery_status']['pod_date'] . ' ' . $manifestTime);
+                }
+            } else {
+                $datetime = now();
+            }
             $trx->trackings->update([
-                'status' => 'pengiriman selesai'
+                'status' => 'pengiriman selesai',
+                'received_at' => $datetime,
             ]);
         }
         // $datas = file_get_contents(public_path('assets/contoh.json'));
         // $datas = json_decode($datas, true);
         // foreach ($datas['data']['manifest'] as $data) {
-            foreach ($respon['data']['manifest'] as $data) {
+        foreach ($respon['data']['manifest'] as $data) {
             if (isset($data['manifest_date'])) {
                 if (str_contains($data['manifest_date'], ' ')) {
                     $datetime = $data['manifest_date'];
@@ -75,7 +89,6 @@ class TransaksiController extends Controller
                     $manifestTime = $data['manifest_time'] ?? '00:00:00';
                     $datetime = trim($data['manifest_date'] . ' ' . $manifestTime);
                 }
-
             } else {
                 $datetime = now();
             }

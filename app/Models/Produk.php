@@ -26,4 +26,7 @@ class Produk extends Model
             'nama' => $this->nama,
         ];
     }
+    public function keranjangs(){
+        return $this->hasMany(Keranjang::class);
+    }
 }

@@ -61,14 +61,6 @@
                             class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                             placeholder="08xxxxxxxxx" required>
                     </div>
-                    <div>
-                        <label for="alamat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat
-                            Lengkap</label>
-                        <textarea placeholder="Tulis alamat lengkapmu disini" autocomplete="off" name="alamat" rows="5"
-                            id="alamat"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                            required>{{ old('alamat') }}</textarea>
-                    </div>
                     <div class="flex items-center justify-between">
                         <div class="flex items-start">
                             <div class="flex items-center h-5">

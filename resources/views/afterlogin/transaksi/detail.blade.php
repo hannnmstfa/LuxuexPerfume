@@ -4,10 +4,28 @@
             <h1 class="text-3xl md:text-4xl font-semibold tracking-tight">
                 DETAIL <span class="text-[#D4AF37]">TRANSAKSI</span>
             </h1>
+            <div>
+                @if ($trx->status_bayar == 'berhasil')
+                    <button
+                        class="border rounded-full py-1 px-3 text-sm font-semibold shadow {{ $trx->trackings->status == 'pengiriman selesai' ? 'bg-green-200 text-green-900 border-green-300' : 'bg-yellow-200 text-yellow-900 border-yellow-300'}}">{{ ucwords($trx->trackings->status) }}</button>
+                @else
+                    <button
+                        class="border rounded-full py-1 px-3 text-sm font-semibold shadow bg-gray-200 border-gray-300 text-black {{ $trx->status_bayar == 'gagal' ? 'bg-red-200 text-red-600 border-red-300' : ($trx->status_bayar == 'menunggu pembayaran' ? 'bg-yellow-200 text-yellow-600 border-yellow-300' : '')}}">{{ ucwords($trx->status_bayar) }}</button>
+                @endif
+            </div>
         </div>
     </section>
     <div class="max-w-screen-xl mx-auto p-2">
-        <h3 class="font-bold text-2xl">Informasi Pemesanan</h3>
+        <div class="flex-row items-center justify-between py-3 space-y-3 sm:flex sm:space-  y-0 sm:space-x-4">
+            <h5 class="text-2xl font-bold text-gold">Informasi Transaksi</h5>
+            @if ($trx->status_bayar == 'berhasil' && $trx->trackings->status == 'pengiriman selesai' && $trx->trackings->received_at && \Carbon\Carbon::parse($trx->trackings->received_at)->diffInHours(now()) < 48)
+                <a href="{{ route('pengembalian.create', $trx->kodeTrx) }}"
+                    class="border rounded py-1 px-3 text-sm font-semibold shadow border-gold text-gold hover:bg-yellow-400 hover:text-black">Ajukan Pengembalian</a>
+            @elseif($trx->pengembalian)
+            <a href="{{ route('pengembalian.index', $trx->kodeTrx) }}"
+                    class="border rounded py-1 px-3 text-sm font-semibold shadow border-gold text-gold hover:bg-yellow-400 hover:text-black">Detail Pengembalian</a>
+            @endif
+        </div>
         <hr class="mb-3">
         <div class="grid grid-cols-2 gap-2 spaxe-y-2 md:space-y-0 mb-3">
             <div class="col-span-2 md:col-span-1">
@@ -22,8 +40,8 @@
                             class="border  rounded py-1 px-2 {{ $trx->status_bayar == 'menunggu pembayaran' ? 'border-yellow-300 bg-yellow-200 text-yellow-700' : '' }}  {{ $trx->status_bayar == 'kadaluarsa' ? 'border-gray-400 bg-gray-300 text-gray-700' : '' }} {{ $trx->status_bayar == 'gagal' ? 'border-red-400 bg-red-300 text-red-700' : '' }}">{{ $trx->status_bayar !== 'menunggu pembayaran' ? 'Pembayaran' : '' }}
                             {{ ucwords($trx->status_bayar) }}</span>
                     @else
-                        <span class="bg-green-200 border-green-300 py-1 px-2 rounded border text-green-600">Pembayaran
-                            {{ ucwords($trx->status_bayar) }}</span>
+                        <span
+                            class="bg-green-200 border-green-300 py-1 px-2 rounded border text-green-600">{{ ucwords($trx->status_bayar) }}</span>
                     @endif
                 </div>
             </div>
@@ -196,129 +214,133 @@
             </table>
         </div>
     </div>
-
-</x-guest-layout>
-<!-- Modal Trackings -->
-@if ($trx->trackings && $trx->trackings->status !== 'sedang dikemas')
-    <div id="tracking" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
-        class="hidden overflow-y-auto dark:text-white overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-2xl max-h-full">
-            <!-- Modal content -->
-            <div class="relative bg-black/70 backdrop-blur border border-gray-300 rounded-xl shadow-sm p-4 md:p-6">
-                <!-- Modal header -->
-                <div class="flex items-center justify-between border-b border-default pb-4 md:pb-5">
-                    <div class="md:flex justify-start items-center gap-3">
-                        <h3 class="text-lg font-bold">
-                            Rincian Pengiriman
-                        </h3>
-                        <span
-                            class="text-xs font-semibold shadow border rounded py-1 px-2 {{ $trx->trackings->status == 'pengiriman selesai' ? 'border-green-600 text-green-600 bg-green-100' : 'border-yellow-500 text-yellow-500 bg-yellow-100' }}">{{ ucwords($trx->trackings->status) }}</span>
-                    </div>
-                    <button type="button"
-                        class="text-body bg-transparent hover:bg-neutral-tertiary hover:text-heading rounded-base text-sm w-9 h-9 ms-auto inline-flex justify-center items-center"
-                        data-modal-hide="tracking">
-                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18 17.94 6M18 18 6.06 6" />
-                        </svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <div class="space-y-4 md:space-y-6 py-4 md:py-6 overflow-auto">
-                    <div class="flex justify-start items-center gap-2">
-                        <h4 class="text-xs text-nowrap">No Resi:</h4>
-                        <div class="w-full">
-                            <div class=" relative">
-                                <label for="resipengiriman" class="sr-only">Label</label>
-                                <input id="resipengiriman" type="text"
-                                    class="col-span-6 bg-gray-800 border border-gray-200 font-semibold text-sm rounded focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-                                    value="{{ $trx->trackings->resi }}" disabled readonly>
-                                <button data-copy-to-clipboard-target="resipengiriman"
-                                    class="absolute flex items-center end-1.5 top-1/2 -translate-y-1/2 text-body bg-gray-900 border border-gray-200 hover:bg-neutral-secondary-strong/70 hover:text-heading focus:ring-1 focus:ring-yellow-700 font-medium leading-5 rounded text-xs px-3 py-1.5 focus:outline-none">
-                                    <span id="default-message">
-                                        <span class="flex items-center">
-                                            <svg class="w-4 h-4 me-1.5" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                                viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2"
-                                                    d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 5h6m-6 4h6M10 3v4h4V3h-4Z" />
-                                            </svg>
-                                            <span class="text-xs font-semibold">Salin</span>
-                                        </span>
-                                    </span>
-                                    <span id="success-message" class="hidden">
-                                        <span class="flex items-center">
-                                            <svg class="w-4 h-4 text-fg-brand me-1.5" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                                viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2"
-                                                    d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 7 2 2 4-4m-5-9v4h4V3h-4Z" />
-                                            </svg>
-                                            <span class="text-xs font-semibold text-fg-brand">Tersalin</span>
-                                        </span>
-                                    </span>
-                                </button>
+    <!-- Modal Trackings -->
+    @if ($trx->trackings && $trx->trackings->status !== 'sedang dikemas')
+        <template x-teleport="body">
+            <div id="tracking" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+                class="hidden overflow-y-auto dark:text-white overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative p-4 w-full max-w-2xl max-h-screen">
+                    <!-- Modal content -->
+                    <div class="relative bg-black/70 backdrop-blur border border-gray-300 rounded-xl shadow-sm p-4 md:p-6">
+                        <!-- Modal header -->
+                        <div class="flex items-center justify-between border-b border-default pb-4 md:pb-5">
+                            <div class="md:flex justify-start items-center gap-3">
+                                <h3 class="text-lg font-bold">
+                                    Rincian Pengiriman
+                                </h3>
+                                <span
+                                    class="text-xs font-semibold shadow border rounded py-1 px-2 {{ $trx->trackings->status == 'pengiriman selesai' ? 'border-green-600 text-green-600 bg-green-100' : 'border-yellow-500 text-yellow-500 bg-yellow-100' }}">{{ ucwords($trx->trackings->status) }}</span>
+                            </div>
+                            <button type="button"
+                                class="text-body bg-transparent hover:bg-neutral-tertiary hover:text-heading rounded-base text-sm w-9 h-9 ms-auto inline-flex justify-center items-center"
+                                data-modal-hide="tracking">
+                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                    height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="space-y-4 md:space-y-6 py-4 md:py-6 overflow-auto">
+                            <div class="flex justify-start items-center gap-2">
+                                <h4 class="text-xs text-nowrap">No Resi:</h4>
+                                <div class="w-full">
+                                    <div class=" relative">
+                                        <label for="resipengiriman" class="sr-only">Label</label>
+                                        <input id="resipengiriman" type="text"
+                                            class="col-span-6 bg-gray-800 border border-gray-200 font-semibold text-sm rounded focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                                            value="{{ $trx->trackings->resi }}" disabled readonly>
+                                        <button data-copy-to-clipboard-target="resipengiriman"
+                                            class="absolute flex items-center end-1.5 top-1/2 -translate-y-1/2 text-body bg-gray-900 border border-gray-200 hover:bg-neutral-secondary-strong/70 hover:text-heading focus:ring-1 focus:ring-yellow-700 font-medium leading-5 rounded text-xs px-3 py-1.5 focus:outline-none">
+                                            <span id="default-message">
+                                                <span class="flex items-center">
+                                                    <svg class="w-4 h-4 me-1.5" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 5h6m-6 4h6M10 3v4h4V3h-4Z" />
+                                                    </svg>
+                                                    <span class="text-xs font-semibold">Salin</span>
+                                                </span>
+                                            </span>
+                                            <span id="success-message" class="hidden">
+                                                <span class="flex items-center">
+                                                    <svg class="w-4 h-4 text-fg-brand me-1.5" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 7 2 2 4-4m-5-9v4h4V3h-4Z" />
+                                                    </svg>
+                                                    <span class="text-xs font-semibold text-fg-brand">Tersalin</span>
+                                                </span>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="overflow-auto max-h-[50dvh] scroll-style">
+                                @foreach ($trx->trackings->trackings_details as $index => $track)
+                                    <div
+                                        class="{{ $index == 0 ? 'text-gold' : ' text-gray-200' }} border-b w-full rounded flex p-3 gap-3 justify-start items-center">
+                                        <div>
+                                            @if ($index == 0 && $trx->trackings->status == 'pengiriman selesai')
+                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path fill-rule="evenodd"
+                                                        d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                            @else
+                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+                                                </svg>
+                                            @endif
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-semibold">{{ $track->deskripsi }}</p>
+                                            <p class="text-[10px] text-gray-300">{{ $track->created_at }}</p>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
-                    @foreach ($trx->trackings->trackings_details as $index => $track)
-                        <div
-                            class="{{ $index == 0 ? 'text-gold' : ' text-gray-200' }} border-b w-full rounded flex p-3 gap-3 justify-start items-center">
-                            <div>
-                                @if ($index == 0 && $trx->trackings->status == 'pengiriman selesai')
-                                    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                                        height="24" fill="currentColor" viewBox="0 0 24 24">
-                                        <path fill-rule="evenodd"
-                                            d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                @else
-                                    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                                        height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
-                                    </svg>
-                                @endif
-                            </div>
-                            <div>
-                                <p class="text-sm font-semibold">{{ $track->deskripsi }}</p>
-                                <p class="text-[10px] text-gray-300">{{ $track->created_at }}</p>
-                            </div>
-                        </div>
-                    @endforeach
                 </div>
             </div>
-        </div>
-    </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const copyBtn = document.querySelector('[data-copy-to-clipboard-target="resipengiriman"]');
-            const defaultMessage = document.getElementById('default-message');
-            const successMessage = document.getElementById('success-message');
-            if (copyBtn) {
-                copyBtn.addEventListener('click', function () {
+        </template>
+    @endif
+</x-guest-layout>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const copyBtn = document.querySelector('[data-copy-to-clipboard-target="resipengiriman"]');
+        const defaultMessage = document.getElementById('default-message');
+        const successMessage = document.getElementById('success-message');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', function () {
+                setTimeout(() => {
+                    showSuccess();
                     setTimeout(() => {
-                        showSuccess();
-                        setTimeout(() => {
-                            resetToDefault();
-                        }, 2000);
-                    }, 100);
-                });
-            }
-            const showSuccess = () => {
-                defaultMessage.classList.add('hidden');
-                successMessage.classList.remove('hidden');
-                copyBtn.classList.add('border-yellow-700', 'text-yellow-700');
-            }
-            const resetToDefault = () => {
-                defaultMessage.classList.remove('hidden');
-                successMessage.classList.add('hidden');
-                copyBtn.classList.remove('border-yellow-700', 'text-yellow-700');
-            }
-        })
-    </script>
-@endif
+                        resetToDefault();
+                    }, 2000);
+                }, 100);
+            });
+        }
+        const showSuccess = () => {
+            defaultMessage.classList.add('hidden');
+            successMessage.classList.remove('hidden');
+            copyBtn.classList.add('border-yellow-700', 'text-yellow-700');
+        }
+        const resetToDefault = () => {
+            defaultMessage.classList.remove('hidden');
+            successMessage.classList.add('hidden');
+            copyBtn.classList.remove('border-yellow-700', 'text-yellow-700');
+        }
+    });
+</script>
