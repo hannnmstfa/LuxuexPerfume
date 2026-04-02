@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\BuktiPengembalian;
 use App\Models\Pengembalian;
+use App\Models\TokoSetting;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use RahulHaque\Filepond\Facades\Filepond;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Mail\Pengembalian as MailReturn;
 
 class PengembalianController extends Controller
 {
@@ -29,7 +32,7 @@ class PengembalianController extends Controller
         $data = Pengembalian::with(['transaksi'])
             ->where("transaksi_id", $trx->id)->first();
         if ($data) {
-            return view("afterlogin.pengembalian.index", compact("data" ));
+            return view("afterlogin.pengembalian.index", compact("data"));
         } else {
             return to_route('pengembalian.create', $trx->kodeTrx);
         }
@@ -46,7 +49,7 @@ class PengembalianController extends Controller
         if (!$trx->tracking_sukses) {
             abort(404, 'Transaksi tidak memenuhi syarat pengembalian');
         }
-        if($trx->pengembalian){
+        if ($trx->pengembalian) {
             Alert::warning('Warning !!!', 'Pengajuan sudah ada. Tidak dapat membuat pengajuan baru.');
             return to_route('pengembalian.index', $trx->kodeTrx);
         }
@@ -78,7 +81,7 @@ class PengembalianController extends Controller
         $pengembalian = Pengembalian::create([
             'transaksi_id' => $trx->id,
             'deskripsi' => $request->deskripsi,
-            'video_unboxing' => '/storage/' .  $unboxing['location'],
+            'video_unboxing' => '/storage/' . $unboxing['location'],
             'type' => $request->tipe,
         ]);
         if ($request->pendukung[0]) {
@@ -89,6 +92,10 @@ class PengembalianController extends Controller
             }
             $pengembalian->foto_pendukung = $foto_pendukung;
             $pengembalian->save();
+        }
+        $toko = TokoSetting::data();
+        if ($toko && $toko->email_toko) {
+            Mail::to($toko->email_toko)->queue(new MailReturn($pengembalian));
         }
         Alert::success('Berhasil', 'Pengajuan pengembalian berhasil dibuat. Silahkan tunggu konfirmasi dari penjual');
         return to_route('pengembalian.index', $kodeTrx);

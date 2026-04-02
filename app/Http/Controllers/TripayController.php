@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\Pesanan;
 use App\Models\SaldoUser;
+use App\Models\TokoSetting;
 use App\Models\TopUp;
 use App\Models\Tracking;
 use App\Models\Transaksi;
@@ -101,7 +102,7 @@ class TripayController extends Controller
     }
     public function trxCallback(Request $request)
     {
-        
+
         $callbackSignature = $request->server('HTTP_X_CALLBACK_SIGNATURE');
         $json = $request->getContent();
         $signature = hash_hmac('sha256', $json, $this->privateKey);
@@ -136,10 +137,10 @@ class TripayController extends Controller
 
         if ($data->is_closed_payment === 1) {
             $invoice = Transaksi::with('transaksi_items')
-            ->with('transaksi_details')
-            ->where('tripay_ref', $tripayReference)->first();
+                ->with('transaksi_details')
+                ->where('tripay_ref', $tripayReference)->first();
 
-            if (! $invoice) {
+            if (!$invoice) {
                 return Response::json([
                     'success' => false,
                     'message' => 'Transaksi tidak ditemukan: ' . $invoiceId,
@@ -167,7 +168,10 @@ class TripayController extends Controller
                         'transaksi_id' => $invoice->id,
                         'last_phone' => substr($invoice->transaksi_details->no_penerima, -5),
                     ]);
-                    Mail::to('burhanmusthofa1@gmail.com')->queue(new Pesanan($invoice));
+                    $toko = TokoSetting::data();
+                    if ($toko && $toko->email_toko) {
+                        Mail::to($toko->email_toko)->queue(new Pesanan($invoice));
+                    }
                     break;
 
                 case 'EXPIRED':

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\LaporanController as AdmLaporan;
 use App\Http\Controllers\Admin\UserController as AdmUser;
 use App\Http\Controllers\Admin\AnalisisController as AdmAnalis;
 use App\Http\Controllers\Admin\TokoController as AdmToko;
+use App\Http\Controllers\Admin\PengembalianController as AdmReturn;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\OAuthController;
@@ -46,6 +47,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/dashboard/produk/{id}/atur-diskon', [AdminProduk::class, 'setDiskon'])->name('admProduk.setDiskon');
         Route::put('/dashboard/produk/{id}/delete-diskon', [AdminProduk::class, 'delDiskon'])->name('admProduk.delDiskon');
         Route::resource('/dashboard/transaksi', AdminTrx::class)->names('admTrx');
+        Route::resource('/dashboard/pengembalian', AdmReturn::class)->names('admReturn');
         Route::put('/dashboard/transaksi/{kodeTrx}/tracking', [AdminTrx::class, 'tracking'])->name('admTrx.tracking');
         Route::get('/dashboard/laporan', [AdmLaporan::class, 'index'])->name('admLaporan.index');
         Route::get('/dashboard/laporan/{bulan}/export-pdf', [AdmLaporan::class, 'pdf'])->name('admLaporan.pdf');

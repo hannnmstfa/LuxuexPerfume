@@ -20,10 +20,12 @@
             <h5 class="text-2xl font-bold text-gold">Informasi Transaksi</h5>
             @if ($trx->status_bayar == 'berhasil' && $trx->trackings->status == 'pengiriman selesai' && $trx->trackings->received_at && \Carbon\Carbon::parse($trx->trackings->received_at)->diffInHours(now()) < 48)
                 <a href="{{ route('pengembalian.create', $trx->kodeTrx) }}"
-                    class="border rounded py-1 px-3 text-sm font-semibold shadow border-gold text-gold hover:bg-yellow-400 hover:text-black">Ajukan Pengembalian</a>
+                    class="border rounded py-1 px-3 text-sm font-semibold shadow border-gold text-gold hover:bg-yellow-400 hover:text-black">Ajukan
+                    Pengembalian</a>
             @elseif($trx->pengembalian)
-            <a href="{{ route('pengembalian.index', $trx->kodeTrx) }}"
-                    class="border rounded py-1 px-3 text-sm font-semibold shadow border-gold text-gold hover:bg-yellow-400 hover:text-black">Detail Pengembalian</a>
+                <a href="{{ route('pengembalian.index', $trx->kodeTrx) }}"
+                    class="border rounded py-1 px-3 text-sm font-semibold shadow border-gold text-gold hover:bg-yellow-400 hover:text-black">Detail
+                    Pengembalian</a>
             @endif
         </div>
         <hr class="mb-3">
@@ -130,7 +132,14 @@
                         class="flex w-full items-center text-fg-brand after:content-[''] after:w-full after:h-1 after:border-b {{ $trx->status_bayar == 'berhasil' && $trx->trackings->status !== 'sedang dikemas' ? 'after:border-green-300' : 'after:border-gray-300' }} after:border-4 after:inline-block after:ms-4 after:rounded-full">
                         <span data-tooltip-target="dikemas" data-tooltip-placement="bottom"
                             class="flex items-center justify-center w-10 h-10 border {{ $trx->status_bayar == 'berhasil' ? ($trx->trackings && $trx->trackings->status !== 'sedang dikemas' ? 'bg-green-200 text-green-800 border-green-500' : 'bg-yellow-200 text-yellow-800 border-yellow-500') : 'bg-gray-200 text-gray-800' }} rounded-full lg:h-12 lg:w-12 shrink-0">
-                            <i class="fa-regular fa-box"></i>
+                            <svg class="w-6 h-6" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M12.013 6.175 7.006 9.369l5.007 3.194-5.007 3.193L2 12.545l5.006-3.193L2 6.175l5.006-3.194 5.007 3.194ZM6.981 17.806l5.006-3.193 5.006 3.193L11.987 21l-5.006-3.194Z" />
+                                <path
+                                    d="m12.013 12.545 5.006-3.194-5.006-3.176 4.98-3.194L22 6.175l-5.007 3.194L22 12.562l-5.007 3.194-4.98-3.211Z" />
+                            </svg>
                         </span>
                         <div id="dikemas" role="tooltip"
                             class="absolute z-10 {{ $trx->trackings && $trx->trackings->status !== 'sedang dikemas' ? 'invisible opacity-0' : ($trx->status_bayar == 'berhasil' ? '' : 'invisible opacity-0') }} inline-block px-3 py-2 text-sm font-medium text-white bg-gray-700 rounded shadow-xs  tooltip">

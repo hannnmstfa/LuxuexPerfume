@@ -18,6 +18,7 @@
                         <option value="pengembalian dana">Pengembalian Dana</option>
                         <option value="kirim barang baru">Kirim Barang Baru</option>
                     </select>
+                    <span class="text-xs text-gold italic">*Pengembalian dengan pengiriman ulang barang baru akan membutuhkan lebih banyak waktu proses dan pengiriman</span>
                 </li>
                 <li class="mb-3">
                     <label for="deskripsi" class="font-semibold">Deskripsi Pengembalian<span

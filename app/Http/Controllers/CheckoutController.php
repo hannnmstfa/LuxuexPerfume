@@ -46,7 +46,8 @@ class CheckoutController extends Controller
             'payment_method' => 'required|string',
         ], [
             'kode_area.required' => 'Silahkan pilih area terlebih dahulu',
-            'payment_method.required' => 'Silahkan Pilih metode pembayaran terlebih dahulu'
+            'payment_method.required' => 'Silahkan Pilih metode pembayaran terlebih dahulu',
+            'ongkir.required' => 'Gagal menghitung ongkir',
         ]);
         dd($request->all());
         $kodeTrx = 'LX' . date('YmdHis');

@@ -41,6 +41,17 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('admReturn.index') }}"
+                    class="flex items-center p-2  rounded-lg {{ request()->routeIs('admReturn.*') ? 'bg-yellow-800 text-white dark:bg-gray-700' : 'text-gray-900 hover:text-white hover:bg-yellow-800 dark:text-white dark:hover:bg-gray-700 group' }}">
+                    <svg class="shrink-0 w-6 h-6 transition duration-75 {{ request()->routeIs('admReturn.*') ? 'text-white dark:text-white' : 'text-gray-900 dark:text-gray-400 group-hover:text-white dark:group-hover:text-white' }}"
+                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m16 10 3-3m0 0-3-3m3 3H5v3m3 4-3 3m0 0 3 3m-3-3h14v-3" />
+                    </svg>
+                    <span class="ms-3">Pengembalian</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('admLaporan.index') }}"
                     class="flex items-center p-2  rounded-lg {{ request()->routeIs('admLaporan.*') ? 'bg-yellow-800 text-white dark:bg-gray-700' : 'text-gray-900 hover:text-white hover:bg-yellow-800 dark:text-white dark:hover:bg-gray-700 group' }}">
                     <svg class="shrink-0 w-6 h-6 transition duration-75 {{ request()->routeIs('admLaporan.*') ? 'text-white dark:text-white' : 'text-gray-900 dark:text-gray-400 group-hover:text-white dark:group-hover:text-white' }}"
