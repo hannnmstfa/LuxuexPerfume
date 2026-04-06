@@ -43,13 +43,14 @@ class CheckoutController extends Controller
             'kode_area' => 'required|string',
             'alamat' => 'required|string',
             'ongkir' => 'required|integer',
+            'fee_payment' => 'required|integer',
             'payment_method' => 'required|string',
         ], [
             'kode_area.required' => 'Silahkan pilih area terlebih dahulu',
             'payment_method.required' => 'Silahkan Pilih metode pembayaran terlebih dahulu',
             'ongkir.required' => 'Gagal menghitung ongkir',
+            'fee_payment' => 'Fee Payment gagal dihitung'
         ]);
-        dd($request->all());
         $kodeTrx = 'LX' . date('YmdHis');
         $keranjangs = Keranjang::with('produks')->where('users_id', Auth::id())->get();
         $keranjangs = $keranjangs->filter(function ($chart) {
@@ -67,21 +68,20 @@ class CheckoutController extends Controller
         }
         $orderItems[] = [
             'name' => 'Ongkir',
-            'price' => 15000,
+            'price' => $request->ongkir,
             'quantity' => 1,
         ];
         $subtotal = $keranjangs->sum(function ($item) {
             return ($item->produks->harga_diskon ? $item->produks->harga_diskon : $item->produks->harga) * $item->jumlah;
         });
-        $ongkir = 15000;
-        $amount = $subtotal + $ongkir;
+        $amount = $subtotal + $request->ongkir;
         $tripay = new TripayController();
         $data_tripay = $tripay->createTrx($request->payment_method, $kodeTrx, $amount, $orderItems);
         $trx = Transaksi::create([
             'users_id' => Auth::user()->id,
             'kodeTrx' => $kodeTrx,
             'subtotal' => $subtotal,
-            'ongkir' => $ongkir,
+            'ongkir' => $request->ongkir,
             'total_harga' => $amount,
             'metode_bayar' => $data_tripay['data']['payment_name'],
             'fee_payment' => $data_tripay['data']['total_fee'],

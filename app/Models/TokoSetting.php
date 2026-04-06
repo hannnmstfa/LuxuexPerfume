@@ -16,6 +16,8 @@ class TokoSetting extends Model
     ];
     public static function data()
     {
-        return self::first();
+        return cache()->remember('toko_setting', 3600, function () {
+            return self::first();
+        });
     }
 }

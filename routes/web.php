@@ -31,15 +31,6 @@ Route::get('/keranjang', [GuestController::class, 'keranjang'])->name('keranjang
 Route::post('/transaksi/callback', [TripayController::class, 'trxCallback'])->name('trx.callback')->withoutMiddleware(VerifyCsrfToken::class);
 Route::get('/ketentuan-layanan', [GuestController::class, 'ketentuanLayanan'])->name('ketentuan.layanan');
 Route::get('/kebijakan-privasi', [GuestController::class, 'kebijakanPrivasi'])->name('kebijakan.privasi');
-Route::match(['POST', 'OPTIONS'], '/n8n/chat', function (Request $request) {
-    if ($request->isMethod('options'))
-        return response('', 204);
-    $webhook = 'https://workflow.hannnmstfa.my.id/webhook/fe325a7b-b0ca-4530-aee1-758a6e90bab2';
-    $resp = Http::withBody($request->getContent(), $request->header('Content-Type', 'application/json'))
-        ->post($webhook);
-    return response($resp->body(), $resp->status())
-        ->header('Content-Type', $resp->header('Content-Type', 'application/json'));
-})->withoutMiddleware(VerifyCsrfToken::class);
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(Admin::class)->group(function () {
         Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('admin.dashboard');
@@ -53,9 +44,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard/laporan/{bulan}/export-pdf', [AdmLaporan::class, 'pdf'])->name('admLaporan.pdf');
         Route::get('/dashboard/users/aktif', [AdmUser::class, 'aktif'])->name('users.aktif');
         Route::delete('/dashboard/users/aktif/{id}/destroy', [AdmUser::class, 'softDelete'])->name('users.destroy');
-        Route::put('/dashboard/users/aktif/{id}/switch-role', [AdmUser::class,'role'])->name('users.role');
-        Route::get('/dashboard/users/nonaktif', [AdmUser::class,'nonaktif'])->name('users.nonaktif');
-        Route::put('/dashboard/users/nonaktif/{id}/restore', [AdmUser::class,'restore'])->name('users.restore');
+        Route::put('/dashboard/users/aktif/{id}/switch-role', [AdmUser::class, 'role'])->name('users.role');
+        Route::get('/dashboard/users/nonaktif', [AdmUser::class, 'nonaktif'])->name('users.nonaktif');
+        Route::put('/dashboard/users/nonaktif/{id}/restore', [AdmUser::class, 'restore'])->name('users.restore');
         Route::delete('/dashboard/users/nonaktif/{id}/forceDestroy', [AdmUser::class, 'forceDestroy'])->name('users.forceDestroy');
         Route::resource('/dashboard/analisis', AdmAnalis::class)->names('admAnalis');
         Route::get('/dashboard/manage-toko', [AdmToko::class, 'index'])->name('admToko.index');
@@ -66,8 +57,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/transaksi/{kodeTrx}/payment', [TransaksiController::class, 'trxPayment'])->name('trx.pay');
     Route::get('/transaksi/{kodeTrx}/payment/downloadQRIS', [TransaksiController::class, 'downloadQris'])->name('downloadQris');
     Route::resource('/transaksi', TransaksiController::class)->names('trx');
-    Route::resource('/transaksi/{kodeTrx}/pengembalian', PengembalianController::class)->names('pengembalian'); 
+    Route::resource('/transaksi/{kodeTrx}/pengembalian', PengembalianController::class)->names('pengembalian');
 
+    // Route Handle N8N
+    Route::match(['POST', 'OPTIONS'], '/n8n/chat', function (Request $request) {
+        if ($request->isMethod('options')) {
+            return response('', 204);
+        }
+        $user = $request->user();
+        $payload = json_decode($request->getContent(), true);
+        $payload['user'] = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+        ];
+        $payload['sessionId'] = 'chat_user_' . ($user->id);
+        $webhook = 'https://workflow.hannnmstfa.my.id/webhook/e77798fa-a6dc-40c3-923f-93c7d0effdfc/chat';
+        $resp = Http::post($webhook, $payload);
+        return response($resp->body(), $resp->status())
+            ->header('Content-Type', $resp->header('Content-Type', 'application/json'));
+    })->withoutMiddleware(VerifyCsrfToken::class);
 });
 
 

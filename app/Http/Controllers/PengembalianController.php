@@ -32,6 +32,7 @@ class PengembalianController extends Controller
         $data = Pengembalian::with(['transaksi'])
             ->where("transaksi_id", $trx->id)->first();
         if ($data) {
+            confirmDelete('Konfirmasi !!!', 'Apakah anda yakin ingin membatalkan pengajuan ini?');
             return view("afterlogin.pengembalian.index", compact("data"));
         } else {
             return to_route('pengembalian.create', $trx->kodeTrx);
@@ -99,5 +100,30 @@ class PengembalianController extends Controller
         }
         Alert::success('Berhasil', 'Pengajuan pengembalian berhasil dibuat. Silahkan tunggu konfirmasi dari penjual');
         return to_route('pengembalian.index', $kodeTrx);
+    }
+    public function destroy($kodeTrx, $id)
+    {
+        $data = Transaksi::where('kodeTrx', $kodeTrx)
+            ->where('users_id', Auth::user()->id)->first();
+        if (!$data) {
+            abort(404, 'Transaksi tidak ditemukan');
+        }
+        $data = Pengembalian::where('transaksi_id', $data->id)->first();
+        if (!$data) {
+            abort(404, 'Pengembalian tidak ditemukan');
+        }
+        if (file_exists(public_path($data->video_unboxing)) && is_file(public_path($data->video_unboxing))) {
+            unlink(public_path($data->video_unboxing));
+        }
+        if ($data->foto_pendukung) {
+            foreach ($data->foto_pendukung as $item) {
+                if (file_exists(public_path($item)) && is_file(public_path($item))) {
+                    unlink(public_path($item));
+                }
+            }
+        }
+        $data->delete();
+        Alert::success('Sukses', 'Berhasil membatalkan pengajuan pengembalian');
+        return to_route('trx.show', $kodeTrx);
     }
 }

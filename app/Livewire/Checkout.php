@@ -15,6 +15,9 @@ class Checkout extends Component
     public $keranjangs;
     public $payment_method;
     public $ongkir = null;
+    public $fee_payment = null;
+    public $payment_fee_flat = 0;
+    public $payment_fee_percent = 0;
     public $subtotal = 0;
     public $total = 0;
     public $provinsi = '';
@@ -32,6 +35,10 @@ class Checkout extends Component
         $this->dataProv = $wilayah->provinsi();
         $payment = app(TripayController::class);
         $this->payment = $payment->getPayment();
+        $this->payment_method = old('payment_method');
+        if ($this->payment_method) {
+            $this->setSelectedPaymentFee($this->payment_method);
+        }
         $this->hitungTotal();
         if(old('kode_area')){
             $kode_area = explode('.', old('kode_area'));
@@ -57,13 +64,41 @@ class Checkout extends Component
         $this->subtotal = $this->keranjangs->sum(function ($item) {
             return ($item->produks->harga_diskon ? $item->produks->harga_diskon : $item->produks->harga) * $item->jumlah;
         });
-        $this->total = $this->subtotal + $this->ongkir;
+        $this->hitungPayment();
+        $this->total = $this->subtotal + $this->ongkir + $this->fee_payment;
     }
-    // public function hitungPayment(int $flat = 0, float $percent = 0){
-    //     $this->fee_payment = 0;
-    //     $this->fee_payment = (($this->subtotal + $this->ongkir) * $percent / 100) + $flat;
-    //     $this->total = $this->subtotal + $this->ongkir + $this->fee_payment;
-    // }
+
+    public function hitungPayment(){
+        if (!$this->payment_method) {
+            $this->fee_payment = null;
+            return;
+        }
+
+        $ongkir = $this->ongkir ?? 0;
+        $this->fee_payment = (($this->subtotal + $ongkir) * $this->payment_fee_percent / 100) + $this->payment_fee_flat;
+    }
+
+    public function updatedPaymentMethod($paymentMethod)
+    {
+        $this->setSelectedPaymentFee($paymentMethod);
+        $this->hitungTotal();
+    }
+
+    protected function setSelectedPaymentFee($paymentMethod)
+    {
+        $selectedPayment = collect($this->payment['data'] ?? [])->firstWhere('code', $paymentMethod);
+
+        if (!$selectedPayment) {
+            $this->payment_fee_flat = 0;
+            $this->payment_fee_percent = 0;
+            $this->fee_payment = null;
+            return;
+        }
+
+        $this->payment_fee_flat = (int) ($selectedPayment['total_fee']['flat'] ?? 0);
+        $this->payment_fee_percent = (float) ($selectedPayment['total_fee']['percent'] ?? 0);
+    }
+
     public function updatedProvinsi($code_prov){
         $wilayah = app(WilayahController::class);
         $this->dataKota = $wilayah->kota($code_prov);

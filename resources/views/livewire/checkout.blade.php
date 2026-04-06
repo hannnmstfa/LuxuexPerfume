@@ -110,7 +110,7 @@
             </div>
 
             <div class="bg-white dark:bg-black/40 backdrop-blur border dark:border-gray-500 p-6 rounded shadow">
-                <div wire:loading.remove.class="hidden" wire:loading.class="flex" wire:target="setPayment"
+                <div wire:loading.remove.class="hidden" wire:loading.class="flex" wire:target="payment_method"
                     class="absolute w-full top-0 left-0 right-0 bottom-0 bg-gray-500 hidden justify-center items-center bg-opacity-50">
                     <x-loader />
                 </div>
@@ -130,7 +130,7 @@
                     @foreach ($payment['data'] as $va)
                         @if ($va['group'] == 'Virtual Account')
                             <div class="col-span-3 md:col-span-1">
-                                <input type="radio" name="payment_method" value="{{ $va['code'] }}" class="peer hidden"
+                                <input type="radio" name="payment_method" value="{{ $va['code'] }}" class="peer hidden" wire:model.live="payment_method"
                                     id="{{ $va['code'] }}" {{ old('payment_method') == $va['code'] ? 'checked' : '' }}>
                                 <label for="{{ $va['code'] }}" title="{{ $va['name'] }}"
                                     class="w-full min-h-20 border flex flex-col justify-center peer-checked:bg-gold peer-checked:text-gray-400 dark:peer-checked:text-gray-800 peer-checked:border-2 peer-checked:border-yellow-400 gap-2 items-center border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-900 hover:opacity-70 cursor-pointer duration-100 rounded p-2">
@@ -145,7 +145,7 @@
                     @foreach ($payment['data'] as $retail)
                         @if ($retail['group'] == 'Convenience Store')
                             <div class="col-span-3 md:col-span-1">
-                                <input type="radio" name="payment_method" value="{{ $retail['code'] }}" class="peer hidden"
+                                <input type="radio" name="payment_method" value="{{ $retail['code'] }}" class="peer hidden" wire:model.live="payment_method"
                                     id="{{ $retail['code'] }}" {{ old('payment_method') == $retail['code'] ? 'checked' : '' }}>
                                 <label for="{{ $retail['code'] }}" title="{{ $retail['name'] }}"
                                     class="w-full min-h-20 border flex flex-col justify-center peer-checked:bg-gold peer-checked:text-gray-400 dark:peer-checked:text-gray-800 peer-checked:border-2 peer-checked:border-yellow-400 gap-2 items-center border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-900 hover:opacity-70 cursor-pointer duration-100 rounded p-2">
@@ -160,7 +160,7 @@
                     @foreach ($payment['data'] as $ewallet)
                         @if ($ewallet['group'] == 'E-Wallet')
                             <div class="col-span-3 md:col-span-1">
-                                <input type="radio" name="payment_method" value="{{ $ewallet['code'] }}" class="peer hidden"
+                                <input type="radio" name="payment_method" value="{{ $ewallet['code'] }}" class="peer hidden" wire:model.live="payment_method"
                                     id="{{ $ewallet['code'] }}" {{ old('payment_method') == $ewallet['code'] ? 'checked' : '' }}>
                                 <label for="{{ $ewallet['code'] }}" title="{{ $ewallet['name'] }}"
                                     class="w-full min-h-20 border flex flex-col justify-center peer-checked:bg-gold peer-checked:text-gray-400 dark:peer-checked:text-gray-800 peer-checked:border-2 peer-checked:border-yellow-400 gap-2 items-center border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-900 hover:opacity-70 cursor-pointer duration-100 rounded p-2">
@@ -179,7 +179,7 @@
         <!-- KANAN -->
         <div class="col-span-12 lg:col-span-4 !sticky top-24">
             <div class="border border-gray-300 rounded-md p-4 shadow-md relative font-inter">
-                <div wire:loading.remove.class="hidden" wire:loading.class="flex" wire:target="hitungPayment()"
+                <div wire:loading.remove.class="hidden" wire:loading.class="flex" wire:target="payment_method, desa"
                     class="absolute w-full top-0 left-0 right-0 bottom-0 bg-gray-500 hidden justify-center items-center bg-opacity-50">
                     <x-loader />
                 </div>
@@ -217,6 +217,11 @@
                     <h4 class="font-semibold ">Ongkir</h4>
                     <h4 class="font-semibold ">{{ $ongkir ? 'Rp' . number_format($ongkir) : '-' }}</h4>
                     <input type="hidden" value="{{ old('ongkir', $ongkir) }}" name="ongkir" required>
+                </div>
+                <div class="flex justify-between items-center text-sm text-gray-500">
+                    <h4 class="font-semibold ">Fee Payment</h4>
+                    <h4 class="font-semibold ">{{ $fee_payment ? 'Rp' . number_format($fee_payment) : '-' }}</h4>
+                    <input type="hidden" value="{{ old('fee_payment', $fee_payment) }}" name="fee_payment" required>
                 </div>
                 <div class="flex justify-between items-center text-lg font-bold">
                     <h4>Total Bayar</h4>

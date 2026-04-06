@@ -14,9 +14,15 @@ class Daftar extends Component
     public $sortDirection = 'asc';
     protected $listeners = ['keranjangDitambahkan'];
     public array $success = [];
+
     public function keranjangDitambahkan($payload)
     {
         $this->success[$payload['productId']] = true;
+    }
+
+    public function updatedKategori()
+    {
+        $this->resetPage();
     }
 
     public function sort($sortBy, $sortDirection)
@@ -29,8 +35,8 @@ class Daftar extends Component
     public function render()
     {
         $products = Produk::when($this->kategori !== 'all', function ($q) {
-                $q->where('kategori', $this->kategori);
-            })
+            $q->where('kategori', $this->kategori);
+        })
             ->when($this->sortBy === 'harga', function ($q) {
                 $q->orderByRaw(
                     'COALESCE(harga_diskon, harga) ' . $this->sortDirection

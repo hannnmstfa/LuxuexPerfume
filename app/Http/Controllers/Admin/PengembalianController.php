@@ -22,6 +22,6 @@ class PengembalianController extends Controller
             abort(404, 'Transaksi tidak ditemukan');
         }
         $data = Pengembalian::with('transaksi')->where('transaksi_id', $trx->id)->first();
-        return new MailReturn($data);
+        return view('admin.pengembalian.detail', compact('data'));
     }
 }

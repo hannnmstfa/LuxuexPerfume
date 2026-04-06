@@ -5,11 +5,11 @@
         </h1>
         <span class="text-sm font-inter mb-1">{{ ucwords($data->type) }}</span>
         <span
-            class="border rounded-lg px-4 py-1 text-xs font-semibold bg-yellow-200 text-yellow-600 border-yellow-300 {{ $data->status == 'diterima' ? '!bg-green-200 !text-green-600 !border-green-400' : ($data->status == 'ditolak' ? '!text-red-600 !bg-red-200 !border-red-400' : '') }}">Pengajuan
+            class="border rounded-lg px-4 py-1 text-xs font-semibold bg-yellow-200 text-yellow-600 border-yellow-300 {{ $data->status == 'disetujui' ? '!bg-green-200 !text-green-600 !border-green-400' : ($data->status == 'ditolak' ? '!text-red-600 !bg-red-200 !border-red-400' : '') }}">Pengajuan
             {{ ucwords($data->status) }}</span>
     </div>
-    <div class="max-w-screen-xl mx-auto border-t border-gray-600 p-3 grid md:grid-cols-2 gap-8">
-        <div class="col-span-1 mb-4">
+    <div class="max-w-screen-xl mx-auto border-t border-gray-600 p-3 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="col-span-2 md:col-span-1">
             <div class="mb-3">
                 <p class="text-xs text-gray-500 font-semibold uppercase">Deskripsi Pengembalian</p>
                 <p class="text-justify text-sm">{{ $data->deskripsi }}</p>
@@ -20,7 +20,7 @@
                     class="w-full max-h-64 rounded-lg border border-gray-800 shadow-xl mt-1" controls></video>
             </div>
         </div>
-        <div x-data="{ open: false, imageUrl: '' }" class="col-span-1 mb-4">
+        <div x-data="{ open: false, imageUrl: '' }" class="col-span-2 md:col-span-1">
             @if ($data->foto_pendukung)
                 <div class="mb-3">
                     <p class="text-xs text-gray-500 font-semibold uppercase">Foto Pendukung</p>
@@ -53,5 +53,8 @@
                 <p class="text-justify text-sm">{{ $data->catatan ?? '-' }}</p>
             </div>
         </div>
+        @if ($data->status == 'ditinjau')
+            <a href="{{ route('pengembalian.destroy', [$data->transaksi->kodeTrx, $data->id]) }}" data-confirm-delete="true" class="col-span-2 border-2 border-red-500 text-red-500 rounded-lg py-2 font-semibold hover:bg-red-500 hover:text-white duration-200 text-center">Batalkan Pengajuan</a>
+        @endif
     </div>
 </x-guest-layout>
