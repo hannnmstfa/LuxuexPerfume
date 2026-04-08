@@ -3,14 +3,15 @@
 
 <head>
     @include('layouts.head')
-    <title>{{ ucwords($title) }} - {{ \App\Models\TokoSetting::data()->nama_toko ??  config('app.name', 'Laravel') }}</title>
+    <title>{{ ucwords($title) }} - {{ \App\Models\TokoSetting::data()->nama_toko ?? config('app.name', 'Laravel') }}
+    </title>
 </head>
 
 <body class="max-h-screen font-poppins scroll-style dark" x-data>
     @include('layouts.nav-guest')
-    <div
-        class="w-full min-h-screen overflow-hidden">
-        <main class=" pt-24 sm:pt-18 bg-white text-black dark:bg-black backdrop-blur  dark:text-white relative min-h-[60dvh] pb-5">
+    <div class="w-full min-h-screen overflow-hidden">
+        <main
+            class=" pt-24 sm:pt-18 bg-white text-black dark:bg-black backdrop-blur  dark:text-white relative min-h-[60dvh] pb-5">
             <!-- Background Glow -->
             <div class="fixed inset-0 -z-10">
                 <div

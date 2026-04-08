@@ -37,17 +37,9 @@
                     <div>
                         <p class="text-white/50 text-xs">Asisten Chat</p>
                         <button class="hover:text-white transition">
-                            24 Jam Online Assistant
+                            24 Jam Online Assistant <span class="text-xs text-gray-600">(Login)</span>
                         </button>
                     </div>
-
-                    <!-- <div>
-                        <p class="text-white/50 text-xs">Email</p>
-                        <a href="mailto:cs@luxuexperfume.com" class="hover:text-white transition">
-                            cs@luxuexperfume.com
-                        </a>
-                    </div> -->
-
                     <div>
                         <p class="text-white/50 text-xs">Jam Operasional</p>
                         <p>Senin – Sabtu, 09.00 – 21.00 WIB</p>

@@ -1,11 +1,11 @@
 import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-createChat({
-  webhookUrl: '/n8n/chat',
-  mode: 'window',
-  showWelcomeScreen: true,
-  initialMessages: ['Halo 👋', 'Ada yang bisa saya bantu?'],
-});
+  createChat({
+    webhookUrl: '/n8n/chat',
+    mode: 'window',
+    showWelcomeScreen: true,
+    initialMessages: ['Halo 👋', 'Ada yang bisa saya bantu?'],
+  });
 
 function qs(sel) {
   return document.querySelector(sel);

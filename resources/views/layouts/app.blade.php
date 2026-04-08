@@ -17,7 +17,7 @@
         @include('layouts.sidebar-adm')
         @include('layouts.adm-nav')
         <!-- Page Content -->
-        <main class="p-4 sm:ml-64 pt-20 sm:pt-18 min-h-screen">
+        <main class="p-4 sm:ml-64 pt-20 pb-12 sm:pt-18 min-h-screen">
             @if ($errors->any())
                 <div class="container rounded bg-red-200 p-2 border border-red-600 mb-2">
                     <p class="font-bold text-md dark:text-black">Error List</p>

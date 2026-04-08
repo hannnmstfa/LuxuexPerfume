@@ -5,7 +5,7 @@
                 DETAIL <span class="text-[#D4AF37]">TRANSAKSI</span>
             </h1>
             <div>
-                @if ($trx->status_bayar == 'berhasil')
+                @if ($trx->status_bayar == 'berhasil' && $trx->trackings)
                     <button
                         class="border rounded-full py-1 px-3 text-sm font-semibold shadow {{ $trx->trackings->status == 'pengiriman selesai' ? 'bg-green-200 text-green-900 border-green-300' : 'bg-yellow-200 text-yellow-900 border-yellow-300'}}">{{ ucwords($trx->trackings->status) }}</button>
                 @else
@@ -18,7 +18,7 @@
     <div class="max-w-screen-xl mx-auto p-2">
         <div class="flex-row items-center justify-between py-3 space-y-3 sm:flex sm:space-  y-0 sm:space-x-4">
             <h5 class="text-2xl font-bold text-gold">Informasi Transaksi</h5>
-            @if ($trx->status_bayar == 'berhasil' && $trx->trackings->status == 'pengiriman selesai' && $trx->trackings->received_at && \Carbon\Carbon::parse($trx->trackings->received_at)->diffInHours(now()) < 48)
+            @if ($trx->status_bayar == 'berhasil' && $trx->trackings && $trx->trackings->status == 'pengiriman selesai' && $trx->trackings->received_at && \Carbon\Carbon::parse($trx->trackings->received_at)->diffInHours(now()) < 48)
                 <a href="{{ route('pengembalian.create', $trx->kodeTrx) }}"
                     class="border rounded py-1 px-3 text-sm font-semibold shadow border-gold text-gold hover:bg-yellow-400 hover:text-black">Ajukan
                     Pengembalian</a>
@@ -129,7 +129,7 @@
                         </div>
                     </li>
                     <li
-                        class="flex w-full items-center text-fg-brand after:content-[''] after:w-full after:h-1 after:border-b {{ $trx->status_bayar == 'berhasil' && $trx->trackings->status !== 'sedang dikemas' ? 'after:border-green-300' : 'after:border-gray-300' }} after:border-4 after:inline-block after:ms-4 after:rounded-full">
+                        class="flex w-full items-center text-fg-brand after:content-[''] after:w-full after:h-1 after:border-b {{ $trx->status_bayar == 'berhasil' && $trx->trackings && $trx->trackings->status !== 'sedang dikemas' ? 'after:border-green-300' : 'after:border-gray-300' }} after:border-4 after:inline-block after:ms-4 after:rounded-full">
                         <span data-tooltip-target="dikemas" data-tooltip-placement="bottom"
                             class="flex items-center justify-center w-10 h-10 border {{ $trx->status_bayar == 'berhasil' ? ($trx->trackings && $trx->trackings->status !== 'sedang dikemas' ? 'bg-green-200 text-green-800 border-green-500' : 'bg-yellow-200 text-yellow-800 border-yellow-500') : 'bg-gray-200 text-gray-800' }} rounded-full lg:h-12 lg:w-12 shrink-0">
                             <svg class="w-6 h-6" aria-hidden="true"
@@ -148,9 +148,9 @@
                         </div>
                     </li>
                     <li
-                        class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b {{ $trx->status_bayar == 'berhasil' && $trx->trackings->status == 'pengiriman selesai' ? 'after:border-green-300' : 'after:border-gray-300' }} after:border-4 after:inline-block  after:ms-4 after:rounded-full">
+                        class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b {{ $trx->status_bayar == 'berhasil' && $trx->trackings && $trx->trackings->status == 'pengiriman selesai' ? 'after:border-green-300' : 'after:border-gray-300' }} after:border-4 after:inline-block  after:ms-4 after:rounded-full">
                         <span data-tooltip-target="pengiriman" data-tooltip-placement="bottom"
-                            class="flex items-center justify-center w-10 h-10 border {{ $trx->status_bayar == 'berhasil' && $trx->trackings->status !== 'sedang dikemas' ? ($trx->trackings && $trx->trackings->status == 'dalam pengiriman' ? 'bg-yellow-200 text-yellow-800 border-yellow-500' : 'bg-green-200 text-green-800 border-green-500') : 'bg-gray-200 text-gray-800' }} rounded-full lg:h-12 lg:w-12 shrink-0">
+                            class="flex items-center justify-center w-10 h-10 border {{ $trx->status_bayar == 'berhasil' && $trx->trackings && $trx->trackings->status !== 'sedang dikemas' ? ($trx->trackings && $trx->trackings->status == 'dalam pengiriman' ? 'bg-yellow-200 text-yellow-800 border-yellow-500' : 'bg-green-200 text-green-800 border-green-500') : 'bg-gray-200 text-gray-800' }} rounded-full lg:h-12 lg:w-12 shrink-0">
                             <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                 height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -159,14 +159,14 @@
                             </svg>
                         </span>
                         <div id="pengiriman" role="tooltip"
-                            class="absolute z-10 {{ $trx->trackings && $trx->trackings->status !== 'dalam pengiriman' ? 'invisible opacity-0' : ($trx->status_bayar == 'berhasil' ? '' : 'invisible opacity-0') }} inline-block px-3 py-2 text-sm font-medium text-white bg-gray-700 rounded shadow-xs  tooltip">
+                            class="absolute z-10 {{ $trx->trackings && $trx->trackings->status !== 'dalam pengiriman' ? 'invisible opacity-0' : ($trx->status_bayar == 'berhasil' && $trx->trackings ? '' : 'invisible opacity-0') }} inline-block px-3 py-2 text-sm font-medium text-white bg-gray-700 rounded shadow-xs  tooltip">
                             Dalam Pengiriman
                             <div class="tooltip-arrow" data-popper-arrow></div>
                         </div>
                     </li>
                     <li class="flex items-center">
                         <span data-tooltip-target="selesai" data-tooltip-placement="bottom"
-                            class="flex items-center justify-center w-10 h-10 border {{ $trx->status_bayar == 'berhasil' && $trx->trackings->status == 'pengiriman selesai' ? 'bg-green-200 text-green-800 border-green-500' : 'bg-gray-200 text-gray-800' }} rounded-full lg:h-12 lg:w-12 shrink-0">
+                            class="flex items-center justify-center w-10 h-10 border {{ $trx->status_bayar == 'berhasil' && $trx->trackings && $trx->trackings->status == 'pengiriman selesai' ? 'bg-green-200 text-green-800 border-green-500' : 'bg-gray-200 text-gray-800' }} rounded-full lg:h-12 lg:w-12 shrink-0">
                             <svg class="w-5 h-5 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -182,7 +182,7 @@
                     </li>
                 </ol>
                 <div
-                    class="w-full {{ $trx->status_bayar == 'berhasil' && $trx->trackings->status !== 'sedang dikemas' ? 'flex' : 'hidden' }} justify-center items-center">
+                    class="w-full {{ $trx->status_bayar == 'berhasil' && $trx->trackings && $trx->trackings->status !== 'sedang dikemas' ? 'flex' : 'hidden' }} justify-center items-center">
                     <button data-modal-target="tracking" data-modal-toggle="tracking"
                         class="flex text-nowrap text-sm text-white bg-yellow-600 font-semibold py-2 px-4 rounded hover:bg-yellow-700 mt-4">Detail
                         Pengiriman</button>

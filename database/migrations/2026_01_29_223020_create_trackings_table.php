@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('resi')->nullable();
             $table->string('ekspedisi')->nullable();
             $table->string('last_phone');
+            $table->boolean('is_return')->default(false);
             $table->enum('status', ['sedang dikemas', 'dalam pengiriman', 'pengiriman selesai'])->default('sedang dikemas');
             $table->dateTime('received_at')->nullable();
             $table->timestamps();
@@ -35,7 +36,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('trackings');
         Schema::dropIfExists('tracking_details');
+        Schema::dropIfExists('trackings');
     }
 };

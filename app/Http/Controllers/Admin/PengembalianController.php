@@ -12,7 +12,7 @@ class PengembalianController extends Controller
 {
     public function index()
     {
-        $datas = Pengembalian::orderBy('status', 'desc')->get();
+        $datas = Pengembalian::orderByDesc('status')->oldest()->get();
         return view('admin.pengembalian.index', compact('datas'));
     }
     public function show($kodeTrx)

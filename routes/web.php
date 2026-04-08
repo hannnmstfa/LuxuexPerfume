@@ -65,11 +65,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
             return response('', 204);
         }
         $user = $request->user();
-        $payload = json_decode($request->getContent(), true);
+        $payload = json_decode($request->getContent(), true) ?? [];
         $payload['user'] = [
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
+            'role' => $user->role,
+            'phone' => $user->phone,
         ];
         $payload['sessionId'] = 'chat_user_' . ($user->id);
         $webhook = 'https://workflow.hannnmstfa.my.id/webhook/e77798fa-a6dc-40c3-923f-93c7d0effdfc/chat';

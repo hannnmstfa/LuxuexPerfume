@@ -46,35 +46,38 @@
     <div
         class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur border dark:border-gray-700 p-3 mt-5">
         <div class="mb-4">
-            <div class="mb-3">
-                <p class="text-xs text-gray-500 font-semibold uppercase">Deskripsi Pengembalian</p>
-                <p class="text-justify text-sm">{{ $data->deskripsi }}</p>
-            </div>
-            <div class="mb-3">
-                <p class="text-xs text-gray-500 font-semibold uppercase">Video Unboxing</p>
-                <video src="{{ asset($data->video_unboxing) }}"
-                    class="w-full max-h-64 rounded-lg border border-gray-800 shadow-xl mt-1" controls></video>
-            </div>
+            <p class="text-xs text-gray-500 font-semibold uppercase">Waktu Pengajuan</p>
+            <p class="text-justify text-sm">{{ $data->created_at->isoFormat('ddd, DD MMMM YYYY - HH:mm') }} WIB</p>
         </div>
-        <div x-data="{ fotoPrv: false, imageUrl: '' }" class="mb-4">
+        <div class="mb-4">
+            <p class="text-xs text-gray-500 font-semibold uppercase">Deskripsi Pengembalian</p>
+            <p class="text-justify text-sm">{{ $data->deskripsi }}</p>
+        </div>
+        <div class="mb-4">
+            <p class="text-xs text-gray-500 font-semibold uppercase">Video Unboxing</p>
+            <video src="{{ asset($data->video_unboxing) }}"
+                class="w-full max-h-64 rounded-lg border border-gray-800 shadow-xl mt-1" controls></video>
+        </div>
+        <div x-data="{ open: false, imageUrl: '' }" class="mb-4">
             @if ($data->foto_pendukung)
-                <div class="mb-3">
+                <div class="mb-4">
                     <p class="text-xs text-gray-500 font-semibold uppercase">Foto Pendukung</p>
                     <div class="grid grid-cols-2 md:grid-cols-4 mt-2 gap-3">
                         @foreach ($data->foto_pendukung as $i => $foto_pendukung)
                             <div class="relative w-full h-28 overflow-hidden rounded-lg border border-gray-700 shadow-sm">
                                 <img src="{{ asset($foto_pendukung) }}" alt="Foto-{{ $i + 1 }}"
                                     class="w-full h-full object-cover cursor-pointer hover:scale-105 transition duration-200"
-                                    @click="fotoPrv = true; imageUrl = '{{ asset($foto_pendukung) }}'">
+                                    @click="open = true; imageUrl = '{{ asset($foto_pendukung) }}'">
                             </div>
                         @endforeach
                     </div>
                 </div>
                 <!-- Modal Preview -->
                 <template x-teleport="body">
-                    <div x-show="fotoPrv" x-transition @click.self="fotoPrv = false" @keydown.escape.window="fotoPrv = false"
-                        class="fixed inset-0 !z-[100] flex items-center justify-center bg-black/80 p-4" style="display: none;">
-                        <button type="button" @click="fotoPrv = false"
+                    <div x-show="open" x-transition @click.self="open = false" @keydown.escape.window="open = false"
+                        class="fixed inset-0 !z-[100] flex items-center justify-center bg-black/80 p-4"
+                        style="display: none;">
+                        <button type="button" @click="open = false"
                             class="absolute top-10 right-10 text-white text-3xl font-bold">
                             &times;
                         </button>
@@ -84,10 +87,10 @@
                     </div>
                 </template>
             @endif
-            <div class="mb-3">
-                <p class="text-xs text-gray-500 font-semibold uppercase">Catatan dari Penjual</p>
-                <p class="text-justify text-sm">{{ $data->catatan ?? '-' }}</p>
-            </div>
+        </div>
+        <div class="mb-4">
+            <p class="text-xs text-gray-500 font-semibold uppercase">Catatan dari Penjual</p>
+            <p class="text-justify text-sm">{{ $data->catatan ?? '-' }}</p>
         </div>
     </div>
 </x-app-layout>

@@ -46,6 +46,9 @@
                         Tipe Pengembalian
                     </th>
                     <th scope="col" class="bg-yellow-500 text-white dark:bg-gold dark:text-black">
+                        Waktu Pengajuan
+                    </th>
+                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold dark:text-black">
                         Status
                     </th>
                     <th scope="col" class="bg-yellow-500 text-white dark:bg-gold dark:text-black">
@@ -61,6 +64,10 @@
                         <td class="font-bold">{{ $data->transaksi->kodeTrx }}</td>
                         <td><span
                                 class="text-nowrap border rounded-lg py-1 px-2 text-black font-semibold text-xs {{ $data->type == 'pengembalian dana' ? 'bg-indigo-200' : 'bg-yellow-200' }}">{{ ucwords($data->type) }}</span>
+                        </td>
+                        <td>
+                            <p class="font-semibold">{{ $data->created_at->diffForHumans() }}</p>
+                            <p class="text-xs text-gray-500">{{ $data->created_at->isoFormat('ddd, DD MMMM YYYY - HH:mm') }} WIB</p>
                         </td>
                         <td><span class="text-nowrap border border-gray-800 rounded-lg py-1 px-2 text-black font-semibold text-xs {{ $data->status == 'disetujui' ? 'bg-green-400' : ($data->status == 'ditolak' ? 'bg-red-500' : 'bg-gold') }}">{{ ucwords($data->status) }}</span></td>
                         <td>
