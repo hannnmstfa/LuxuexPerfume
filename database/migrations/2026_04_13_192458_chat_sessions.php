@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('chat_sessions', function (Blueprint $table) {
             $table->id();
-            $table->string('chat_id')->unique();
+            $table->string('chat_id');
             $table->string('customer_name')->nullable();
             $table->string('customer_email')->nullable();
             $table->string('customer_phone')->nullable();
@@ -22,11 +22,11 @@ return new class extends Migration {
             $table->dateTime('context_reset_at')->nullable();
             $table->timestamps();
         });
-        Schema::create('chhat_messages', function (Blueprint $table) {
+        Schema::create('chat_messages', function (Blueprint $table) {
             $table->id();
-            $table->string('chat_id')->unique();
-            $table->integer('session_version')->default(1);
-            $table->enum('sender_type', ['customer', 'assistant']);
+            $table->string('chat_id');
+            $table->integer('session_version')->default(1)->nullable();
+            $table->enum('sender_type', ['user', 'assistant']);
             $table->longText('message');
             $table->timestamps();
         });
