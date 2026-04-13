@@ -16,9 +16,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\TripayController;
 use App\Http\Middleware\Admin;
+use App\Models\TokoSetting;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 // Route Google OAuth
@@ -64,20 +66,72 @@ Route::middleware(['auth', 'verified'])->group(function () {
         if ($request->isMethod('options')) {
             return response('', 204);
         }
-        $user = $request->user();
-        $payload = json_decode($request->getContent(), true) ?? [];
-        $payload['user'] = [
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'role' => $user->role,
-            'phone' => $user->phone,
-        ];
-        $payload['sessionId'] = 'chat_user_' . ($user->id);
-        $webhook = 'https://workflow.hannnmstfa.my.id/webhook/e77798fa-a6dc-40c3-923f-93c7d0effdfc/chat';
-        $resp = Http::post($webhook, $payload);
-        return response($resp->body(), $resp->status())
-            ->header('Content-Type', $resp->header('Content-Type', 'application/json'));
+
+        try {
+            $user = $request->user();
+
+            if (!$user) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Unauthorized',
+                ], 401);
+            }
+
+            $payload = json_decode($request->getContent(), true) ?? [];
+            $payload['user'] = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->role,
+                'phone' => $user->phone,
+            ];
+            $payload['sessionId'] = 'chat_user_' . $user->id;
+
+            $webhook = optional(TokoSetting::data())->webhook_chatbot;
+
+            if (!$webhook || !filter_var($webhook, FILTER_VALIDATE_URL)) {
+                Log::warning('Webhook chatbot tidak valid', [
+                    'webhook' => $webhook,
+                    'user_id' => $user->id,
+                ]);
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Layanan chat sedang tidak tersedia.',
+                ], 500);
+            }
+
+            $resp = Http::timeout(15)
+                ->acceptJson()
+                ->post($webhook, $payload);
+
+            if ($resp->successful()) {
+                return response($resp->body(), 200)
+                    ->header('Content-Type', $resp->header('Content-Type', 'application/json'));
+            }
+
+            Log::error('N8N webhook gagal', [
+                'status' => $resp->status(),
+                'body' => $resp->body(),
+                'user_id' => $user->id,
+                'webhook' => $webhook,
+            ]);
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Maaf, layanan chat sedang mengalami gangguan.',
+            ], 500);
+        } catch (Throwable $e) {
+            Log::error('Route /n8n/chat exception', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Maaf, terjadi kesalahan pada server.',
+            ], 500);
+        }
     })->withoutMiddleware(VerifyCsrfToken::class);
 });
 

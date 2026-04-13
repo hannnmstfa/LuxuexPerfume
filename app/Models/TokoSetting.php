@@ -13,6 +13,8 @@ class TokoSetting extends Model
         'phone_toko',
         'kode_area',
         'alamat_toko',
+        'link_survey',
+        'webhook_chatbot',
     ];
     public static function data()
     {

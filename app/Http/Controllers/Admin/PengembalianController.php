@@ -15,13 +15,12 @@ class PengembalianController extends Controller
         $datas = Pengembalian::orderByDesc('status')->oldest()->get();
         return view('admin.pengembalian.index', compact('datas'));
     }
-    public function show($kodeTrx)
+    public function show($return_code)
     {
-        $trx = Transaksi::where('kodeTrx', $kodeTrx)->first();
-        if (!$trx) {
-            abort(404, 'Transaksi tidak ditemukan');
+        $data = Pengembalian::with('transaksi')->where('return_code', $return_code)->first();
+        if (!$data) {
+            abort(404, 'Data tidak ditemukan');
         }
-        $data = Pengembalian::with('transaksi')->where('transaksi_id', $trx->id)->first();
         return view('admin.pengembalian.detail', compact('data'));
     }
 }

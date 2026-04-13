@@ -40,7 +40,7 @@
                         No
                     </th>
                     <th scope="col" class="bg-yellow-500 text-white dark:bg-gold dark:text-black">
-                        Pesanan
+                        Kode Pengembalian
                     </th>
                     <th scope="col" class="bg-yellow-500 text-white dark:bg-gold dark:text-black">
                         Tipe Pengembalian
@@ -61,7 +61,7 @@
                     <tr
                         class="odd:bg-gray-50 even:bg-gray-200 dark:odd:bg-gray-800/40 dark:even:bg-gray-700/40 dark:backdrop-blur">
                         <td class="text-center">{{ $i + 1 }}</td>
-                        <td class="font-bold">{{ $data->transaksi->kodeTrx }}</td>
+                        <td class="font-bold uppercase">#{{ $data->return_code }}</td>
                         <td><span
                                 class="text-nowrap border rounded-lg py-1 px-2 text-black font-semibold text-xs {{ $data->type == 'pengembalian dana' ? 'bg-indigo-200' : 'bg-yellow-200' }}">{{ ucwords($data->type) }}</span>
                         </td>
@@ -71,7 +71,7 @@
                         </td>
                         <td><span class="text-nowrap border border-gray-800 rounded-lg py-1 px-2 text-black font-semibold text-xs {{ $data->status == 'disetujui' ? 'bg-green-400' : ($data->status == 'ditolak' ? 'bg-red-500' : 'bg-gold') }}">{{ ucwords($data->status) }}</span></td>
                         <td>
-                            <a href="{{ route('admReturn.show', $data->transaksi->kodeTrx) }}" class="py-1 px-3 bg-sky-500 hover:bg-sky-600 rounded font-semibold text-white">Detail</a>
+                            <a href="{{ route('admReturn.show', $data->return_code) }}" class="py-1 px-3 bg-sky-500 hover:bg-sky-600 rounded font-semibold text-white">Detail</a>
                         </td>
                     </tr>
                 @endforeach

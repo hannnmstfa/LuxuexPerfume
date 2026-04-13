@@ -2,9 +2,10 @@
     <div class="max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between gap-4 dark:text-white">
         <!-- Brand -->
         <a href="{{ route('/') }}" class="flex items-center gap-3">
-            <img src="{{ asset(\App\Models\TokoSetting::data()->path_logo ?? '') }}" class="size-9 rounded-full border border-gold" alt="Logo">
+            <img src="{{ asset(\App\Models\TokoSetting::data()->path_logo ?? '') }}"
+                class="size-9 rounded-full border border-gold" alt="Logo">
             <span class="text-sm md:text-base tracking-[0.28em] font-semibold text-[#D4AF37] uppercase">
-                {{ \App\Models\TokoSetting::data()->nama_toko ??  config('app.name', 'Laravel') }}
+                {{ \App\Models\TokoSetting::data()->nama_toko ?? config('app.name', 'Laravel') }}
             </span>
         </a>
         <div class="flex items-center gap-4">
@@ -12,7 +13,8 @@
                 <a href="{{ route('/') }}" class="hover:text-white">HOME</a>
                 <a href="{{ route('produk') }}" class="hover:text-white">PRODUK</a>
                 @auth
-                    <a target="_blank" href="https://forms.gle/VXjv9a6LMDviqSe69" class="hover:text-white">SURVEY</a>
+                    <a target="_blank" href="{{ \App\Models\TokoSetting::data()->link_survey ?? '/survey' }}"
+                        class="hover:text-white">SURVEY</a>
                 @endauth
             </nav>
             <div class="hidden md:flex items-center gap-3">

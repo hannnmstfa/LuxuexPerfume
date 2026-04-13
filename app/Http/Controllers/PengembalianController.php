@@ -30,7 +30,7 @@ class PengembalianController extends Controller
             abort(404, 'Transaksi tidak memenuhi syarat pengembalian');
         }
         $data = Pengembalian::with(['transaksi'])
-            ->where("transaksi_id", $trx->id)->first();
+            ->where("transaksi_id", $trx->id)->latest()->first();
         if ($data) {
             confirmDelete('Konfirmasi !!!', 'Apakah anda yakin ingin membatalkan pengajuan ini?');
             return view("afterlogin.pengembalian.index", compact("data"));
@@ -50,9 +50,11 @@ class PengembalianController extends Controller
         if (!$trx->tracking_sukses) {
             abort(404, 'Transaksi tidak memenuhi syarat pengembalian');
         }
-        if ($trx->pengembalian) {
+        $pengembalian = Pengembalian::with(['transaksi'])
+            ->where("transaksi_id", $trx->id)->latest()->first();
+        if ($pengembalian && $pengembalian->status == 'ditinjau') {
             Alert::warning('Warning !!!', 'Pengajuan sudah ada. Tidak dapat membuat pengajuan baru.');
-            return to_route('pengembalian.index', $trx->kodeTrx);
+            return to_route('pengembalian.index', $pengembalian->transaksi->kodeTrx);
         }
         return view('afterlogin.pengembalian.create', compact('trx'));
     }
@@ -78,15 +80,17 @@ class PengembalianController extends Controller
         if (!$trx->tracking_sukses) {
             abort(404, 'Transaksi tidak memenuhi syarat pengembalian');
         }
-        $unboxing = Filepond::field($request->unboxing)->moveTo('pengajuan/unboxing-' . Str::random(20));
+        $return_code = Str::random(20);
+        $unboxing = Filepond::field($request->unboxing)->moveTo('pengajuan/unboxing-' . $return_code);
         $pengembalian = Pengembalian::create([
+            'return_code' => $return_code,
             'transaksi_id' => $trx->id,
             'deskripsi' => $request->deskripsi,
             'video_unboxing' => '/storage/' . $unboxing['location'],
             'type' => $request->tipe,
         ]);
         if ($request->pendukung[0]) {
-            $pendukungs = Filepond::field($request->pendukung)->moveTo('pengajuan/pendukung-' . Str::random(20));
+            $pendukungs = Filepond::field($request->pendukung)->moveTo('pengajuan/pendukung-' . $return_code);
             $foto_pendukung = [];
             foreach ($pendukungs as $pendukung) {
                 $foto_pendukung[] = '/storage/' . $pendukung['location'];
@@ -96,6 +100,7 @@ class PengembalianController extends Controller
         }
         $toko = TokoSetting::data();
         if ($toko && $toko->email_toko) {
+            // Notifikasi
             Mail::to($toko->email_toko)->queue(new MailReturn($pengembalian));
         }
         Alert::success('Berhasil', 'Pengajuan pengembalian berhasil dibuat. Silahkan tunggu konfirmasi dari penjual');

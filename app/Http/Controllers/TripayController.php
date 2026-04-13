@@ -170,6 +170,7 @@ class TripayController extends Controller
                     ]);
                     $toko = TokoSetting::data();
                     if ($toko && $toko->email_toko) {
+                        // Notifikasi
                         Mail::to($toko->email_toko)->queue(new Pesanan($invoice));
                     }
                     break;

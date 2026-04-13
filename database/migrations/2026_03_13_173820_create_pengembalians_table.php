@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pengembalians', function (Blueprint $table) {
             $table->id();
+            $table->string('return_code')->unique();
             $table->foreignId('transaksi_id')->constrained('transaksi')->cascadeOnDelete();
             $table->unique('transaksi_id');
             $table->longText('deskripsi');

@@ -34,7 +34,7 @@
                                     stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
                             <span
-                                class="ms-1 text-sm font-[600] text-yellow-500 md:ms-2">{{ $data->transaksi->kodeTrx }}</span>
+                                class="ms-1 text-sm font-[600] text-yellow-500 md:ms-2 uppercase">#{{ $data->return_code }}</span>
                         </div>
                     </li>
                 </ol>
@@ -45,9 +45,86 @@
     </div>
     <div
         class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur border dark:border-gray-700 p-3 mt-5">
+        <div class="flex-row items-center justify-between space-y-3 sm:flex sm:space-y-0 sm:space-x-4">
+            <h3 class="text-lg">Ringkasan Pesanan</h3>
+            <a href="{{ route('admTrx.show', $data->transaksi->kodeTrx) }}"
+                class="flex items-center bg-gold rounded-lg py-1 px-3 text-yellow-900 justify-center font-semibold text-sm">
+                <span>Detail</span>
+                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m9 5 7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+        <hr class="my-2 border-gray-600">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="col-span-1">
+                <div class="mb-4">
+                    <p class="text-xs text-gray-500 font-semibold uppercase">Informasi Pemesan</p>
+                    <p class="text-sm">{{ $data->transaksi->users->name }}</p>
+                    <p class="text-sm">{{ $data->transaksi->users->email }}</p>
+                    <p class="text-sm">{{ $data->transaksi->users->phone }}</p>
+                </div>
+                <div class="mb-4">
+                    <p class="text-xs text-gray-500 font-semibold uppercase">Informasi Penerima</p>
+                    <p class="text-sm">{{ $data->transaksi->transaksi_details->nama_penerima }}</p>
+                    <p class="text-sm">{{ $data->transaksi->transaksi_details->no_penerima }}</p>
+                    <p class="text-sm">{{ $data->transaksi->transaksi_details->alamat_penerima }}</p>
+                </div>
+            </div>
+            <div class="col-span-1 mb-4">
+                <table class="w-full">
+                    <tbody>
+                        <tr>
+                            <td class="text-gray-400 text-sm">Subtotal</td>
+                            <td class="text-right font-inter font-semibold">
+                                Rp{{ number_format($data->transaksi->subtotal) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-gray-400 text-sm">Ongkir</td>
+                            <td class="text-right font-inter font-semibold">
+                                Rp{{ number_format($data->transaksi->ongkir) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-gray-400 text-sm">Fee Payment</td>
+                            <td class="text-right font-inter font-semibold">
+                                Rp{{ number_format($data->transaksi->fee_payment) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-gray-400 text-sm">Total</td>
+                            <td class="text-right font-inter font-semibold">
+                                Rp{{ number_format($data->transaksi->total_harga + $data->transaksi->fee_payment) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-gray-400 text-sm">Metode Pembayaran</td>
+                            <td class="text-right font-inter font-semibold">{{ $data->transaksi->metode_bayar }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-gray-400 text-sm">Terbayar Pada</td>
+                            <td class="text-right font-inter font-semibold">
+                                {{ $data->transaksi->pay_at->isoFormat('dddd, DD MMMM YYYY - HH:mm') }} WIB
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div
+        class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur border dark:border-gray-700 p-3 mt-5">
+        <div class="flex-row items-center justify-between space-y-3 sm:flex sm:space-y-0 sm:space-x-4">
+            <h3 class="text-lg">Ringkasan Pengembalian</h3>
+            <!-- <button type="button"
+            class="bg-gold text-black rounded-lg py-1 px-3 font-bold border border-yellow-400 hover:cursor-pointer">Proses
+            Pengajuan</button> -->
+        </div>
+        <hr class="my-2 border-gray-600">
         <div class="mb-4">
             <p class="text-xs text-gray-500 font-semibold uppercase">Waktu Pengajuan</p>
-            <p class="text-justify text-sm">{{ $data->created_at->isoFormat('ddd, DD MMMM YYYY - HH:mm') }} WIB</p>
+            <p class="text-justify text-sm">{{ $data->created_at->isoFormat('dddd, DD MMMM YYYY - HH:mm') }} WIB <span
+                    class="text-gray-600 text-xs italic">({{ $data->created_at->diffForHumans() }})</span></p>
         </div>
         <div class="mb-4">
             <p class="text-xs text-gray-500 font-semibold uppercase">Deskripsi Pengembalian</p>
@@ -88,9 +165,16 @@
                 </template>
             @endif
         </div>
-        <div class="mb-4">
-            <p class="text-xs text-gray-500 font-semibold uppercase">Catatan dari Penjual</p>
-            <p class="text-justify text-sm">{{ $data->catatan ?? '-' }}</p>
-        </div>
+        @if ($data->catatan)
+            <div class="mb-4">
+                <p class="text-xs text-gray-500 font-semibold uppercase">Catatan dari Penjual</p>
+                <p class="text-justify text-sm">{{ $data->catatan ?? '-' }}</p>
+            </div>
+        @endif
     </div>
+    <form class="mt-5 bg-gray-100 dark:bg-black/50 dark:backdrop-blur">
+        <button type="button"
+            class="bg-gold  w-full text-black rounded-lg py-2 font-bold border border-yellow-400 hover:cursor-pointer">Proses
+            Pengajuan</button>
+    </form>
 </x-app-layout>

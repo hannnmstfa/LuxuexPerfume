@@ -19,6 +19,8 @@ return new class extends Migration
             $table->longText('path_logo')->nullable();
             $table->string('kode_area')->nullable();
             $table->longText('alamat_toko')->nullable();
+            $table->longText('link_survey')->nullable();
+            $table->longText('webhook_chatbot')->nullable();
             $table->timestamps();
         });
     }

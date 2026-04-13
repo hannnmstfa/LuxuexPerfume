@@ -61,7 +61,7 @@ class TransaksiController extends Controller
             return back()->withInput();
         }
         if (!$trx->trackings) {
-            Tracking::create([
+            $trx->trackings = Tracking::create([
                 'transaksi_id' => $trx->id,
                 'resi' => $request->resi,
                 'ekspedisi' => $request->layanan,

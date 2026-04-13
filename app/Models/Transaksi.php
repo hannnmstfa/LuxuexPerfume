@@ -19,22 +19,34 @@ class Transaksi extends Model
         'status_bayar',
         'pay_at',
     ];
-    public function users(){
+    protected function casts()
+    {
+        return [
+            'pay_at' => 'datetime'
+        ];
+    }
+    public function users()
+    {
         return $this->belongsTo(User::class, 'users_id');
     }
-    public function transaksi_items(){
+    public function transaksi_items()
+    {
         return $this->hasMany(TransaksiItem::class, 'transaksi_id');
     }
-    public function transaksi_details(){
+    public function transaksi_details()
+    {
         return $this->hasOne(TransaksiDetail::class, 'transaksi_id');
     }
-    public function trackings(){
+    public function trackings()
+    {
         return $this->hasOne(Tracking::class, 'transaksi_id');
     }
-    public function pengembalian(){
+    public function pengembalian()
+    {
         return $this->hasOne(Pengembalian::class, 'transaksi_id');
     }
-    public function tracking_sukses(){
+    public function tracking_sukses()
+    {
         return $this->hasOne(Tracking::class, 'transaksi_id')->where('status', 'pengiriman selesai');
     }
 }

@@ -37,6 +37,10 @@
                 </svg>
                 <span>Edit</span>
             </button>
+            <button type="button" id="btnBatal"
+                class="bg-gray-700 hidden py-1 px-4 rounded-lg text-white border border-gray-500 font-semibold justify-center items-center gap-2 hover:opacity-80">
+                <span>Batal</span>
+            </button>
         </div>
     </div>
     <div id="viewToko">
@@ -69,21 +73,36 @@
                         <div>
                             <label for="email" class="font-semibold text-lg">Email Toko</label>
                             <input type="text"
-                            class="rounded w-full border-gray-300 text-sm  dark:bg-gray-800 dark:border-gray-500 dark:text-gray-400 mt-2"
-                            name="email" value="{{ $toko->email_toko ?? 'Email toko belum diatur' }}"
-                            placeholder="Cth: Toko Parfum Luxuex" disabled>
+                                class="rounded w-full border-gray-300 text-sm  dark:bg-gray-800 dark:border-gray-500 dark:text-gray-400 mt-2"
+                                name="email" value="{{ $toko->email_toko ?? 'Email toko belum diatur' }}"
+                                placeholder="Cth: Toko Parfum Luxuex" disabled>
                         </div>
                         <div>
                             <label for="phone" class="font-semibold text-lg">Telepon Toko</label>
                             <input type="text"
-                            class="rounded w-full border-gray-300 text-sm  dark:bg-gray-800 dark:border-gray-500 dark:text-gray-400 mt-2"
-                            name="phone" value="{{ $toko->phone_toko ?? 'No telepon toko belum diatur' }}"
-                            placeholder="Cth: Toko Parfum Luxuex" disabled>
+                                class="rounded w-full border-gray-300 text-sm  dark:bg-gray-800 dark:border-gray-500 dark:text-gray-400 mt-2"
+                                name="phone" value="{{ $toko->phone_toko ?? 'No telepon toko belum diatur' }}"
+                                placeholder="Cth: Toko Parfum Luxuex" disabled>
                         </div>
                     </div>
                     <div class="mb-4">
                         <label for="alamat" class="font-semibold text-lg">Alamat Toko</label>
-                        <textarea name="alamat" rows="5" id="alamat" class="rounded w-full border-gray-300 text-sm  dark:bg-gray-800 dark:border-gray-500 dark:text-gray-400 mt-2" disabled>{{ $toko->alamat_toko ?? 'Alamat toko belum diatur' }}</textarea>
+                        <textarea name="alamat" rows="5" id="alamat"
+                            class="rounded w-full border-gray-300 text-sm  dark:bg-gray-800 dark:border-gray-500 dark:text-gray-400 mt-2"
+                            disabled>{{ $toko->alamat_toko ?? 'Alamat toko belum diatur' }}</textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="link_survey" class="font-semibold text-lg">Link Survey</label>
+                        <input type="text"
+                            class="rounded w-full border-gray-300 text-sm  dark:bg-gray-800 dark:border-gray-500 dark:text-gray-400 mt-2"
+                            name="link_survey" value="{{ $toko->link_survey ?? 'Link survey belum diatur' }}" disabled>
+                    </div>
+                    <div class="mb-4">
+                        <label for="webhook_chatbot" class="font-semibold text-lg">Webhook Chatbot</label>
+                        <input type="text"
+                            class="rounded w-full border-gray-300 text-sm  dark:bg-gray-800 dark:border-gray-500 dark:text-gray-400 mt-2"
+                            name="webhook_chatbot"
+                            value="{{ $toko->webhook_chatbot ?? 'Webhook Chatbot belum diatur' }}" disabled>
                     </div>
                 </div>
             </div>
@@ -96,6 +115,7 @@
 <script>
     window.addEventListener('DOMContentLoaded', function () {
         const btnEdit = document.querySelector('#btnEdit');
+        const btnBatal = document.querySelector('#btnBatal');
         const viewToko = document.querySelector('#viewToko');
         const editToko = document.querySelector('#editToko');
 
@@ -103,6 +123,13 @@
             viewToko.classList.add('hidden');
             editToko.classList.remove('hidden');
             btnEdit.classList.add('hidden');
+            btnBatal.classList.remove('hidden');
+        });
+        btnBatal.addEventListener('click', function () {
+            viewToko.classList.remove('hidden');
+            editToko.classList.add('hidden');
+            btnEdit.classList.remove('hidden');
+            btnBatal.classList.add('hidden');
         });
     });
 </script>

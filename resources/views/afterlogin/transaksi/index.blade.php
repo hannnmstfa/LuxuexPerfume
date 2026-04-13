@@ -38,7 +38,7 @@
                                 @if ($data->status_bayar == 'berhasil')
                                     <div class="flex flex-col gap-1">
                                         <button
-                                            class="border rounded-full w-max py-1 px-3 text-nowrap text-sm font-semibold shadow bg-yellow-200 text-black border-yellow-300 {{ $data->trackings->status == 'pengiriman selesai' ? '!bg-green-200 !text-green-900 !border-green-300' : '!text-red-600'}}">{{ ucwords($data->trackings->status) }}</button>
+                                            class="border rounded-full w-max py-1 px-3 text-nowrap text-sm font-semibold shadow bg-yellow-200 text-black border-yellow-300 {{ $data->tracking && $data->trackings->status == 'pengiriman selesai' ? '!bg-green-200 !text-green-900 !border-green-300' : '!text-red-600'}}">{{ ucwords($data->trackings->status ?? 'Sedang diproses') }}</button>
                                         @if ($data->pengembalian)
                                             <button
                                                 class="border rounded-full w-max py-1 px-3 text-nowrap text-sm font-semibold shadow bg-yellow-200 text-yellow-600 border-yellow-300 {{ $data->pengembalian->status == 'diterima' ? '!bg-green-200 !text-green-900 !border-green-300' : ($data->pengembalian->status == 'ditinjau' ? '' : '!text-red-600')}}">{{ ucwords('Pengajuan ' .$data->pengembalian->status) }}</button>

@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Pengembalian extends Model
 {
     protected $fillable = [
+        'return_code',
         'transaksi_id',
         'deskripsi',
         'status',
         'video_unboxing',
-        'foto_pendukung',   
+        'foto_pendukung',
         'catatan',
         'type'
     ];
@@ -22,4 +23,4 @@ class Pengembalian extends Model
     {
         return $this->belongsTo(Transaksi::class, 'transaksi_id');
     }
-}   
+}
