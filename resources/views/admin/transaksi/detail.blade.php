@@ -39,7 +39,10 @@
                 </ol>
             </div>
             <div>
-                @if ($trx->status_bayar == 'berhasil' && $trx->trackings)
+                @if($trx->is_success)
+                    <button
+                        class="border rounded-full w-max py-1 px-3 text-nowrap text-sm font-semibold shadow bg-blue-200 text-blue-700 border-blue-300 ">Selesai</button>
+                @elseif ($trx->status_bayar == 'berhasil' && $trx->trackings)
                     <button
                         class="border rounded-full py-1 px-3 text-sm font-semibold shadow {{  $trx->trackings->status == 'pengiriman selesai' ? 'bg-green-200 text-green-900 border-green-300' : 'bg-yellow-200 text-yellow-900 border-yellow-300'}}">{{ ucwords($trx->trackings->status) }}</button>
                 @else
@@ -272,7 +275,7 @@
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-md max-h-full">
             <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow-xl dark:bg-gray-700 border border-gray-600">
+            <div class="relative bg-white rounded-lg shadow-xl dark:bg-gray-800 border border-gray-600">
                 <!-- Modal header -->
                 <div
                     class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
@@ -300,7 +303,7 @@
                             <label for="layanan" class="font-medium text-sm">Nama Layanan<span
                                     class="text-red-600">*</span></label>
                             <select name="layanan" id="layanan"
-                                class="block w-full text-sm rounded border-gray-300 dark:bg-gray-800 dark:border-gray-500"
+                                class="block w-full text-sm rounded border-gray-300 dark:bg-gray-900 dark:border-gray-500"
                                 required>
                                 <option value="" selected disabled>-- Pilih Layanan --</option>
                                 <option value="jne" {{ old('layanan', $trx->trackings->ekspedisi ?? '') == 'jne' ? 'selected' : '' }}>JNE</option>
@@ -315,12 +318,12 @@
                             <label for="resi" class="font-medium text-sm">Nomor Resi<span
                                     class="text-red-600">*</span></label>
                             <input type="text"
-                                class="rounded w-full border-gray-300 text-sm dark:bg-gray-800 dark:border-gray-500"
+                                class="rounded w-full border-gray-300 text-sm dark:bg-gray-900 dark:border-gray-500"
                                 name="resi" value="{{ old('resi', $trx->trackings->resi ?? '') }}"
                                 placeholder="Masukkan No Resi dari pengiriman" required>
                         </div>
                         <button type="submit"
-                            class="w-full text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Simpan
+                            class="w-full text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center dark:text-black dark:bg-gold hover:opacity-85">Simpan
                             Resi</button>
                     </form>
                 </div>

@@ -33,7 +33,7 @@
                     <div id="loader">
                         <x-loader />
                     </div>
-                    <input type="file" name="unboxing" accept="video/*" id="unboxing" class="mt-1 hidden" required>
+                    <input type="file" name="unboxing" accept="video/*" id="unboxing" class="mt-1 hidden filepond" required>
                 </li>
                 <li class="mb-3">
                     <label for="pendukung" class="font-semibold">Foto Pendukung <span
@@ -41,7 +41,7 @@
                     <div id="loader">
                         <x-loader />
                     </div>
-                    <input type="file" name="pendukung[]" accept="image/*" multiple id="pendukung" class="mt-1 hidden">
+                    <input type="file" name="pendukung[]" accept="image/*" multiple id="pendukung" class="mt-1 hidden filepond">
                 </li>   
             </ul>
             <button type="submit" class="w-full bg-gold rounded-lg text-sm font-bold text-black py-2 hover:opacity-80">Ajukan Pengembalian</button>

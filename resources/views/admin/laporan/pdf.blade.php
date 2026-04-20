@@ -171,7 +171,7 @@
     </table>
 
     <div class="footer-note">
-        *Laporan ini dibuat otomatis oleh sistem {{ config('app.name') }}.<br>
+        *Laporan ini dibuat otomatis oleh sistem {{ \App\Models\TokoSetting::data()->nama_toko ?? config('app.name') }}.<br>
         *Fee pembayaran tidak terhitung dalam subtotal.
     </div>
 

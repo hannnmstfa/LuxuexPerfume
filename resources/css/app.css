@@ -6,6 +6,7 @@
 [x-cloak] {
     display: none;
 }
+
 input:focus,
 textarea:focus,
 select:focus {
@@ -13,6 +14,14 @@ select:focus {
     border-color: #c26c11 !important;
     box-shadow: 0 0 0 1px rgb(240, 138, 29) !important;
 }
+
+/* input:focus:invalid,
+textarea:focus:invalid,
+select:focus:invalid {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 1px #ef4444;
+    animation: shake 0.4s ease-in-out;
+} */
 
 .datatable-input:focus {
     border-color: #b65800 !important;
@@ -26,18 +35,17 @@ select:focus {
     box-shadow: 0 0 0 0.1rem rgba(255, 174, 0, 0.25) !important;
 }
 
-input[type="radio"]:checked {
-    accent-color: #f08a1d !important;
-}
 
 .scroll-style::-webkit-scrollbar {
     width: 3px;
     height: 5px;
 }
+
 .scroll-style::-webkit-scrollbar-button {
     width: 0px;
     height: 0px;
 }
+
 .scroll-style::-webkit-scrollbar-thumb {
     background: #FF9800;
     border: 0px none #FF9800;
@@ -47,6 +55,7 @@ input[type="radio"]:checked {
     -ms-border-radius: 40px;
     -o-border-radius: 40px;
 }
+
 .scroll-style::-webkit-scrollbar-thumb:hover {
     background: #ffb341;
 }
@@ -69,12 +78,17 @@ input[type="radio"]:checked {
     background-color: #111827 !important;
     border: 1px solid #4b5563;
 }
+
 .filepond--drop-label {
     color: #909090 !important;
 }
 
 .filepond--root .filepond--credits {
     display: hidden !important;
+}
+
+.ql-editor {
+    min-height: 20vh;
 }
 
 * {

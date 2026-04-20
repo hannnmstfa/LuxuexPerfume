@@ -17,6 +17,7 @@ class Transaksi extends Model
         'fee_payment',
         'tripay_ref',
         'status_bayar',
+        'is_success',
         'pay_at',
     ];
     protected function casts()

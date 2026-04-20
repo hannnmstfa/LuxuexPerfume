@@ -12,7 +12,7 @@ class Laporan extends Component
     public function updatedBulan()
     {
         $this->laporans = Transaksi::where('created_at', 'like', $this->bulan . '%')
-            ->where('status_bayar', 'berhasil')
+            ->where('is_success', true)
             ->orderBy('created_at', 'asc')
             ->get();
         $this->dispatch('datatable:reload');

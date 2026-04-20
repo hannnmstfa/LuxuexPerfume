@@ -22,12 +22,25 @@ export default {
                     '0%': { transform: 'translateY(50px)', opacity: '0' },
                     '100%': { transform: 'translateY(0)', opacity: '1' },
                 },
+                swipeDown: {
+                    '0%': { transform: 'translateY(-50px)', opacity: '0' },
+                    '100%': { transform: 'translateY(0)', opacity: '1' },
+                },
+                shake: {
+                    '0%, 100%': { transform: 'translateX(0)' },
+                    '20%': { transform: 'translateX(-6px)' },
+                    '40%': { transform: 'translateX(6px)' },
+                    '60%': { transform: 'translateX(-6px)' },
+                    '80%': { transform: 'translateX(6px)' },
+                },
             },
             animation: {
-                swipeUp: 'swipeUp 0.7s ease-out forwards',
+                swipeUp: 'swipeUp 0.5s ease-out forwards',
+                swipeDown: 'swipeDown 0.5s ease-out forwards',
+                shake: 'shake 0.5s ease-in-out',
             },
             colors: {
-                'gold' : '#D4AF37',
+                'gold': '#D4AF37',
             },
         },
     },

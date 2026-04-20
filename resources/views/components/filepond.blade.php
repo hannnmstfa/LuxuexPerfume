@@ -10,7 +10,7 @@
             }
         });
         // Ambil semua input file
-        const inputs = document.querySelectorAll('input[type="file"]');
+        const inputs = document.querySelectorAll('.filepond');
         const loaders = document.querySelectorAll('#loader');
 
         function initFilepond(){
@@ -22,7 +22,7 @@
                     input.classList.remove('hidden');
                     FilePond.create(input);
                 });
-            }, 1000);   
+            }, 1000);
         }
         initFilepond();
     });

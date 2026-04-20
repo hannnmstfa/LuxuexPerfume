@@ -46,22 +46,22 @@
         <table id="myTable" class="hidden w-full text-sm text-center dark:text-gray-400 overflow-auto">
             <thead>
                 <tr class="">
-                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white text-center w-max">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white dark:text-black text-center w-max">
                         No
                     </th>
-                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white dark:text-black">
                         Tgl Transaksi
                     </th>
-                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white dark:text-black">
                         Kode Transaksi
                     </th>
-                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white dark:text-black">
                         Customer
                     </th>
-                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white dark:text-black">
                         Produk Dibeli
                     </th>
-                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white">
+                    <th scope="col" class="bg-yellow-500 dark:bg-gold text-white dark:text-black">
                         Subtotal
                     </th>
                 </tr>

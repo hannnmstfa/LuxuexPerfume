@@ -16,7 +16,7 @@ class LaporanController extends Controller
     public function pdf($bulan)
     {
         $data = Transaksi::where('created_at', 'like', $bulan . '%')
-            ->where('status_bayar', 'berhasil')
+            ->where('is_success', true)
             ->orderBy('created_at', 'asc')
             ->get();
         $pdf = Pdf::loadView('admin.laporan.pdf', compact('data', 'bulan'))

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedInteger('fee_payment');
             $table->string('tripay_ref');
             $table->enum('status_bayar', ['menunggu pembayaran', 'berhasil', 'kadaluarsa', 'gagal', 'refund'])->default('menunggu pembayaran');
+            $table->boolean('is_success')->default(0);
             $table->dateTime('pay_at')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -35,15 +35,18 @@
                             <td>{{ $data->metode_bayar == 'QRIS (Customizable)' ? 'QRIS' : $data->metode_bayar }}</td>
                             <td>Rp{{ number_format($data->total_harga + $data->fee_payment) }}</td>
                             <td>
-                                @if ($data->status_bayar == 'berhasil')
-                                    <div class="flex flex-col gap-1">
+                                @if($data->is_success)
+                                    <button
+                                        class="border rounded-full w-max py-1 px-3 text-nowrap text-sm font-semibold shadow bg-blue-200 text-blue-700 border-blue-300 ">Transaksi
+                                        Selesai</button>
+                                @elseif ($data->status_bayar == 'berhasil')
+                                    @if ($data->pengembalian)
                                         <button
-                                            class="border rounded-full w-max py-1 px-3 text-nowrap text-sm font-semibold shadow bg-yellow-200 text-black border-yellow-300 {{ $data->tracking && $data->trackings->status == 'pengiriman selesai' ? '!bg-green-200 !text-green-900 !border-green-300' : '!text-red-600'}}">{{ ucwords($data->trackings->status ?? 'Sedang diproses') }}</button>
-                                        @if ($data->pengembalian)
-                                            <button
-                                                class="border rounded-full w-max py-1 px-3 text-nowrap text-sm font-semibold shadow bg-yellow-200 text-yellow-600 border-yellow-300 {{ $data->pengembalian->status == 'diterima' ? '!bg-green-200 !text-green-900 !border-green-300' : ($data->pengembalian->status == 'ditinjau' ? '' : '!text-red-600')}}">{{ ucwords('Pengajuan ' .$data->pengembalian->status) }}</button>
-                                        @endif
-                                    </div>
+                                            class="border rounded-full w-max py-1 px-3 text-nowrap text-sm font-semibold shadow bg-yellow-200 text-yellow-600 border-yellow-300 {{ $data->pengembalian->status == 'disetujui' ? '!bg-green-200 !text-green-900 !border-green-300' : ($data->pengembalian->status == 'ditinjau' ? '' : '!text-red-600 !bg-red-200 !border-red-300')}}">{{ ucwords('Pengembalian ' . $data->pengembalian->status) }}</button>
+                                    @else
+                                        <button
+                                            class="border rounded-full w-max py-1 px-3 text-nowrap text-sm font-semibold shadow bg-yellow-200 text-black border-yellow-300 {{ $data->trackings && $data->trackings->status == 'pengiriman selesai' ? '!bg-green-200 !text-green-900 !border-green-300' : '!text-black'}}">{{ ucwords($data->trackings->status ?? 'Sedang diproses') }}</button>
+                                    @endif
                                 @else
                                     <button
                                         class="border rounded-full py-1 px-3 text-nowrap text-gray-400 text-sm font-semibold shadow  border-gray-500 {{ $data->status_bayar == 'gagal' ? ' text-red-600 border-red-600' : ($data->status_bayar == 'menunggu pembayaran' ? ' text-yellow-600 border-yellow-600' : ($data->status_bayar == 'refund' ? 'text-sky-600 border-sky-600' : ''))}}">{{ ucwords($data->status_bayar) }}</button>

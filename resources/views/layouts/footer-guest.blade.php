@@ -75,18 +75,10 @@
 
         <!-- Divider -->
         <div
-            class="mt-14 border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/50">
-
+            class="mt-14 border-t border-white/10 pt-6 flex justify-center items-center gap-4 text-xs text-white/50">
             <p>
-                © {{ date('Y') }} LUXUEXPERFUME. All rights reserved.
+                © {{ date('Y') }} <span class="uppercase">{{ \App\Models\TokoSetting::data()->nama_toko ?? config('app.name') }}</span>. All rights reserved.
             </p>
-
-            <div class="flex items-center gap-6">
-                <a href="#" class="hover:text-white transition">Instagram</a>
-                <a href="#" class="hover:text-white transition">TikTok</a>
-                <a href="#" class="hover:text-white transition">Facebook</a>
-            </div>
-
         </div>
 
     </div>

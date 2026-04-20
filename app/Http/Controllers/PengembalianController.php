@@ -52,8 +52,8 @@ class PengembalianController extends Controller
         }
         $pengembalian = Pengembalian::with(['transaksi'])
             ->where("transaksi_id", $trx->id)->latest()->first();
-        if ($pengembalian && $pengembalian->status == 'ditinjau') {
-            Alert::warning('Warning !!!', 'Pengajuan sudah ada. Tidak dapat membuat pengajuan baru.');
+        if ($pengembalian && $pengembalian->status !== 'ditolak') {
+            Alert::warning('Warning !!!', 'Tidak dapat membuat pengajuan baru.');
             return to_route('pengembalian.index', $pengembalian->transaksi->kodeTrx);
         }
         return view('afterlogin.pengembalian.create', compact('trx'));
@@ -81,7 +81,7 @@ class PengembalianController extends Controller
             abort(404, 'Transaksi tidak memenuhi syarat pengembalian');
         }
         $return_code = Str::random(20);
-        $unboxing = Filepond::field($request->unboxing)->moveTo('pengajuan/unboxing-' . $return_code);
+        $unboxing = Filepond::field($request->unboxing)->moveTo('pengembalian/' . $return_code . '/unboxing-' . uniqid());
         $pengembalian = Pengembalian::create([
             'return_code' => $return_code,
             'transaksi_id' => $trx->id,
@@ -90,7 +90,7 @@ class PengembalianController extends Controller
             'type' => $request->tipe,
         ]);
         if ($request->pendukung[0]) {
-            $pendukungs = Filepond::field($request->pendukung)->moveTo('pengajuan/pendukung-' . $return_code);
+            $pendukungs = Filepond::field($request->pendukung)->moveTo('pengembalian/' . $return_code . '/pendukung-' . uniqid());
             $foto_pendukung = [];
             foreach ($pendukungs as $pendukung) {
                 $foto_pendukung[] = '/storage/' . $pendukung['location'];

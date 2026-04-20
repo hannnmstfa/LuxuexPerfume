@@ -35,7 +35,7 @@ class TransaksiController extends Controller
     public function index()
     {
         $datas = Transaksi::with('pengembalian')
-            ->where('users_id', Auth::user()->id)->orderByDesc('created_at')->get();
+            ->where('users_id', Auth::user()->id)->orderByDesc('created_at')->lazy(10);
         return view('afterlogin.transaksi.index', compact('datas'));
     }
     public function show($kodeTrx)

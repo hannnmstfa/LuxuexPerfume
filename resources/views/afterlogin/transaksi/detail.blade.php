@@ -5,12 +5,21 @@
                 DETAIL <span class="text-[#D4AF37]">TRANSAKSI</span>
             </h1>
             <div>
-                @if ($trx->status_bayar == 'berhasil' && $trx->trackings)
+                @if($trx->is_success)
                     <button
-                        class="border rounded-full py-1 px-3 text-sm font-semibold shadow {{ $trx->trackings->status == 'pengiriman selesai' ? 'bg-green-200 text-green-900 border-green-300' : 'bg-yellow-200 text-yellow-900 border-yellow-300'}}">{{ ucwords($trx->trackings->status) }}</button>
+                        class="border rounded-full w-max py-1 px-3 text-nowrap text-sm font-semibold shadow bg-blue-200 text-blue-700 border-blue-300 ">Transaksi
+                        Selesai</button>
+                @elseif ($trx->status_bayar == 'berhasil')
+                    @if ($trx->pengembalian)
+                        <button
+                            class="border rounded-full w-max py-1 px-3 text-nowrap text-sm font-semibold shadow bg-yellow-200 text-yellow-600 border-yellow-300 {{ $trx->pengembalian->status == 'disetujui' ? '!bg-green-200 !text-green-900 !border-green-300' : ($trx->pengembalian->status == 'ditinjau' ? '' : '!text-red-600 !bg-red-200 !border-red-300')}}">{{ ucwords('Pengembalian ' . $trx->pengembalian->status) }}</button>
+                    @else
+                        <button
+                            class="border rounded-full w-max py-1 px-3 text-nowrap text-sm font-semibold shadow bg-yellow-200 text-black border-yellow-300 {{ $trx->trackings && $trx->trackings->status == 'pengiriman selesai' ? '!bg-green-200 !text-green-900 !border-green-300' : '!text-black'}}">{{ ucwords($trx->trackings->status ?? 'Sedang diproses') }}</button>
+                    @endif
                 @else
                     <button
-                        class="border rounded-full py-1 px-3 text-sm font-semibold shadow bg-gray-200 border-gray-300 text-black {{ $trx->status_bayar == 'gagal' ? 'bg-red-200 text-red-600 border-red-300' : ($trx->status_bayar == 'menunggu pembayaran' ? 'bg-yellow-200 text-yellow-600 border-yellow-300' : '')}}">{{ ucwords($trx->status_bayar) }}</button>
+                        class="border rounded-full py-1 px-3 text-nowrap text-gray-400 text-sm font-semibold shadow  border-gray-500 {{ $trx->status_bayar == 'gagal' ? ' text-red-600 border-red-600' : ($trx->status_bayar == 'menunggu pembayaran' ? ' text-yellow-600 border-yellow-600' : ($trx->status_bayar == 'refund' ? 'text-sky-600 border-sky-600' : ''))}}">{{ ucwords($trx->status_bayar) }}</button>
                 @endif
             </div>
         </div>
@@ -132,9 +141,8 @@
                         class="flex w-full items-center text-fg-brand after:content-[''] after:w-full after:h-1 after:border-b {{ $trx->status_bayar == 'berhasil' && $trx->trackings && $trx->trackings->status !== 'sedang dikemas' ? 'after:border-green-300' : 'after:border-gray-300' }} after:border-4 after:inline-block after:ms-4 after:rounded-full">
                         <span data-tooltip-target="dikemas" data-tooltip-placement="bottom"
                             class="flex items-center justify-center w-10 h-10 border {{ $trx->status_bayar == 'berhasil' ? ($trx->trackings && $trx->trackings->status !== 'sedang dikemas' ? 'bg-green-200 text-green-800 border-green-500' : 'bg-yellow-200 text-yellow-800 border-yellow-500') : 'bg-gray-200 text-gray-800' }} rounded-full lg:h-12 lg:w-12 shrink-0">
-                            <svg class="w-6 h-6" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" fill="currentColor" viewBox="0 0 24 24">
                                 <path
                                     d="M12.013 6.175 7.006 9.369l5.007 3.194-5.007 3.193L2 12.545l5.006-3.193L2 6.175l5.006-3.194 5.007 3.194ZM6.981 17.806l5.006-3.193 5.006 3.193L11.987 21l-5.006-3.194Z" />
                                 <path
@@ -325,6 +333,45 @@
             </div>
         </template>
     @endif
+
+    <!-- Modal Survey -->
+    @if ($trx->status_bayar == 'berhasil' || $trx->is_success || $trx->trackings && $trx->trackings->status == 'pengiriman selesai')
+        <button data-modal-target="survey" data-modal-toggle="survey" id="surveyBtn" class="hidden"></button>
+    @endif
+    <template x-teleport="body">
+        <div id="survey" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full animate-swipeDown">
+            <div class="w-full max-w-screen-sm bg-white text-black rounded p-3 font-inter">
+                <h2 class="flex justify-start items-center gap-2 text-xl font-bold">
+                    <svg class="w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd"
+                            d="M8 7V2.221a2 2 0 0 0-.5.365L3.586 6.5a2 2 0 0 0-.365.5H8Zm2 0V2h7a2 2 0 0 1 2 2v.126a5.087 5.087 0 0 0-4.74 1.368v.001l-6.642 6.642a3 3 0 0 0-.82 1.532l-.74 3.692a3 3 0 0 0 3.53 3.53l3.694-.738a3 3 0 0 0 1.532-.82L19 15.149V20a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9h5a2 2 0 0 0 2-2Z"
+                            clip-rule="evenodd" />
+                        <path fill-rule="evenodd"
+                            d="M17.447 8.08a1.087 1.087 0 0 1 1.187.238l.002.001a1.088 1.088 0 0 1 0 1.539l-.377.377-1.54-1.542.373-.374.002-.001c.1-.102.22-.182.353-.237Zm-2.143 2.027-4.644 4.644-.385 1.924 1.925-.385 4.644-4.642-1.54-1.54Zm2.56-4.11a3.087 3.087 0 0 0-2.187.909l-6.645 6.645a1 1 0 0 0-.274.51l-.739 3.693a1 1 0 0 0 1.177 1.176l3.693-.738a1 1 0 0 0 .51-.274l6.65-6.646a3.088 3.088 0 0 0-2.185-5.275Z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    <span>Survey Pengembangan Produk</span>
+                </h2>
+                <hr class="my-2">
+                <p class="p-5 text-justify text-sm text-gray-700">Kami ingin mendengar pengalaman Anda setelah membeli
+                    produk ini.
+                    Masukan dari Anda sangat berarti untuk <span class="font-bold text-black">pengembangan dan
+                        peningkatan kualitas
+                        produk</span>. Klik tombol <span class="font-bold text-black">Isi Survey</span> di bawah untuk
+                    mulai.
+                </p>
+                <hr class="my-2">
+                <div class="flex justify-end items-center gap-2">
+                    <button data-modal-hide="survey" class="text-sm py-1 px-3 rounded hover:bg-gray-200">NANTI</button>
+                    <a target="_blank" href="{{ \App\Models\TokoSetting::data()->link_survey ?? '/survey' }}" data-modal-hide="survey"
+                        class="text-sm py-1 px-3 rounded bg-gold font-semibold text-white hover:opacity-85">ISI
+                        SURVEY</a>
+                </div>
+            </div>
+        </div>
+    </template>
 </x-guest-layout>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -351,5 +398,10 @@
             successMessage.classList.add('hidden');
             copyBtn.classList.remove('border-yellow-700', 'text-yellow-700');
         }
+
+        const surveyBtn = document.getElementById('surveyBtn');
+        setTimeout(() => {
+            surveyBtn?.click();
+        }, 1000);
     });
 </script>

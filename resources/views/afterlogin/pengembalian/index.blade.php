@@ -6,10 +6,15 @@
         <span class="text-sm font-inter mb-1">{{ ucwords($data->type) }}</span>
         <span
             class="border rounded-lg px-4 py-1 text-xs font-semibold bg-yellow-200 text-yellow-600 border-yellow-300 {{ $data->status == 'disetujui' ? '!bg-green-200 !text-green-600 !border-green-400' : ($data->status == 'ditolak' ? '!text-red-600 !bg-red-200 !border-red-400' : '') }}">Pengajuan
-            {{ ucwords($data->status) }}</span>
+            {{ ucwords($data->status) . ($data->status !== 'ditinjau' ? ' - ' . $data->updated_at->diffForHumans() : '') }}</span>
     </div>
     <div class="max-w-screen-xl mx-auto">
-        <p class="uppercase text-gold text-sm font-semibold">#{{ $data->return_code }}</p>
+        <div class="flex justify-between items-center mb-2">
+            <p class="uppercase text-gold text-sm font-semibold">#{{ $data->return_code }}</p>
+            <a href="{{ route('pengembalian.create', $data->transaksi->kodeTrx) }}"
+                class="bg-gold hover:opacity-85 rounded py-1 px-3 text-black font-semibold text-xs {{ $data->status == 'ditolak' ? '' : 'hidden' }}">Buat Pengajuan
+                Baru</a>
+        </div>
         <div class=" border-t border-gray-600 p-3 grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="col-span-2 md:col-span-1">
                 <div class="mb-3">
@@ -52,9 +57,16 @@
                         </div>
                     </template>
                 @endif
-                <div class="mb-3">
+                <div class="mb-3 {{ $data->status !== 'ditinjau' ? '' : 'hidden' }}">
                     <p class="text-xs text-gray-500 font-semibold uppercase">Catatan dari Penjual</p>
-                    <p class="text-justify text-sm">{{ $data->catatan ?? '-' }}</p>
+                    <div id="loader">
+                        <x-loader />
+                    </div>
+                    <div id="konten" class="ql-snow  hidden">
+                        <div class="ql-editor -mt-10 -ml-2 text-xs">
+                            {!! $data->status !== 'ditinjau' && $data->catatan ? $data->catatan : '-' !!}
+                        </div>
+                    </div>
                 </div>
             </div>
             @if ($data->status == 'ditinjau')
@@ -66,3 +78,14 @@
         </div>
     </div>
 </x-guest-layout>
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+        const loader = document.getElementById('loader');
+        const konten = document.getElementById('konten');
+
+        setTimeout(function () {
+            loader.classList.add('hidden');
+            konten.classList.remove('hidden');
+        }, 2000);
+    });
+</script>

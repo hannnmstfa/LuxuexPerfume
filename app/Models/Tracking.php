@@ -12,6 +12,7 @@ class Tracking extends Model
         'ekspedisi',
         'last_phone',
         'status',
+        'is_return',
         'received_at',
     ];
 

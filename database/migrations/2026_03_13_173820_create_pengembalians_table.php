@@ -20,7 +20,7 @@ return new class extends Migration
             $table->longText('video_unboxing');
             $table->json('foto_pendukung')->nullable();
             $table->longText('catatan')->nullable();
-            $table->enum('status', ['ditinjau','disetujui', 'ditolak'])->default('ditinjau');
+            $table->enum('status', ['ditinjau', 'ditolak','disetujui', 'selesai'])->default('ditinjau');
             $table->enum('type', ['pengembalian dana','kirim barang baru']);
             $table->timestamps();
         });

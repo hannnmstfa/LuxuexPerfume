@@ -21,7 +21,7 @@
             </div>
             <div class="mt-2" wire:ignore>
                 <label for="upload-logo" class="text-sm text-gray-300">Upload Logo</label>
-                <input type="file" name="logo" accept="image/*" hidden>
+                <input type="file" name="logo" class="filepond" accept="image/*" hidden>
                 <x-filepond wire:ignore />
             </div>
         </div>
@@ -39,7 +39,7 @@
                             class="text-red-600">*</span></label>
                     <input type="text"
                         class="rounded w-full border-gray-300 text-sm  dark:bg-gray-900 dark:border-gray-600 dark:text-white mt-2"
-                        name="email_toko" value="{{ old('alamat_toko', $toko->email_toko ?? '') }}"
+                        name="email_toko" value="{{ old('email_toko', $toko->email_toko ?? '') }}"
                         placeholder="Cth: luxuexperfume@official.com" required>
                     <span class="text-[0.6rem] text-gold">*Email ini akan digunakan untuk mendapatkan notifikasi dari website</span>
                 </div>

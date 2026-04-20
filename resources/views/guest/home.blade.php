@@ -38,7 +38,7 @@
     <section class="  py-16 md:py-20">
         <div class="max-w-6xl mx-auto px-6 text-center">
             <h3 class="text-2xl font-semibold mb-10">
-                Mengapa Memilih <span class="text-[#D4AF37]">LUXUEXPERFUME</span>?
+                Mengapa Memilih <span class="text-[#D4AF37]"><span class="uppercase">{{ \App\Models\TokoSetting::data()->nama_toko ?? config('app.name') }}</span></span>?
             </h3>
 
             <div class="grid md:grid-cols-3 gap-6">

@@ -30,8 +30,8 @@
             </div>
             <button data-modal-target="parfum" data-modal-toggle="parfum"
                 class="flex items-center justify-center px-4 py-2 text-sm font-semibold text-white rounded-lg bg-yellow-700 dark:bg-gold dark:text-black hover:opacity-75 focus:ring-4 focus:ring-yellow-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                <svg class="w-5 h-5 mr-2 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                    height="24" fill="none" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 mr-2 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
@@ -129,7 +129,7 @@
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-md max-h-full">
             <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+            <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-800">
                 <!-- Modal header -->
                 <div
                     class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
@@ -154,7 +154,8 @@
                         <div class="mb-3">
                             <label for="kategori" class="font-medium text-sm">Kategori<span
                                     class="text-red-600">*</span></label>
-                            <select name="kategori" id="kategori" class="block w-full text-sm rounded border-gray-300 dark:bg-gray-800 dark:border-gray-500"
+                            <select name="kategori" id="kategori"
+                                class="block w-full text-sm rounded border-gray-300 dark:bg-gray-900 dark:border-gray-500"
                                 required>
                                 <option value="" selected disabled>-- Pilih Kategori --</option>
                                 <option value="pria" {{ old('kategori') == 'pria' ? 'selected' : '' }}>Pria</option>
@@ -164,36 +165,38 @@
                         <div class="mb-3">
                             <label for="nama" class="font-medium text-sm">Nama Parfum<span
                                     class="text-red-600">*</span></label>
-                            <input type="text" class="rounded w-full border-gray-300 text-sm  dark:bg-gray-800 dark:border-gray-500" name="nama"
-                                value="{{ old('nama') }}" placeholder="Cth: Sauvage Dior" required>
+                            <input type="text"
+                                class="rounded w-full border-gray-300 text-sm  dark:bg-gray-900 dark:border-gray-500"
+                                name="nama" value="{{ old('nama') }}" placeholder="Cth: Sauvage Dior" required>
                         </div>
                         <div class="mb-3">
                             <label for="harga" class="font-medium text-sm">Harga<span
                                     class="text-red-600">*</span></label>
-                            <input type="number" min="1" class="rounded w-full border-gray-300 text-sm dark:bg-gray-800 dark:border-gray-500" min="1"
-                                name="harga" value="{{ old('harga') }}" placeholder="Cth: 25000" required>
+                            <input type="number" min="1"
+                                class="rounded w-full border-gray-300 text-sm dark:bg-gray-900 dark:border-gray-500"
+                                min="1" name="harga" value="{{ old('harga') }}" placeholder="Cth: 25000" required>
                         </div>
                         <div class="mb-3">
                             <label for="stok" class="font-medium text-sm">Stok<span
                                     class="text-red-600">*</span></label>
-                            <input type="number" min="0" class="rounded w-full border-gray-300 text-sm dark:bg-gray-800 dark:border-gray-500" name="stok"
-                                value="{{ old('stok') }}" placeholder="Cth: 25" required>
+                            <input type="number" min="0"
+                                class="rounded w-full border-gray-300 text-sm dark:bg-gray-900 dark:border-gray-500"
+                                name="stok" value="{{ old('stok') }}" placeholder="Cth: 25" required>
                         </div>
                         <div class="mb-3">
                             <label for="harga" class="font-medium text-sm">Deskripsi<span
                                     class="text-red-600">*</span></label>
                             <textarea name="deskripsi" id="deskripsi" rows="5"
-                                class="block w-full text-sm rounded border-gray-300  dark:bg-gray-800 dark:border-gray-500" placeholder="Deskripsi parfum..."
-                                required>{{ old('deskripsi') }}</textarea>
+                                class="block w-full text-sm rounded border-gray-300  dark:bg-gray-900 dark:border-gray-500"
+                                placeholder="Deskripsi parfum..." required>{{ old('deskripsi') }}</textarea>
                         </div>
                         <div class="mb-3">
                             <label for="gambar" class="font-medium text-sm">Gambar Parfum<span
                                     class="text-red-600">*</span></label>
-                            <input type="file" accept="image/*" class="rounded w-full ring-gray-300 text-sm ring-1 dark:bg-gray-800 dark:ring-gray-500"
-                                name="gambar" required>
+                            <input type="file" accept="image/*" class="hidden filepond" name="gambar" required>
                         </div>
                         <button type="submit"
-                            class="w-full text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tambahkan
+                            class="w-full text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none font-bold focus:ring-yellow-300 rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gold hover:opacity-85 dark:text-black">Tambahkan
                             Parfum</button>
                     </form>
                 </div>
@@ -208,7 +211,7 @@
                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                 <div class="relative p-4 w-full max-w-md max-h-full">
                     <!-- Modal content -->
-                    <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                    <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-800">
                         <!-- Modal header -->
                         <div
                             class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
@@ -235,7 +238,8 @@
                                 <div class="mb-3">
                                     <label for="kategori" class="font-medium text-sm">Kategori<span
                                             class="text-red-600">*</span></label>
-                                    <select name="kategori" id="kategori" class="block w-full text-sm rounded border-gray-300 dark:bg-gray-800 dark:border-gray-500"
+                                    <select name="kategori" id="kategori"
+                                        class="block w-full text-sm rounded border-gray-300 dark:bg-gray-900 dark:border-gray-500"
                                         required>
                                         <option value="" selected disabled>-- Pilih Kategori --</option>
                                         <option value="pria" {{ old('kategori', $edit->kategori) == 'pria' ? 'selected' : '' }}>
@@ -246,36 +250,41 @@
                                 <div class="mb-3">
                                     <label for="nama" class="font-medium text-sm">Nama Parfum<span
                                             class="text-red-600">*</span></label>
-                                    <input type="text" class="rounded w-full border-gray-300 text-sm dark:bg-gray-800 dark:border-gray-500" name="nama"
-                                        value="{{ old('nama', $edit->nama) }}" placeholder="Cth: Sauvage Dior" required>
+                                    <input type="text"
+                                        class="rounded w-full border-gray-300 text-sm dark:bg-gray-900 dark:border-gray-500"
+                                        name="nama" value="{{ old('nama', $edit->nama) }}" placeholder="Cth: Sauvage Dior"
+                                        required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="harga" class="font-medium text-sm">Harga<span
                                             class="text-red-600">*</span></label>
-                                    <input type="number" min="1" class="rounded w-full border-gray-300 text-sm dark:bg-gray-800 dark:border-gray-500" min="1"
-                                        name="harga" value="{{ old('harga', $edit->harga) }}" placeholder="Cth: 25000" required>
+                                    <input type="number" min="1"
+                                        class="rounded w-full border-gray-300 text-sm dark:bg-gray-900 dark:border-gray-500"
+                                        min="1" name="harga" value="{{ old('harga', $edit->harga) }}" placeholder="Cth: 25000"
+                                        required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="stok" class="font-medium text-sm">Stok<span
                                             class="text-red-600">*</span></label>
-                                    <input type="number" min="0" class="rounded w-full border-gray-300 text-sm dark:bg-gray-800 dark:border-gray-500" name="stok"
-                                        value="{{ old('stok', $edit->stok) }}" placeholder="Cth: 25" required>
+                                    <input type="number" min="0"
+                                        class="rounded w-full border-gray-300 text-sm dark:bg-gray-900 dark:border-gray-500"
+                                        name="stok" value="{{ old('stok', $edit->stok) }}" placeholder="Cth: 25" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="harga" class="font-medium text-sm">Deskripsi<span
                                             class="text-red-600">*</span></label>
                                     <textarea name="deskripsi" id="deskripsi" rows="4"
-                                        class="block w-full text-sm rounded border-gray-300 dark:bg-gray-800 dark:border-gray-500" placeholder="Deskripsi parfum..."
+                                        class="block w-full text-sm rounded border-gray-300 dark:bg-gray-900 dark:border-gray-500"
+                                        placeholder="Deskripsi parfum..."
                                         required>{{ old('deskripsi', $edit->deskripsi) }}</textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label for="gambar" class="font-medium text-sm">Gambar Parfum<span
                                             class="text-gray-400 italic">(Opsional)</span></label>
-                                    <input type="file" accept="image/*" class="rounded w-full ring-gray-300 text-sm ring-1 dark:bg-gray-800 dark:ring-gray-500"
-                                        name="gambar">
+                                    <input type="file" accept="image/*" class="hidden filepond" name="gambar">
                                 </div>
                                 <button type="submit"
-                                    class="w-full text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Simpan
+                                    class="w-full text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none font-bold focus:ring-yellow-300 rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gold hover:opacity-85 dark:text-black">Simpan
                                     Perubahan</button>
                             </form>
                         </div>
@@ -317,8 +326,9 @@
                                 <div class="mb-3">
                                     <label for="harga_diskon" class="font-medium text-sm">Harga Diskon<span
                                             class="text-red-600">*</span></label>
-                                    <input type="number" class="rounded w-full border-gray-300 text-sm dark:bg-gray-800 dark:border-gray-500" min="1"
-                                        name="harga_diskon" value="{{ old('harga_diskon', $diskon->harga_diskon) }}"
+                                    <input type="number"
+                                        class="rounded w-full border-gray-300 text-sm dark:bg-gray-900 dark:border-gray-500"
+                                        min="1" name="harga_diskon" value="{{ old('harga_diskon', $diskon->harga_diskon) }}"
                                         placeholder="Cth: 50000" required>
                                 </div>
                                 <hr class="py-2 dark:border-gray-500">
@@ -341,3 +351,4 @@
     @endif
 </x-app-layout>
 <x-simple-datatables />
+<x-filepond />

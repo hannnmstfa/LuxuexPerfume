@@ -7,6 +7,8 @@ use App\Http\Controllers\WebpController;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+use RahulHaque\Filepond\Facades\Filepond;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProdukController extends Controller
@@ -25,13 +27,15 @@ class ProdukController extends Controller
             'harga' => 'required|integer|min:1',
             'stok' => 'required|integer|min:0',
             'deskripsi' => 'required|string',
-            'gambar' => 'required|image',
+            'gambar' => ['required', Rule::filepond(['image'])],
         ], [
-            'gambar.image' => 'Gambar produk tidak sesuai',
+            'gambar.image' => 'Format gambar produk tidak sesuai',
             'harga.integer' => 'Format Penulisan tidak boleh mengandung karakter apapun. <b>Cth: 5000</b>',
             'harga.min' => 'Harga paling sedikit adalah <b>1</b>',
         ]);
-        $pathFile = WebpController::convert($request->gambar, '/produk/', $request->nama);
+        $nama_file = Str::slug($request->nama) . '-' . Str::random(10);
+        $filepond = Filepond::field($request->gambar)->moveTo('produk/' . $nama_file);
+        $pathGambar = '/storage/' . $filepond['location'];
         Produk::create([
             'slug' => Str::slug($request->nama),
             'nama' => $request->nama,
@@ -39,7 +43,7 @@ class ProdukController extends Controller
             'kategori' => $request->kategori,
             'deskripsi' => $request->deskripsi,
             'stok' => $request->stok,
-            'path_foto' => $pathFile,
+            'path_foto' => $pathGambar,
         ]);
         Alert::success('Sukses', 'Produk berhasil ditambahkan');
         return back();
@@ -75,19 +79,21 @@ class ProdukController extends Controller
             'harga' => 'required|integer|min:1',
             'stok' => 'required|integer|min:0',
             'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image',
+            'gambar' => ['nullable', Rule::filepond(['image'])],
         ], [
-            'gambar.image' => 'Gambar parfum tidak sesuai',
+            'gambar.image' => 'Format gambar produk tidak sesuaii',
             'harga.integer' => 'Format Penulisan tidak boleh mengandung karakter apapun. <b>Cth: 5000</b>',
             'harga.min' => 'Harga paling sedikit adalah <b>1</b>',
         ]);
         $data = Produk::findOrFail($id);
-        if ($request->hasFile('gambar')) {
+        if ($request->gambar) {
             if (file_exists(public_path($data->path_foto)) && is_file(public_path($data->path_foto))) {
                 unlink(public_path($data->path_foto));
             }
-            $pathFile = WebpController::convert($request->gambar, '/produk/', $request->nama);
-            $data->path_foto = $pathFile;
+            $nama_file = Str::slug($request->nama) . '-' . Str::random(10);
+            $filepond = Filepond::field($request->gambar)->moveTo('produk/' . $nama_file);
+            $pathGambar = '/storage/' . $filepond['location'];
+            $data->path_foto = $pathGambar;
             $data->save();
         }
         $data->update([

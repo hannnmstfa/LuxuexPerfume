@@ -9,14 +9,17 @@ import { createChat } from '@n8n/chat';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import { DataTable, exportCSV } from "simple-datatables";
+import 'quill/dist/quill.snow.css';
+import Quill from 'quill';
+import { Livewire } from '../../vendor/livewire/livewire/dist/livewire.esm';
+
 window.ApexCharts = ApexCharts;
+window.Quill = Quill;
 window.simpleDatatables = { DataTable, exportCSV };
 window.FilePond = FilePond;
 FilePond.registerPlugin(FilePondPluginImagePreview, FilePondPluginFileValidateType);
-import { Livewire } from '../../vendor/livewire/livewire/dist/livewire.esm';
-
-window.Livewire = Livewire
-window.Alpine = Alpine
+window.Livewire = Livewire;
+window.Alpine = Alpine;
 
 Livewire.start()
 

@@ -61,7 +61,7 @@
                     <tr
                         class="odd:bg-gray-50 even:bg-gray-200 dark:odd:bg-gray-800/40 dark:even:bg-gray-700/40 dark:backdrop-blur">
                         <td class="text-center">{{ $i + 1 }}</td>
-                        <td class="font-bold uppercase">#{{ $data->return_code }}</td>
+                        <td class="font-bold uppercase text-gold">#{{ $data->return_code }}</td>
                         <td><span
                                 class="text-nowrap border rounded-lg py-1 px-2 text-black font-semibold text-xs {{ $data->type == 'pengembalian dana' ? 'bg-indigo-200' : 'bg-yellow-200' }}">{{ ucwords($data->type) }}</span>
                         </td>

@@ -14,7 +14,7 @@ class DashboardChart extends Component
     public function getDataChart()
     {
         $this->chartData = Transaksi::where('created_at', 'like', $this->bulan . '%')
-            ->where('status_bayar', 'berhasil')
+            ->where('is_success', true)
             ->orderBy('created_at', 'asc')
             ->get();
         $this->tanggal = $this->chartData->pluck('created_at')->map(fn($date) => \Carbon\Carbon::parse($date)->format('Y-m-d'))->toArray();

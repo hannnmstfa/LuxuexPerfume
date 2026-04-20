@@ -45,22 +45,22 @@
         <table id="myTable" class="hidden w-full text-sm text-center dark:text-gray-400">
             <thead>
                 <tr class="">
-                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold text-center">
+                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold dark:text-black text-center">
                         No
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold">
+                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold dark:text-black">
                         Customer
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold">
+                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold dark:text-black">
                         Info
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold">
+                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold dark:text-black">
                         Jumlah Transaksi
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold">
+                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold dark:text-black">
                         Role
                     </th>
-                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold">
+                    <th scope="col" class="bg-yellow-500 text-white dark:bg-gold dark:text-black">
                         Aksi
                     </th>
                 </tr>

@@ -236,7 +236,7 @@
                         <div class="flex items-center justify-between border-b border-default pb-4 md:pb-5">
                             <h3 class="text-lg font-bold text-gold">Rincian Produk</h3>
                             <button type="button" @click="showDetail = false"
-                                class="text-body bg-transparent hover:bg-neutral-tertiary hover:text-heading rounded-base text-sm w-9 h-9 ms-auto inline-flex justify-center items-center">
+                                class="text-body bg-gold hover:opacity-80 hover:text-heading rounded text-sm w-9 h-9 ms-auto inline-flex justify-center items-center">
                                 <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                     height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -254,7 +254,7 @@
                                 <div class="md:w-1/2 flex flex-col justify-between" x-data="{ addedToCart: false }"
                                     x-init="$watch('showDetail', v => { if(!v) addedToCart = false })">
                                     <div>
-                                        <h1 class="text-3xl font-bold mb-4" x-text="detail.nama"></h1>
+                                        <h1 class="text-3xl font-bold mb-4 text-white" x-text="detail.nama"></h1>
                                         <p class="text-gray-300 mb-4" x-text="detail.deskripsi"></p>
                                         <template x-if="detail.harga_diskon && detail.harga_diskon !== 'null'">
                                             <p class="text-xs font-semibold text-gray-400 mb-2 line-through">Rp <span

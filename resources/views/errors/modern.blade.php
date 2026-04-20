@@ -38,7 +38,7 @@
                     </h2>
                     @php($code = trim($__env->yieldContent('code', $exception->getStatusCode() ?? '')))
 
-                    @if ($code !== '503')
+                    @if ($code !== '503' && $code !== '419')
                         <p class="text-white/70 text-base md:text-lg max-w-xl leading-relaxed">
                             @hasSection('description')
                                 @yield('description')

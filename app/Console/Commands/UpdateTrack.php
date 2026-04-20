@@ -34,7 +34,7 @@ class UpdateTrack extends Command
         Log::info('track:update dimulai');
 
         try {
-            $trackings = Tracking::with(['trackings_details'])
+            $trackings = Tracking::with(['trackings_details', 'transaksi'])
                 ->where('status', 'dalam pengiriman')
                 ->get();
 
@@ -78,7 +78,7 @@ class UpdateTrack extends Command
                             'response' => $respon,
                         ]);
 
-                        $failedCount++; 
+                        $failedCount++;
                         continue;
                     }
 
@@ -97,6 +97,11 @@ class UpdateTrack extends Command
                             'status' => 'pengiriman selesai',
                             'received_at' => $datetime,
                         ]);
+                        if (!$tracking->is_return) {
+                            $tracking->transaksi->update([
+                                'is_success' => 1
+                            ]);
+                        }
 
                         $this->info("Tracking {$tracking->resi} selesai dikirim");
                         Log::info('Tracking selesai dikirim', [
