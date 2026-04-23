@@ -102,7 +102,7 @@
                 </div>
             </div>
         </div>
-        <h3 class="font-bold text-2xl pt-3">Informasi Penerima</h3>
+        <h3 class="font-bold text-2xl pt-3 text-gold">Informasi Penerima</h3>
         <hr class="mb-3">
         <div class="grid grid-cols-2 gap-2 space-y-2 md:space-y-0 mb-6">
             <div class="col-span-2 md:col-span-1">
@@ -200,7 +200,7 @@
         <div class="overflow-auto rounded shadow-lg mt-16">
             <table class="w-full border rounded">
                 <thead>
-                    <tr class="font-inter text-lg border-b  bg-gold">
+                    <tr class="font-inter text-lg border-b  bg-gold text-black">
                         <th colspan="4" class="py-1">Rincian Pesanan</th>
                     </tr>
                     <tr class="font-inter border-b bg-gray-700">
@@ -356,7 +356,7 @@
                 </h2>
                 <hr class="my-2">
                 <p class="p-5 text-justify text-sm text-gray-700">Kami ingin mendengar pengalaman Anda setelah membeli
-                    produk ini.
+                    produk kami.
                     Masukan dari Anda sangat berarti untuk <span class="font-bold text-black">pengembangan dan
                         peningkatan kualitas
                         produk</span>. Klik tombol <span class="font-bold text-black">Isi Survey</span> di bawah untuk

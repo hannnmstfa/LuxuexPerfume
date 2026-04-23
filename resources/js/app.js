@@ -25,7 +25,7 @@ Livewire.start()
 
 if (window.user.login) {
     console.log('Login: ' + user.login);
-
+    const sessionId = 'chat_user_' + user.id;
     createChat({
         webhookUrl: '/n8n/chat',
         webhookConfig: {
@@ -38,7 +38,7 @@ if (window.user.login) {
         chatSessionKey: 'sessionId',
         loadPreviousSession: true,
         metadata: {
-            sessionId: user.id
+            sessionId: sessionId,
         },
         showWelcomeScreen: true,
         defaultLanguage: 'id',

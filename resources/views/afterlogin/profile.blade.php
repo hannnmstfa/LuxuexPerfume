@@ -51,14 +51,6 @@
                     class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                     placeholder="email@example.com" required>
             </div>
-            <div class="mb-4">
-                <label for="alamat" class="block mb-1 text-sm font-medium ">Alamat Lengkap<span
-                        class="text-red-600">*</span></label>
-                <textarea name="alamat" id="alamat" rows="7"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                    placeholder="Cth: Jl Jendral Soedirman No.5, Kota Kudus, Kudus, Jawa Tengah"
-                    required>{{ old('alamat', $user->alamat) }}</textarea>
-            </div>
             <button type="submit"
                 class="bg-gold w-full text-center text-sm mb-4 rounded-lg text-black py-2 font-bold hover:opacity-85">SIMPAN
                 PERUBAHAN</button>

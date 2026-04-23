@@ -30,8 +30,8 @@ class TokoController extends Controller
             'webhook_chatbot' => ['nullable', 'url'],
         ], [
             'phone_toko.regex' => 'No Telepon harus diawali <b>08xxxxxxxxx</b>',
-            'link_survey.url' => 'Link harus diawali <b>https / http</b>',
-            'webhook_chatbot.url' => 'Link harus diawali <b>https / http</b>'
+            'link_survey.url' => 'Link Survey harus diawali <b>https://</b> atau <b>http://</b>',
+            'webhook_chatbot.url' => 'Url webhook harus diawali <b>https://</b> atau <b>http://</b>'
         ]);
 
         $toko = TokoSetting::first();
