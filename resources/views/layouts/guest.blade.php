@@ -34,8 +34,9 @@
         </main>
         @include('layouts.footer-guest')
     </div>
-    <div class="fixed end-6 {{ Auth::check() ? 'bottom-[4.5rem]' : 'bottom-6' }} z-[100]">
+    <div class="fixed end-6 bottom-6 flex flex-col gap-2 z-[100]">
         <livewire:keranjang.handle />
+        @include('components.chatbot')
     </div>
     @include('sweetalert::alert')
 </body>

@@ -19,6 +19,7 @@ use App\Http\Middleware\Admin;
 use App\Models\TokoSetting;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -60,8 +61,41 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/transaksi/{kodeTrx}/payment/downloadQRIS', [TransaksiController::class, 'downloadQris'])->name('downloadQris');
     Route::resource('/transaksi', TransaksiController::class)->names('trx');
     Route::resource('/transaksi/{kodeTrx}/pengembalian', PengembalianController::class)->names('pengembalian');
+});
+// Route Handle N8N
+Route::withoutMiddleware(VerifyCsrfToken::class)->group(function () {
+    Route::get('/chat/history', function (Request $request) {
+        $user = $request->user();
 
-    // Route Handle N8N
+        if (!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+
+        $chatId = 'chat_user_' . $user->id;
+
+        $session = DB::table('chat_sessions')
+            ->where('chat_id', $chatId)
+            ->first();
+
+        $messages = DB::table('chat_messages')
+            ->where('chat_id', $chatId)
+            ->where('session_version', $session->session_version ?? 1)
+            ->orderBy('id', 'asc')
+            ->get([
+                'sender_type',
+                'message',
+                'created_at',
+            ]);
+
+        return response()->json([
+            'status' => 'success',
+            'chat_id' => $chatId,
+            'messages' => $messages,
+        ]);
+    });
     Route::match(['POST', 'OPTIONS'], '/n8n/chat', function (Request $request) {
         if ($request->isMethod('options')) {
             return response('', 204);
@@ -78,6 +112,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
             }
 
             $payload = json_decode($request->getContent(), true) ?? [];
+
+            $sessionId = 'chat_user_' . $user->id;
+            $chatInput = $payload['chatInput'] ?? null;
+
+            $payload['sessionId'] = $sessionId;
+            $payload['metadata']['sessionId'] = $sessionId;
+
             $payload['user'] = [
                 'id' => $user->id,
                 'name' => $user->name,
@@ -85,7 +126,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'role' => $user->role,
                 'phone' => $user->phone,
             ];
-            $payload['sessionId'] = 'chat_user_' . $user->id;
 
             $webhook = optional(TokoSetting::data())->webhook_chatbot;
 
@@ -94,33 +134,120 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     'webhook' => $webhook,
                     'user_id' => $user->id,
                 ]);
+
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Layanan chat sedang tidak tersedia.',
                 ], 500);
             }
 
+            DB::beginTransaction();
+
+            $session = DB::table('chat_sessions')->where('chat_id', $sessionId)->first();
+
+            if (!$session) {
+                DB::table('chat_sessions')->insert([
+                    'chat_id' => $sessionId,
+                    'customer_name' => $user->name,
+                    'customer_email' => $user->email,
+                    'customer_phone' => $user->phone,
+                    'user_role' => $user->role ?? 'customer',
+                    'session_version' => 1,
+                    'last_message' => $chatInput,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+
+                $sessionVersion = 1;
+            } else {
+                $sessionVersion = $session->session_version ?? 1;
+
+                DB::table('chat_sessions')
+                    ->where('chat_id', $sessionId)
+                    ->update([
+                        'customer_name' => $user->name,
+                        'customer_email' => $user->email,
+                        'customer_phone' => $user->phone,
+                        'last_message' => $chatInput,
+                        'updated_at' => now(),
+                    ]);
+            }
+
+            if ($chatInput) {
+                DB::table('chat_messages')->insert([
+                    'chat_id' => $sessionId,
+                    'session_version' => $sessionVersion,
+                    'sender_type' => 'user',
+                    'message' => $chatInput,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+
             $resp = Http::timeout(30)
                 ->acceptJson()
                 ->post($webhook, $payload);
 
-            if ($resp->successful()) {
-                return response($resp->body(), 200)
-                    ->header('Content-Type', $resp->header('Content-Type', 'application/json'));
+            if (!$resp->successful()) {
+                DB::rollBack();
+
+                Log::error('N8N webhook gagal', [
+                    'status' => $resp->status(),
+                    'body' => $resp->body(),
+                    'user_id' => $user->id,
+                    'webhook' => $webhook,
+                    'payload' => $payload,
+                ]);
+
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Maaf, layanan chat sedang mengalami gangguan.',
+                ], 500);
             }
 
-            Log::error('N8N webhook gagal', [
-                'status' => $resp->status(),
-                'body' => $resp->body(),
-                'user_id' => $user->id,
-                'webhook' => $webhook,
-            ]);
+            $responseBody = $resp->json();
+            $assistantMessage = null;
+
+            if (is_array($responseBody)) {
+                $assistantMessage =
+                    $responseBody['output'] ??
+                    $responseBody['text'] ??
+                    $responseBody['message'] ??
+                    $responseBody['reply_to_user'] ??
+                    null;
+            }
+
+            if (!$assistantMessage) {
+                $assistantMessage = trim($resp->body());
+            }
+
+            if ($assistantMessage) {
+                DB::table('chat_messages')->insert([
+                    'chat_id' => $sessionId,
+                    'session_version' => $sessionVersion,
+                    'sender_type' => 'assistant',
+                    'message' => $assistantMessage,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+
+                DB::table('chat_sessions')
+                    ->where('chat_id', $sessionId)
+                    ->update([
+                        'last_message' => $assistantMessage,
+                        'updated_at' => now(),
+                    ]);
+            }
+
+            DB::commit();
 
             return response()->json([
-                'status' => 'error',
-                'message' => 'Maaf, layanan chat sedang mengalami gangguan.',
-            ], 500);
+                'output' => $assistantMessage
+            ]);
+
         } catch (Throwable $e) {
+            DB::rollBack();
+
             Log::error('Route /n8n/chat exception', [
                 'message' => $e->getMessage(),
                 'file' => $e->getFile(),
@@ -132,7 +259,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'message' => 'Maaf, terjadi kesalahan pada server.',
             ], 500);
         }
-    })->withoutMiddleware(VerifyCsrfToken::class);
+    });
 });
 
 
