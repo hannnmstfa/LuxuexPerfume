@@ -21,11 +21,11 @@
 
                 <!-- INPUT -->
                 <form id="chatBot-form" class="border-t border-white/10 bg-slate-900 p-3">
-                    <div class="flex items-center gap-2">
-                        <input id="chatBot-input" type="text" placeholder="Tulis pesan..." autocomplete="false"
-                            class="h-11 flex-1 rounded-full border border-white/10 bg-slate-800 px-4 text-sm text-white placeholder:text-slate-400 focus:border-emerald-400 focus:outline-none">
+                    <div class="flex items-center justify-between gap-2">
+                        <input id="chatBot-input" type="text" placeholder="Tulis pesan..." autocomplete="off"
+                            class="h-11 w-full rounded-full border border-white/10 bg-slate-800 px-4 text-sm text-white placeholder:text-slate-400 focus:border-emerald-400 focus:outline-none">
                         <button id="chatBot-send"
-                            class="h-11 rounded-full bg-gold px-4 text-sm font-semibold text-black hover:opacity-85">
+                            class="h-11 w-max rounded-full bg-gold px-4 text-sm font-semibold text-black hover:opacity-85">
                             Kirim
                         </button>
                     </div>

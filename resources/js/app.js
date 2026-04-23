@@ -115,7 +115,7 @@ function appendTemporaryUserMessage(message) {
             "
         >
             <div>${escapeHtml(message)}</div>
-            <div class="mt-1 text-right text-[11px] text-white/70">...</div>
+            <div class="mt-1 text-right text-[10px] text-white/70">Baru saja</div>
         </div>
     `;
 
@@ -210,6 +210,8 @@ async function reloadChatHistory() {
     }
 }
 
+
+
 async function initLuxCustomChat() {
     if (!window.user?.login) return;
 
@@ -221,6 +223,7 @@ async function initLuxCustomChat() {
     if (!form || !input || !sendButton || !messagesBox) return;
 
     await reloadChatHistory();
+    
 
     if (!window.__luxChatBound) {
         window.__luxChatBound = true;
@@ -257,15 +260,15 @@ async function initLuxCustomChat() {
         });
     }
 
-    if (luxChatPolling) {
-        clearInterval(luxChatPolling);
-    }
+    // if (luxChatPolling) {
+    //     clearInterval(luxChatPolling);
+    // }
 
-    luxChatPolling = setInterval(async () => {
-        if (!luxChatBusy) {
-            await reloadChatHistory();
-        }
-    }, 2500);
+    // luxChatPolling = setInterval(async () => {
+    //     if (!luxChatBusy) {
+    //         await reloadChatHistory();
+    //     }
+    // }, 2500);
 }
 
 window.addEventListener('load', initLuxCustomChat);
