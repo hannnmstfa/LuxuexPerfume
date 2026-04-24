@@ -43,9 +43,5 @@ return [
         'key' => env('KEY_API_CO_ID'),
         'url' => env('URL_API_CO_ID')
     ],
-    'rajaongkir' => [
-        'url' => env('RAJA_URL'),
-        'key' => env('RAJA_KEY'),
-    ]
 
 ];

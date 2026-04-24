@@ -13,8 +13,8 @@ class ApiController extends Controller
     protected string $origin;
     public function __construct()
     {
-        $this->apikey = env("KEY_API_CO_ID");
-        $this->baseurl = env("URL_API_CO_ID");
+        $this->apikey = config('services.api_co_id.key');
+        $this->baseurl = config('services.api_co_id.url');
         $this->origin = TokoSetting::data()->kode_area ?? 0;
     }
     public function cekOngkir($destinasi)
