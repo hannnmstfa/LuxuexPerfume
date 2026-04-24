@@ -196,7 +196,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     ]);
                 }
 
-                $resp = Http::timeout(30)
+                $resp = Http::timeout(60)
                     ->acceptJson()
                     ->post($webhook, $payload);
 
