@@ -85,7 +85,7 @@ function messageTemplate(msg) {
 function renderMessages(messages) {
     const box = document.getElementById('chatBot-messages');
     if (!box) return;
-
+    const firstName = (user.name || '').split(' ')[0];
     const html = (messages || [])
         .map(messageTemplate)
         .filter(Boolean)
@@ -93,7 +93,7 @@ function renderMessages(messages) {
 
     box.innerHTML = html || `
         <div class="flex h-full items-center justify-center px-6 text-center text-sm text-slate-400">
-            Halo 👋<br>Mulai percakapan pertamamu.
+            Halo, ${firstName} 👋<br>Mulai percakapan pertamamu.
         </div>
     `;
 
@@ -223,7 +223,7 @@ async function initLuxCustomChat() {
     if (!form || !input || !sendButton || !messagesBox) return;
 
     await reloadChatHistory();
-    
+
 
     if (!window.__luxChatBound) {
         window.__luxChatBound = true;

@@ -31,6 +31,9 @@
             {{ $slot }}
         </main>
     </div>
+    <div class="fixed end-6 bottom-6 flex flex-col gap-2 z-[100]">
+        @include('components.chatbot')
+    </div>
     @include('sweetalert::alert')
 </body>
 

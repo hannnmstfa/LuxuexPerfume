@@ -1207,9 +1207,9 @@ ${e?'Expression: "'+e+`"
                 </div>
             </div>
         </div>
-    `:""}function g9e(t){const e=document.getElementById("chatBot-messages");if(!e)return;const r=(t||[]).map(p9e).filter(Boolean).join("");e.innerHTML=r||`
+    `:""}function g9e(t){const e=document.getElementById("chatBot-messages");if(!e)return;const r=(user.name||"").split(" ")[0],n=(t||[]).map(p9e).filter(Boolean).join("");e.innerHTML=n||`
         <div class="flex h-full items-center justify-center px-6 text-center text-sm text-slate-400">
-            Halo 👋<br>Mulai percakapan pertamamu.
+            Halo, ${r} 👋<br>Mulai percakapan pertamamu.
         </div>
     `,e.scrollTop=e.scrollHeight}function m9e(t){const e=document.getElementById("chatBot-messages");if(!e)return;const r=document.createElement("div");r.className="mb-3 flex justify-end",r.innerHTML=`
         <div
