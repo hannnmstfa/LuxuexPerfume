@@ -77,6 +77,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             foreach ($chatSession->chat_messages as $chatMessage) {
                 $chatMessage->delete();
             }
+            $chatSession->session_version = $chatSession->session_version + 1;
+            $chatSession->save();
             Alert::success('Sukses', 'Berhasil membersihkan history chat');
             return back();
         } else {
