@@ -32,6 +32,12 @@ function escapeHtml(str) {
         .replaceAll("'", '&#039;');
 }
 
+function parseMarkdown(text) {
+    return String(text ?? '')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n/g, '<br>');
+}
+
 function parseMessage(raw) {
     try {
         const parsed = JSON.parse(raw);
@@ -59,9 +65,10 @@ function formatTime(value) {
 
 function messageTemplate(msg) {
     const isUser = msg.sender_type === 'user';
-    const text = parseMessage(msg.message).trim();
+    const rawText = parseMessage(msg.message).trim();
+    const text = parseMarkdown(escapeHtml(rawText));
 
-    if (!text) return '';
+    if (!rawText) return '';
 
     return `
         <div class="mb-3 flex ${isUser ? 'justify-end' : 'justify-start'}">
@@ -73,7 +80,7 @@ function messageTemplate(msg) {
                     border-bottom-${isUser ? 'right' : 'left'}-radius:6px;
                 "
             >
-                <div>${escapeHtml(text)}</div>
+                <div>${text}</div>
                 <div class="mt-1 text-right text-[11px] text-white/70">
                     ${escapeHtml(formatTime(msg.created_at))}
                 </div>

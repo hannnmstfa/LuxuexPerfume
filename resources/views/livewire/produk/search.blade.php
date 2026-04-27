@@ -11,7 +11,7 @@
                 <li class="p-2 text-gray-500 text-xs text-center">Ketik untuk memulai mencari</li>
             @else
                 @forelse($searchResults as $produk)
-                    <li class="p-2 hover:bg-gray-800">
+                    <li class="p-2 hover:bg-gray-800 dark:text-white">
                         <a href="{{ route('produk.detail', $produk->slug) }}" class="flex items-center gap-2">
                             <img src="{{ asset($produk->path_foto) }}" alt="{{ $produk->nama }}"
                                 class="w-10 h-10 object-cover rounded" />
