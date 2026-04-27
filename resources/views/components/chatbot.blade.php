@@ -1,5 +1,5 @@
 @if (Auth::check())
-    <div x-data="{ open: true }" class="relative">
+    <div x-data="{ open: false }" class="relative">
 
         <!-- CHAT BOX -->
         <div x-show="open" x-transition

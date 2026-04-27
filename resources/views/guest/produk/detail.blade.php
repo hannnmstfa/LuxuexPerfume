@@ -18,7 +18,7 @@
                     </p>
                 </div>
                 <div class="mt-6">
-                    <div class="relative flex items-center max-w-[9rem] shadow-xs">
+                    <div class="relative flex items-center w-full shadow-xs mb-2">
                         <button type="button" id="tambah"
                             class="bg-gray-300 box-border border hover:bg-gray-400 focus:ring-2 font-medium leading-5 hover:text-white dark:bg-gray-900 dark:border-gray-600 text-sm px-3 focus:outline-none h-10">
                             <svg class="w-4 h-4 text-heading" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,7 @@
                                     stroke-width="2" d="M5 12h14" />
                             </svg>
                         </button>
-                        <input type="text" min="1" value="1" readonly
+                        <input type="text" id="jumlah" name="jumlah" min="1" value="1" readonly
                             class="block h-10 text-center border-gray-300 w-16 lg:w-full py-2.5 dark:bg-gray-900 dark:border-gray-600"
                             required />
                         <button type="button" id="kurang"
@@ -47,4 +47,9 @@
             </div>
         </div>
     </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', function(){
+            const tambah = document.getElementById('')
+        });
+    </script>
 </x-guest-layout>
