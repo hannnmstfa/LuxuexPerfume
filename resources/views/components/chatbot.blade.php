@@ -9,7 +9,7 @@
             <div class="flex items-center justify-between border-b border-white/10 bg-slate-900 px-4 py-3">
                 <div>
                     <div class="text-sm font-semibold text-white">24 Jam Online Assistant</div>
-                    <div class="mt-0.5 text-xs text-slate-400">Online</div>
+                    <div class="mt-0.5 text-xs text-slate-400">Online</div>        
                 </div>
                 <a href="{{ route('chat.reset', session()->id()) }}" data-confirm="true"
                     data-caption="Semakin banyak history chat dapat mempengaruhi kecepatan akses halaman. Mulai percakapan baru?"
@@ -25,10 +25,10 @@
                 <div class="w-full flex flex-col relative">
                     <div
                         class="flex justify-start items-center overflow-x-auto text-white text-xs m-2 scroll-style gap-2 px-1 pb-2">
-                        <button class="p-2 border rounded-xl hover:bg-gray-800 text-nowrap" data-value="hidup jokosiii" id="chat-001">Rekomendasi Produk</button>
-                        <button class="p-2 border rounded-xl hover:bg-gray-800 text-nowrap" data-value="hidup jokosiii" id="chat-002">Rekomendasi Produk</button>
-                        <button class="p-2 border rounded-xl hover:bg-gray-800 text-nowrap" data-value="hidup jokosiii" id="chat-003">Rekomendasi Produk</button>
-                        <button class="p-2 border rounded-xl hover:bg-gray-800 text-nowrap" data-value="hidup jokosiii" id="chat-004">Rekomendasi Produk</button>
+                        <button class="p-2 border rounded-xl hover:bg-gray-800 text-nowrap" data-value="bagaimana cara order ?" id="chat-001">cara order barang</button>
+                        <button class="p-2 border rounded-xl hover:bg-gray-800 text-nowrap" data-value="berikan saya rekomendasi barang dengan buget ... , kategori pria/wanita" id="chat-002">Rekomendasi Produk</button>
+                        <button class="p-2 border rounded-xl hover:bg-gray-800 text-nowrap" data-value="cara refund barang gimana" id="chat-003">kebijakan refund</button>
+                        <button class="p-2 border rounded-xl hover:bg-gray-800 text-nowrap" data-value="saya butuh admin,kendala...." id="chat-004">menghubungi admin</button>
                     </div>
                     <!-- INPUT -->
                     <form id="chatBot-form" class="border-t border-white/10 bg-slate-900 p-3">
