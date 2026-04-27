@@ -1,5 +1,5 @@
 @if (Auth::check())
-    <div x-data="{ open: false }" class="relative">
+    <div x-data="{ open: true }" class="relative">
 
         <!-- CHAT BOX -->
         <div x-show="open" x-transition
@@ -22,18 +22,25 @@
 
                 <!-- MESSAGES (overflow di sini) -->
                 <div id="chatBot-messages" class="flex-1 overflow-y-auto px-3 py-4 bg-slate-950 scroll-style"></div>
-
-                <!-- INPUT -->
-                <form id="chatBot-form" class="border-t border-white/10 bg-slate-900 p-3">
-                    <div class="flex items-center justify-between gap-2">
-                        <input id="chatBot-input" type="text" placeholder="Tulis pesan..." autocomplete="off"
+                <div class="w-full flex flex-col gap-1 relative">
+                    <div class="flex justify-start items-center overflow-x-auto text-white text-xs m-2 scroll-style gap-2 pb-2">
+                        <button class="p-2 border rounded-xl hover:bg-gray-800 text-nowrap">Pesanan saya sampai mana</button>
+                        <button class="p-2 border rounded-xl hover:bg-gray-800 text-nowrap">Pesanan saya sampai mana</button>
+                        <button class="p-2 border rounded-xl hover:bg-gray-800 text-nowrap">Pesanan saya sampai mana</button>
+                        <button class="p-2 border rounded-xl hover:bg-gray-800 text-nowrap">Pesanan saya sampai mana</button>
+                    </div>
+                    <!-- INPUT -->
+                    <form id="chatBot-form" class="border-t border-white/10 bg-slate-900 p-3">
+                        <div class="flex items-center justify-between gap-2">
+                            <input id="chatBot-input" type="text" placeholder="Tulis pesan..." autocomplete="off"
                             class="h-11 w-full rounded-full border border-white/10 bg-slate-800 px-4 text-sm text-white placeholder:text-slate-400 focus:border-emerald-400 focus:outline-none">
-                        <button id="chatBot-send"
+                            <button id="chatBot-send"
                             class="h-11 w-max rounded-full bg-gold px-4 text-sm font-semibold text-black hover:opacity-85">
                             Kirim
                         </button>
                     </div>
                 </form>
+            </div>
             </div>
         </div>
 
@@ -50,6 +57,5 @@
                     clip-rule="evenodd" />
             </svg>
         </button>
-
     </div>
 @endif
