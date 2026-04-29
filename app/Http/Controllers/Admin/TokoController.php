@@ -42,8 +42,8 @@ class TokoController extends Controller
                 'phone_toko' => $request->phone_toko ?? $toko->phone_toko,
                 'kode_area' => $request->kode_area ?? $toko->kode_area,
                 'alamat_toko' => $request->alamat_toko ?? $toko->alamat_toko,
-                'link_survey' => $request->link_survey ?? $toko->link_survey,
-                'webhook_chatbot' => $request->webhook_chatbot ?? $toko->webhook_chatbot,
+                'link_survey' => $request->filled('link_survey') ? $request->link_survey : null,
+                'webhook_chatbot' => $request->filled('webhook_chatbot') ? $request->webhook_chatbot : null,
             ]);
             cache()->forget('toko_Setting');
         } else {
