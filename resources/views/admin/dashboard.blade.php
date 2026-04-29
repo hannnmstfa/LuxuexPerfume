@@ -43,8 +43,8 @@
             <div id="menunggu" role="tooltip"
                 class="absolute z-40 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-700 rounded shadow-xs opacity-0 tooltip">
                 <ul class="list-disc list-inside">
-                    @foreach ($menungguProses as $trx)
-                        <li class="text-sm">{{ $trx->transaksi->kodeTrx }}</li>
+                    @foreach ($menungguProses as $menunggu)
+                        <li class="text-sm">{{ $menunggu->transaksi->kodeTrx }}</li>
                     @endforeach
                 </ul>
                 <div class="tooltip-arrow" data-popper-arrow></div>

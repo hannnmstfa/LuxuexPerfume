@@ -1,6 +1,13 @@
 <x-guest-layout title="{{ $produk->nama }}">
+    <section class="reveal border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-10 md:py-12 text-center">
+            <h1 class="text-3xl md:text-4xl font-semibold tracking-tight">
+                DETAIL <span class="text-[#D4AF37]">PRODUK</span>
+            </h1>
+        </div>
+    </section>
     <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-black/50 backdrop-blur border rounded-lg border-gray-700">
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-black/50 backdrop-blur border rounded-lg border-gray-700 mt-5">
         <div class="shadow-md rounded-lg p-6 flex flex-col md:flex-row gap-6">
             <div class=" md:w-1/2 flex justify-center items-center">
                 <img src="{{ asset($produk->path_foto) }}" alt="{{ $produk->nama }}"
@@ -17,9 +24,10 @@
                             class="{{ $produk->stok < 1 ? 'text-red-600 border p-1 rounded bg-red-100 border-red-400' : '' }} font-semibold">{{ $produk->stok < 1 ? 'Stok Habis' : 'Stok tersisa: ' . $produk->stok }}</span>
                     </p>
                 </div>
-                <div class="mt-6">
+                <form method="post" action="{{ route('produk.keranjang', $produk->slug) }}" class="mt-6">
+                    @csrf
                     <div class="relative flex items-center w-full shadow-xs mb-2">
-                        <button type="button" id="tambah"
+                        <button type="button" id="kurang"
                             class="bg-gray-300 box-border border hover:bg-gray-400 focus:ring-2 font-medium leading-5 hover:text-white dark:bg-gray-900 dark:border-gray-600 text-sm px-3 focus:outline-none h-10">
                             <svg class="w-4 h-4 text-heading" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -27,10 +35,10 @@
                                     stroke-width="2" d="M5 12h14" />
                             </svg>
                         </button>
-                        <input type="text" id="jumlah" name="jumlah" min="1" value="1" readonly
+                        <input type="number" id="jumlah" name="jumlah" min="1" value="{{ old('jumlah', 1) }}" readonly
                             class="block h-10 text-center border-gray-300 w-16 lg:w-full py-2.5 dark:bg-gray-900 dark:border-gray-600"
                             required />
-                        <button type="button" id="kurang"
+                        <button type="button" id="tambah"
                             class="bg-gray-300 box-border border hover:bg-gray-400 focus:ring-2 font-medium leading-5 hover:text-white dark:bg-gray-900 dark:border-gray-600 text-sm px-3 focus:outline-none h-10">
                             <svg class="w-4 h-4 text-heading" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -39,17 +47,29 @@
                             </svg>
                         </button>
                     </div>
-                    <button wire:click="$emit('addKeranjang', {{ $produk->id }})"
+                    <button type="submit"
                         class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300">
                         Tambah ke Keranjang
                     </button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
     <script>
-        window.addEventListener('DOMContentLoaded', function(){
-            const tambah = document.getElementById('')
+        window.addEventListener('DOMContentLoaded', function () {
+            const tambah = document.getElementById('tambah');
+            const kurang = document.getElementById('kurang');
+            const jumlah = document.getElementById('jumlah');
+
+            tambah.addEventListener('click', function () {
+                jumlah.value++;
+            });
+            kurang.addEventListener('click', function () {
+                jumlah.value--;
+                if (jumlah.value <= 1) {
+                    jumlah.value = 1;
+                }
+            });
         });
     </script>
 </x-guest-layout>

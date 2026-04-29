@@ -64,26 +64,44 @@
             </svg>
         </button>
     </div>
-    <script>
-        window.addEventListener('DOMContentLoaded', function () {
-            const chat001 = document.getElementById('chat-001');
-            const chat002 = document.getElementById('chat-002');
-            const chat003 = document.getElementById('chat-003');
-            const chat004 = document.getElementById('chat-004');
-            const inputChat = document.getElementById('chatBot-input');
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+        const inputChat = document.getElementById('chatBot-input');
+        const formChat = document.getElementById('chatBot-form');
 
-            inputChat.addEventListener('input', function () {
-                this.style.height = 'auto'; // reset dulu
-                this.style.height = this.scrollHeight + 'px';
-            });
+        function resizeTextarea() {
+            inputChat.style.height = 'auto';
+            inputChat.style.height = inputChat.scrollHeight + 'px';
+        }
 
-            document.querySelectorAll('[id^="chat-"]').forEach(btn => {
-                btn.addEventListener('click', function () {
-                    inputChat.value = this.dataset.value;
-                    inputChat.focus();
-                    inputChat.dispatchEvent(new Event('input')); // biar auto resize ikut jalan
-                });
+        function resetTextarea() {
+            inputChat.value = '';
+            inputChat.style.height = 'auto';
+        }
+
+        inputChat.addEventListener('input', resizeTextarea);
+
+        inputChat.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+
+                if (inputChat.value.trim() !== '') {
+                    formChat.requestSubmit();
+                }
+            }
+        });
+
+        formChat.addEventListener('submit', function () {
+            setTimeout(resetTextarea, 0);
+        });
+
+        document.querySelectorAll('[id^="chat-"]').forEach(btn => {
+            btn.addEventListener('click', function () {
+                inputChat.value = this.dataset.value;
+                inputChat.focus();
+                resizeTextarea();
             });
         });
-    </script>
+    });
+</script>
 @endif

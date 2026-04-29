@@ -40,7 +40,11 @@ class Transaksi extends Model
     }
     public function trackings()
     {
-        return $this->hasOne(Tracking::class, 'transaksi_id');
+        return $this->hasOne(Tracking::class, 'transaksi_id')->where('is_return', false);
+    }
+    public function tracking_return()
+    {
+        return $this->hasOne(Tracking::class, 'transaksi_id')->where('is_return', true);
     }
     public function pengembalian()
     {
@@ -48,6 +52,6 @@ class Transaksi extends Model
     }
     public function tracking_sukses()
     {
-        return $this->hasOne(Tracking::class, 'transaksi_id')->where('status', 'pengiriman selesai');
+        return $this->hasOne(Tracking::class, 'transaksi_id')->where('is_return', false)->where('status', 'pengiriman selesai');
     }
 }

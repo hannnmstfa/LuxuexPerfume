@@ -19,7 +19,7 @@ class PengembalianController extends Controller
 {
     public function index($kodeTrx)
     {
-        $trx = Transaksi::with('tracking_sukses')
+        $trx = Transaksi::with(['tracking_sukses', 'tracking_return'])
             ->where("kodeTrx", $kodeTrx)
             ->where('users_id', Auth::user()->id)
             ->where('status_bayar', 'berhasil')->first();
