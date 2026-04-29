@@ -127,7 +127,7 @@
                             class="text-gray-600 text-xs italic">(Opsional)</span></label>
                     <input type="text"
                         class="rounded w-full border-gray-300 text-sm  dark:bg-gray-900 dark:border-gray-600 dark:text-white mt-2"
-                        name="link_survey" value="{{ old('link_survey', $toko->link_survey ?? '') }}"
+                        name="link_survey" value="{{ old('link_survey') }}"
                         placeholder="Masukkan survey url">
                 </div>
                 <div class="mb-4">
@@ -135,7 +135,7 @@
                             class="text-gray-600 text-xs italic">(Opsional)</span></label>
                     <input type="text"
                         class="rounded w-full border-gray-300 text-sm  dark:bg-gray-900 dark:border-gray-600 dark:text-white mt-2"
-                        name="webhook_chatbot" value="{{ old('webhook_chatbot', $toko->webhook_chatbot ?? '') }}"
+                        name="webhook_chatbot" value="{{ old('webhook_chatbot') }}"
                         placeholder="Masukkan webhook url">
                         <span class="text-[0.6rem] text-gold">*Webhook url digunakan untuk menghubungkan website dengan Chatbot Assistant</span>
                 </div>
