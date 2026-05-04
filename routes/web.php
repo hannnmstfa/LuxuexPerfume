@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\TransaksiController as AdminTrx;
 use App\Http\Controllers\Admin\LaporanController as AdmLaporan;
 use App\Http\Controllers\Admin\UserController as AdmUser;
 use App\Http\Controllers\Admin\AnalisisController as AdmAnalis;
+use App\Http\Controllers\Admin\NoteReturnController;
 use App\Http\Controllers\Admin\TokoController as AdmToko;
 use App\Http\Controllers\Admin\PengembalianController as AdmReturn;
 use App\Http\Controllers\CheckoutController;
@@ -46,6 +47,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/produk/{id}/atur-diskon', [AdminProduk::class, 'setDiskon'])->name('admProduk.setDiskon');
         Route::put('/produk/{id}/delete-diskon', [AdminProduk::class, 'delDiskon'])->name('admProduk.delDiskon');
         Route::resource('/transaksi', AdminTrx::class)->names('admTrx');
+        Route::resource('/pengembalian/template-catatan', NoteReturnController::class)->names('noteReturn');
         Route::resource('/pengembalian', AdmReturn::class)->names('admReturn');
         Route::put('/transaksi/{kodeTrx}/tracking', [AdminTrx::class, 'tracking'])->name('admTrx.tracking');
         Route::get('/laporan', [AdmLaporan::class, 'index'])->name('admLaporan.index');

@@ -90,6 +90,12 @@ select:focus:invalid {
 .ql-editor {
     min-height: 20vh;
 }
+.ql-snow .ql-editor.ql-blank::before,
+.ql-editor.ql-blank::before {
+  color: #555657 !important; /* A light grey/slate color better suited for dark mode */
+  opacity: 1 !important;     /* Prevents Quill from fading it out */
+  font-style: italic;
+}
 
 .lux-dot {
     width: 8px;

@@ -234,9 +234,6 @@
                     <div class="mb-4">
                         <p class="font-semibold mb-2">Catatan<span class="text-red-500">*</span></p>
                         <textarea name="konten" id="konten" hidden>{{ old('konten', $data->catatan) }}</textarea>
-                        <div id="loader">
-                            <x-loader />
-                        </div>
                         <x-quill-editor />
                     </div>
                     <!-- Modal footer -->

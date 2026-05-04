@@ -46,6 +46,9 @@
     </div>
     <div id="text-editor" class="w-full bg-gray-50 dark:bg-gray-900 border-0"></div>
 </div>
+<div id="loader-quill">
+    <x-loader/>
+</div>
 <script>
     window.addEventListener('DOMContentLoaded', function () {
         setTimeout(function () {
@@ -53,7 +56,8 @@
                 theme: 'snow',
                 modules: {
                     toolbar: '#toolbar-container'
-                }
+                },
+                placeholder: 'Tulis konten disini...',
 
             });
 
@@ -67,7 +71,7 @@
             if (oldContent) {
                 quill.root.innerHTML = oldContent;
             }
-            document.getElementById('loader').style.display = 'none';
+            document.getElementById('loader-quill').style.display = 'none';
             document.getElementById('container-editor').style.display = 'block';
             document.getElementById('toolbar-container').style.display = 'block';
         }, 2000);

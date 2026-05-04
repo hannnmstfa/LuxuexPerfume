@@ -28,6 +28,8 @@
                     </li>
                 </ol>
             </div>
+            <a href="{{ route('noteReturn.index') }}"
+                    class="border rounded-lg py-1 px-3 text-sm font-semibold shadow bg-gray-700 text-gray-300 border-gray-500 hover:opacity-85">Template Catatan</a>
         </div>
     </div>
     <div
