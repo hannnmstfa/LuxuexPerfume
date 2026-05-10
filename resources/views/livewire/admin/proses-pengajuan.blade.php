@@ -88,21 +88,22 @@
                     </div>
                     @if ($tabAktif == 'template')
                         <div class="w-full flex flex-col gap-2 py-1 max-h-[40dvh] overflow-auto scroll-style pe-1">
-                            @forelse ($template as $i => $catatan)
-                                <div class="flex">
-                                    <input type="radio" name="konten" id="catatan-{{ $i }}" value="{{ $catatan->konten }}"
-                                        class="hidden peer">
-                                    <label for="catatan-{{ $i }}"
-                                        class="w-full border rounded-lg p-2 border-gray-600 bg-gray-900 shadow-xl hover:opacity-80 hover:cursor-pointer peer-checked:bg-gold ">
-                                        <p class="text-sm">{{ $catatan->nama }}</p>
-                                        <p class="text-xs text-gray-500">{{ Str::limit(strip_tags($catatan->konten), 100) }}</p>
-                                    </label>
+                            @if ($template->isNotEmpty())
+                                @foreach ($template as $i => $catatan)
+                                    <div class="flex">
+                                        <input type="radio" name="konten" id="catatan-{{ $i }}" value="{{ $catatan->konten }}"
+                                            class="hidden peer">
+                                        <label for="catatan-{{ $i }}"
+                                            class="w-full border rounded-lg p-2 border-gray-600 bg-gray-900 shadow-xl hover:opacity-80 hover:cursor-pointer peer-checked:bg-gold ">
+                                            <p class="text-sm">{{ $catatan->nama }}</p>
+                                            <p class="text-xs text-gray-500">{{ Str::limit(strip_tags($catatan->konten), 100) }}</p>
+                                        </label>
+                                    </div>
+                                @endforeach
+                                <div class="flex justify-center items-center py-2 w-full">
+                                    <span class="text-gray-500 italic">Belum ada template</span>
                                 </div>
-                            @else
-                            <div class="flex justify-center items-center py-2">
-                                <span class="text-gray-500 italic">Belum ada template</span>
-                            </div>
-                            @endforelse
+                            @endif
                         </div>
                     @endif
                 </div>
