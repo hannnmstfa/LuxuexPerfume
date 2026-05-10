@@ -100,6 +100,7 @@
                                         </label>
                                     </div>
                                 @endforeach
+                            @else
                                 <div class="flex justify-center items-center py-2 w-full">
                                     <span class="text-gray-500 italic">Belum ada template</span>
                                 </div>
