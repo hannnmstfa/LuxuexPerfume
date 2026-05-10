@@ -30,6 +30,8 @@ class PengembalianController extends Controller
         $request->validate([
             'status' => 'required|string',
             'konten' => 'required|string',
+        ], [
+            'konten.required' => 'Konten tidak boleh kosong',
         ]);
         $data = Pengembalian::where('return_code', $return_code)->first();
         if (!$data) {
