@@ -1,5 +1,13 @@
-<div id="container-editor" class="border border-gray-500 rounded" style="display: none;">
-    <div id="toolbar-container" class="bg-gold border-0 text-black" style="display: none;">
+@props([
+    'id' => 'quill-' . uniqid(),
+    'name' => 'konten',
+    'value' => '',
+    'placeholder' => 'Tulis konten disini...',
+    'disabled' => false
+])
+
+<div id="{{ $id }}-container" class="border border-gray-500 rounded" style="display: none;" wire:ignore>
+    <div id="{{ $id }}-toolbar" class="bg-gold border-0 text-black" style="display: none;">
         <span class="ql-formats">
             <!-- <select class="ql-font"></select> -->
             <select class="ql-size"></select>
@@ -44,36 +52,127 @@
             <button class="ql-clean"></button>
         </span> -->
     </div>
-    <div id="text-editor" class="w-full bg-gray-50 dark:bg-gray-900 border-0"></div>
+
+    <div id="{{ $id }}-editor" class="w-full bg-gray-50 dark:bg-gray-900 border-0"></div>
 </div>
-<div id="loader-quill">
-    <x-loader/>
+
+<textarea name="{{ $name }}" id="{{ $id }}-input" hidden @disabled($disabled)>{{ old($name, $value) }}</textarea>
+
+<div id="{{ $id }}-loader" style="display: none;">
+    <x-loader />
 </div>
-<script>
-    window.addEventListener('DOMContentLoaded', function () {
-        setTimeout(function () {
-            const quill = new Quill('#text-editor', {
-                theme: 'snow',
-                modules: {
-                    toolbar: '#toolbar-container'
-                },
-                placeholder: 'Tulis konten disini...',
 
-            });
+@once
+    @push('scripts')
+        <script>
+            window.quillEditors = window.quillEditors || {};
 
-            // sebelum form submit, isi textarea hidden
-            document.getElementById('form').addEventListener('submit', function () {
-                document.getElementById('konten').value = quill.root.innerHTML
-            });
+            function initQuillEditor(id, placeholder) {
+                const editor = document.getElementById(id + '-editor');
+                const toolbar = document.getElementById(id + '-toolbar');
+                const input = document.getElementById(id + '-input');
+                const container = document.getElementById(id + '-container');
+                const loader = document.getElementById(id + '-loader');
 
-            // kalau mau isi awal dari DB
-            const oldContent = document.getElementById('konten').value;
-            if (oldContent) {
-                quill.root.innerHTML = oldContent;
+                if (!editor || !toolbar || !input || !container) {
+                    return;
+                }
+
+                if (window.quillEditors[id]) {
+                    if (loader) loader.style.display = 'none';
+                    container.style.display = 'block';
+                    toolbar.style.display = 'block';
+                    return;
+                }
+
+                const quill = new Quill(editor, {
+                    theme: 'snow',
+                    modules: {
+                        toolbar: toolbar
+                    },
+                    placeholder: placeholder
+                });
+
+                 if (input.value) {
+                    quill.root.innerHTML = input.value;
+                }
+
+                quill.on('text-change', function() {
+                    input.value = quill.root.innerHTML;
+                });
+
+                const form = input.closest('form');
+
+                if (form) {
+                    form.addEventListener('submit', function() {
+                        input.value = quill.root.innerHTML;
+                    });
+                }
+
+                window.quillEditors[id] = quill;
+
+                if (loader) {
+                    loader.style.display = 'none';
+                    console.log('Loader hilang');
+                }
+
+                container.style.display = 'block';
+                toolbar.style.display = 'block';
             }
-            document.getElementById('loader-quill').style.display = 'none';
-            document.getElementById('container-editor').style.display = 'block';
-            document.getElementById('toolbar-container').style.display = 'block';
-        }, 2000);
-    });
-</script>
+
+            // Global queue untuk track editor yang perlu di-init
+            window.quillInitQueue = window.quillInitQueue || [];
+            
+            document.addEventListener('DOMContentLoaded', function () {
+                if (window.quillInitQueue && window.quillInitQueue.length > 0) {
+                    window.quillInitQueue.forEach(function(config) {
+                        initQuillEditor(config.id, config.placeholder);
+                    });
+                }
+            });
+
+            let quillHookRegistered = false;
+            document.addEventListener('livewire:update', function () {
+                if (!quillHookRegistered) {
+                    Livewire.hook('morph.finished', function () {
+                        if (window.quillInitQueue && window.quillInitQueue.length > 0) {
+                            window.quillInitQueue.forEach(function(config) {
+                                setTimeout(function() {
+                                    initQuillEditor(config.id, config.placeholder);
+                                }, 50);
+                            });
+                        }
+                    });
+                    quillHookRegistered = true;
+                }
+            });
+        </script>
+    @endpush
+@endonce
+
+@push('scripts')
+    <script>
+        // Register editor untuk di-init
+        if (!window.quillInitQueue) {
+            window.quillInitQueue = [];
+        }
+        
+        window.quillInitQueue.push({
+            id: @json($id),
+            placeholder: @json($placeholder)
+        });
+
+        // Trigger init jika sudah ada in DOM
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function () {
+                setTimeout(function () {
+                    initQuillEditor(@json($id), @json($placeholder));
+                }, 50);
+            });
+        } else {
+            setTimeout(function () {
+                initQuillEditor(@json($id), @json($placeholder));
+            }, 50);
+        }
+    </script>
+@endpush

@@ -40,7 +40,6 @@ class EditorController extends Controller
             if (file_exists(public_path($path)) && is_file(public_path($path))) {
                 unlink(public_path($path));
             }
-            ;
         }
     }
 

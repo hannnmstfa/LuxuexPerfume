@@ -33,7 +33,7 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <span class="ms-1 text-sm font-[600] text-yellow-500 md:ms-2">Template</span>
+                            <span class="ms-1 text-sm font-[600] text-gold md:ms-2">Template</span>
                         </div>
                     </li>
                 </ol>
@@ -78,9 +78,12 @@
                         <td class="px-6 py-4">{{ Str::limit(strip_tags($data->konten), 75) }}</td>
                         <td class="px-6 py-4">
                             <div class="flex justify-start items-center gap-2 text-gold">
-                                <button class="hover:opacity-85">Edit</button>
+                                <button class="hover:opacity-85 btnEdit" data-modal-target="catatanEdit" data-modal-toggle="catatanEdit" data-nama="{{ $data->nama }}"
+                                    data-konten="{{ $data->konten }}"
+                                    data-route="{{ route('noteReturn.update', $data->id) }}">Edit</button>
                                 <span class="text-gray-500">|</span>
-                                <a href="{{ route('noteReturn.destroy', $data->id) }}" data-confirm-delete="true" class="hover:opacity-85">Hapus</a>
+                                <a href="{{ route('noteReturn.destroy', $data->id) }}" data-confirm-delete="true"
+                                    class="hover:opacity-85">Hapus</a>
                             </div>
                         </td>
                     </tr>
@@ -91,13 +94,12 @@
 
     <!-- Modal Tambah -->
     <div id="catatan" tabindex="-1" aria-hidden="true" data-modal-backdrop="static"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full scroll-style">
         <div class="relative p-4 w-full max-w-screen-lg max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-800">
                 <!-- Modal header -->
-                <div
-                    class="flex items-center justify-between p-4 md:p-5 pb-0 md:pb-0 rounded-t">
+                <div class="flex items-center justify-between p-4 md:p-5 pb-0 md:pb-0 rounded-t">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                         Tambah Catatan Pengembalian
                     </h3>
@@ -114,7 +116,8 @@
                 </div>
                 <!-- Modal body -->
                 <div class="p-4 md:p-5 text-sm">
-                    <form id="form" action="{{ route('noteReturn.store') }}" class=" border-t border-gray-600 pt-4" method="post">
+                    <form id="formAdd" action="{{ route('noteReturn.store') }}" class=" border-t border-gray-600 pt-4"
+                        method="post">
                         @csrf
                         <div class="mb-4">
                             <p class="font-semibold mb-2">Nama Template<span class="text-red-500">*</span></p>
@@ -124,8 +127,7 @@
                         </div>
                         <div class="mb-4">
                             <p class="font-semibold mb-2">Konten<span class="text-red-500">*</span></p>
-                            <textarea name="konten" id="konten" hidden>{{ old('konten') }}</textarea>
-                            <x-quill-editor />
+                            <x-quill-editor id="kontenAdd" name="konten" :value="old('konten')" />
                         </div>
                         <div class="flex items-center justify-end border-t border-gray-600 space-x-4 pt-4">
                             <button data-modal-hide="catatan" type="button"
@@ -138,5 +140,77 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Edit -->
+    <div id="catatanEdit" tabindex="-1" aria-hidden="true" data-modal-backdrop="static"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full scroll-style">
+        <div class="relative p-4 w-full max-w-screen-lg max-h-full scroll-style">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-800">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 pb-0 md:pb-0 rounded-t">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                        Edit Catatan Pengembalian
+                    </h3>
+                    <button type="button"
+                        class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        data-modal-hide="catatanEdit">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-4 md:p-5 text-sm">
+                    <form id="formEdit" class=" border-t border-gray-600 pt-4" method="post">
+                        @csrf
+                        @method('PUT')
+                        <div class="mb-4">
+                            <p class="font-semibold mb-2">Nama Template<span class="text-red-500">*</span></p>
+                            <input type="text" id="namaEdit"
+                                class="rounded w-full border-gray-300 text-sm  dark:bg-gray-900 dark:border-gray-500"
+                                name="namaEdit" value="{{ old('namaEdit') }}" placeholder="Nama catatan pengembalian" required>
+                        </div>
+                        <div class="mb-4">
+                            <p class="font-semibold mb-2">Konten<span class="text-red-500">*</span></p>
+                            <x-quill-editor id="kontenEdit" name="kontenEdit" :value="old('kontenEdit')" />
+                        </div>
+                        <div class="flex items-center justify-end border-t border-gray-600 space-x-4 pt-4">
+                            <button data-modal-hide="catatanEdit" type="button"
+                                class="text-white bg-gray-900 rounded-lg border border-gray-600 shadow-xs text-sm px-4 py-2.5 hover:opacity-85">Batal</button>
+                            <button type="submit"
+                                class="text-black rounded-lg font-bold bg-gold border border-gray-600 shadow text-sm px-4 py-2.5 hover:opacity-85">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </x-app-layout>
 <x-simple-datatables />
+<script>
+    document.addEventListener('click', function (e) {
+
+        const btn = e.target.closest('.btnEdit');
+
+        if (!btn) return;
+
+        const nama = btn.dataset.nama;
+        const konten = btn.dataset.konten;
+        const route = btn.dataset.route;
+
+        document.getElementById('namaEdit').value = nama;
+
+        const quill = window.quillEditors['kontenEdit'];
+
+        quill.setContents([]);
+
+        quill.clipboard.dangerouslyPasteHTML(konten);
+
+        document.getElementById('formEdit').action = route;
+
+    });
+</script>

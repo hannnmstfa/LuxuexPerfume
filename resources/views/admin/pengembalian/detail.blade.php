@@ -34,7 +34,7 @@
                                     stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
                             <span
-                                class="ms-1 text-sm font-[600] text-yellow-500 md:ms-2 uppercase">#{{ $data->return_code }}</span>
+                                class="ms-1 text-sm font-[600] text-gold md:ms-2 uppercase">#{{ $data->return_code }}</span>
                         </div>
                     </li>
                 </ol>
@@ -185,66 +185,5 @@
             Pengajuan</button>
     </div>
 
-    <!-- Modal Proses -->
-    <div id="prosesModal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full animate-swipeDown scroll-style">
-        <div class="relative p-4 w-full max-w-screen-lg max-h-full">
-            <!-- Modal content -->
-            <div class="relative bg-gray-800 border border-gray-600 rounded-lg shadow-sm p-4 md:p-6 ">
-                <!-- Modal header -->
-                <div class="flex items-center justify-between border-b border-gray-600 pb-4 md:pb-5">
-                    <h3 class="text-lg text-gold font-bold">
-                        Proses Pengajuan
-                    </h3>
-                    <button type="button"
-                        class=" hover:bg-gray-500 hover:opacity-80 text-white rounded-lg text-sm w-9 h-9 ms-auto inline-flex justify-center items-center"
-                        data-modal-hide="prosesModal">
-                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18 17.94 6M18 18 6.06 6" />
-                        </svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <form id="form" action="{{ route('admReturn.update', $data->return_code) }}" method="post" class="py-3">
-                    @csrf
-                    @method('PUT')
-                    <div class="mb-4">
-                        <p class="font-semibold mb-2">Status<span class="text-red-500">*</span></p>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div class="col-span-1">
-                                <input type="radio" name="status" id="disetujui" value="disetujui" class="hidden peer"
-                                    {{ $data->status == 'disetujui' ? 'checked' : '' }} required>
-                                <label for="disetujui"
-                                    class="border rounded py-4 text-sm font-bold border-gray-500 flex justify-center items-center bg-gray-900 shadow text-green-400 hover:cursor-pointer hover:opacity-85 peer-checked:border-green-500 peer-checked:border-2">
-                                    Terima Pengajuan
-                                </label>
-                            </div>
-                            <div class="col-span-1">
-                                <input type="radio" name="status" id="ditolak" value="ditolak" class="hidden peer" {{ $data->status == 'ditolak' ? 'checked' : '' }} required>
-                                <label for="ditolak"
-                                    class="border  rounded py-4 text-sm font-bold border-gray-500 flex justify-center items-center bg-gray-900 shadow text-red-400 hover:cursor-pointer hover:opacity-85 peer-checked:border-red-500 peer-checked:border-2">
-                                    Tolak Pengajuan
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <p class="font-semibold mb-2">Catatan<span class="text-red-500">*</span></p>
-                        <textarea name="konten" id="konten" hidden>{{ old('konten', $data->catatan) }}</textarea>
-                        <x-quill-editor />
-                    </div>
-                    <!-- Modal footer -->
-                    <div class="flex items-center justify-end border-t border-gray-600 space-x-4 pt-4">
-                        <button data-modal-hide="prosesModal" type="button"
-                            class="text-white bg-gray-900 rounded-lg border border-gray-600 shadow-xs text-sm px-4 py-2.5 hover:opacity-85">Batal</button>
-                        <button type="submit"
-                            class="text-black rounded-lg font-bold bg-gold border border-gray-600 shadow text-sm px-4 py-2.5 hover:opacity-85">{{ $data->catatan ? 'Simpan Perubahan' : 'Proses' }}</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    <livewire:admin.proses-pengajuan :data="$data"/>
 </x-app-layout>

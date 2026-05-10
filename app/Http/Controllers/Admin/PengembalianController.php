@@ -25,7 +25,7 @@ class PengembalianController extends Controller
         }
         return view('admin.pengembalian.detail', compact('data'));
     }
-    public function update($return_code, Request $request)
+    public function update(Request $request, $return_code)
     {
         $request->validate([
             'status' => 'required|string',
@@ -36,6 +36,9 @@ class PengembalianController extends Controller
             abort(404, 'Data Pengembalian tidak ditemukan');
         }
         $catatan = EditorController::convertImage($return_code, $request->konten);
+        if(empty(strip_tags($catatan))){
+            return back()->withInput()->withErrors('Catatan tidak boleh kosong');
+        }
         $data->catatan = $catatan;
         if ($request->status == 'disetujui') {
             $data->status = 'disetujui';

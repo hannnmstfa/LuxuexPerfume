@@ -39,6 +39,7 @@
         @include('components.chatbot')
     </div>
     @include('sweetalert::alert')
+    @stack('scripts')
 </body>
 
 </html>

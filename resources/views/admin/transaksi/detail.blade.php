@@ -33,7 +33,7 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <span class="ms-1 text-sm font-[600] text-yellow-500 md:ms-2">{{ $trx->kodeTrx }}</span>
+                            <span class="ms-1 text-sm font-[600] text-gold md:ms-2">{{ $trx->kodeTrx }}</span>
                         </div>
                     </li>
                 </ol>
