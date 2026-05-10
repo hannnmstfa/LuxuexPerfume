@@ -88,7 +88,7 @@
                     </div>
                     @if ($tabAktif == 'template')
                         <div class="w-full flex flex-col gap-2 py-1 max-h-[40dvh] overflow-auto scroll-style pe-1">
-                            @foreach ($template as $i => $catatan)
+                            @forelse ($template as $i => $catatan)
                                 <div class="flex">
                                     <input type="radio" name="konten" id="catatan-{{ $i }}" value="{{ $catatan->konten }}"
                                         class="hidden peer">
@@ -98,7 +98,11 @@
                                         <p class="text-xs text-gray-500">{{ Str::limit(strip_tags($catatan->konten), 100) }}</p>
                                     </label>
                                 </div>
-                            @endforeach
+                            @else
+                            <div class="flex justify-center items-center py-2">
+                                <span class="text-gray-500 italic">Belum ada template</span>
+                            </div>
+                            @endforelse
                         </div>
                     @endif
                 </div>
