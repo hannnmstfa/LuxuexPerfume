@@ -86,6 +86,9 @@ class TransaksiController extends Controller
             } else {
                 $datetime = now();
             }
+            $trx->update([
+                'is_success' => true,
+            ]);
             $trx->trackings->update([
                 'status' => 'pengiriman selesai',
                 'received_at' => $datetime,

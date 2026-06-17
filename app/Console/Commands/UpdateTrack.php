@@ -16,7 +16,7 @@ class UpdateTrack extends Command
      *
      * @var string
      */
-    protected $signature = 'track:update';
+    protected $signature = 'track:update {--force : Update semua tracking, termasuk yang sudah selesai}';
 
     /**
      * The console command description.
@@ -34,14 +34,27 @@ class UpdateTrack extends Command
         Log::info('track:update dimulai');
 
         try {
-            $trackings = Tracking::with(['trackings_details', 'transaksi'])
-                ->where('status', 'dalam pengiriman')
-                ->get();
+            $isForce = $this->option('force');
+
+            $this->info(
+                $isForce
+                ? 'Mode FORCE aktif: update semua tracking'
+                : 'Mode normal: hanya tracking dalam pengiriman'
+            );
+
+            Log::info('Mode update tracking', [
+                'force' => $isForce,
+            ]);
+
+            $query = Tracking::with(['trackings_details', 'transaksi']);
+
+            if (!$isForce) {
+                $query->where('status', 'dalam pengiriman');
+            }
+
+            $trackings = $query->get();
 
             $this->info('Jumlah tracking ditemukan: ' . $trackings->count());
-            Log::info('Jumlah tracking ditemukan', [
-                'total' => $trackings->count(),
-            ]);
 
             $successCount = 0;
             $failedCount = 0;
