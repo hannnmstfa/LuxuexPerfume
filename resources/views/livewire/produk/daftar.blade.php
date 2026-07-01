@@ -229,10 +229,10 @@
             <template x-teleport="body">
                 <!-- Product Detail Modal -->
                 <div x-show="showDetail" x-transition
-                    class="fixed inset-0 z-50 flex items-center justify-center bg-black/80" style="display: none;">
+                    class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 overflow-auto" style="display: none;">
                     <div class="absolute inset-0" @click="showDetail = false"></div>
                     <div
-                        class="relative bg-black/10 backdrop-blur border border-gray-300 rounded-xl shadow-sm p-4 md:p-6 max-w-screen-xl w-full mx-4 overflow-auto">
+                        class="relative bg-black/10 backdrop-blur border border-gray-300 rounded-xl shadow-sm p-4 md:p-6 max-w-screen-xl max-h-[90dvh] w-full mx-4 overflow-hidden">
                         <div class="flex items-center justify-between border-b border-default pb-4 md:pb-5">
                             <h3 class="text-lg font-bold text-gold">Rincian Produk</h3>
                             <button type="button" @click="showDetail = false"
@@ -255,7 +255,9 @@
                                     x-init="$watch('showDetail', v => { if(!v) addedToCart = false })">
                                     <div>
                                         <h1 class="text-3xl font-bold mb-4 text-white" x-text="detail.nama"></h1>
-                                        <p class="text-gray-300 mb-4" x-text="detail.deskripsi"></p>
+                                        <div class="overflow-auto max-h-40 scroll-style">
+                                            <p class="text-gray-300 mb-4" x-text="detail.deskripsi"></p>
+                                        </div>
                                         <template x-if="detail.harga_diskon && detail.harga_diskon !== 'null'">
                                             <p class="text-xs font-semibold text-gray-400 mb-2 line-through">Rp <span
                                                     x-text="detail.harga"></span></p>

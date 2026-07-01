@@ -22,7 +22,6 @@ window.Livewire = Livewire;
 window.Alpine = Alpine;
 
 Livewire.start();
-
 function escapeHtml(str) {
     return String(str ?? '')
         .replaceAll('&', '&amp;')

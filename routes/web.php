@@ -69,6 +69,34 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/transaksi', TransaksiController::class)->names('trx');
     Route::resource('/transaksi/{kodeTrx}/pengembalian', PengembalianController::class)->names('pengembalian');
     // Route Handle N8N
+    Route::get('/chat/status', function () {
+        $statusWebhook = optional(TokoSetting::data())->webhook_chatbot;
+
+        if (!$statusWebhook) {
+            return response()->json([
+                'online' => false,
+            ]);
+        }
+
+        try {
+            $response = Http::timeout(5)->get($statusWebhook);
+
+            if (!$response->successful()) {
+                return response()->json([
+                    'online' => false,
+                ]);
+            }
+
+            return response()->json([
+                'online' => (bool) $response->json('status'),
+            ]);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'online' => false,
+            ]);
+        }
+    });
     Route::put('/chat/reset/{sessionUser}', function ($sessionUser) {
         if ($sessionUser == session()->getId()) {
             $chatId = $chatId = 'chat_user_' . Auth::user()->id;
