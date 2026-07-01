@@ -133,6 +133,7 @@
                             <p class="text-[#D4AF37] font-semibold text-xl">Rp
                                 {{ number_format($product->harga_diskon == null ? $product->harga : $product->harga_diskon) }}
                             </p>
+                            <p class="text-[0.6rem] font-semibold text-gray-400 mt-1">{{ $product->terjual ?? 0 }} Terjual</p>
                             <!-- Desktop hover action bar (swipe up) -->
                             <div
                                 class="hidden md:grid opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-300 mt-5 grid-cols-4 gap-2">
@@ -154,14 +155,14 @@
                                     @endif
                                 </button>
                                 <button @click="openDetail({
-                                                                id: {{ $product->id }},
-                                                                nama: @js($product->nama),
-                                                                deskripsi: @js($product->deskripsi),
-                                                                harga: '{{ number_format($product->harga, 0, ',', '.') }}',
-                                                                harga_diskon: {{ $product->harga_diskon ? ('\'' . number_format($product->harga_diskon, 0, ',', '.') . '\'') : 'null' }},
-                                                                stok: {{ $product->stok }},
-                                                                path_foto: '{{ asset($product->path_foto) }}'
-                                                            })"
+                                                                            id: {{ $product->id }},
+                                                                            nama: @js($product->nama),
+                                                                            deskripsi: @js($product->deskripsi),
+                                                                            harga: '{{ number_format($product->harga, 0, ',', '.') }}',
+                                                                            harga_diskon: {{ $product->harga_diskon ? ('\'' . number_format($product->harga_diskon, 0, ',', '.') . '\'') : 'null' }},
+                                                                            stok: {{ $product->stok }},
+                                                                            path_foto: '{{ asset($product->path_foto) }}'
+                                                                        })"
                                     class="col-span-1 w-full grid place-items-center rounded-full border border-white/15 bg-white/5 text-white/85 hover:bg-white/10">
                                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                         height="24" fill="none" viewBox="0 0 24 24">
@@ -189,15 +190,14 @@
                                         </svg><span class="ms-1">Tambah</span>
                                     @endif
                                 </button>
-                                <button @click="openDetail({
-                                                                id: {{ $product->id }},
-                                                                nama: @js($product->nama),
-                                                                deskripsi: @js($product->deskripsi),
-                                                                harga: '{{ number_format($product->harga, 0, ',', '.') }}',
-                                                                harga_diskon: {{ $product->harga_diskon ? ('\'' . number_format($product->harga_diskon, 0, ',', '.') . '\'') : 'null' }},
-                                                                stok: {{ $product->stok }},
-                                                                path_foto: '{{ asset($product->path_foto) }}'
-                                                            })"
+                                <button @click="openDetail({id: {{ $product->id }},
+                                            nama: @js($product->nama),
+                                            deskripsi: @js($product->deskripsi),
+                                            harga: '{{ number_format($product->harga, 0, ',', '.') }}',
+                                            harga_diskon: {{ $product->harga_diskon ? ('\'' . number_format($product->harga_diskon, 0, ',', '.') . '\'') : 'null' }},
+                                            stok: {{ $product->stok }},
+                                            path_foto: '{{ asset($product->path_foto) }}'
+                                                                        })"
                                     class="col-span-1 w-full flex justify-center items-center text-xs rounded-2xl border border-white/15 bg-white/5 text-white/85 hover:bg-white/10">
                                     <span class="sr-only">Detail</span>
                                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
@@ -229,7 +229,8 @@
             <template x-teleport="body">
                 <!-- Product Detail Modal -->
                 <div x-show="showDetail" x-transition
-                    class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 overflow-auto" style="display: none;">
+                    class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 overflow-auto"
+                    style="display: none;">
                     <div class="absolute inset-0" @click="showDetail = false"></div>
                     <div
                         class="relative bg-black/10 backdrop-blur border border-gray-300 rounded-xl shadow-sm p-4 md:p-6 max-w-screen-xl max-h-[90dvh] w-full mx-4 overflow-hidden">

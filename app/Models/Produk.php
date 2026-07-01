@@ -26,7 +26,12 @@ class Produk extends Model
             'nama' => $this->nama,
         ];
     }
-    public function keranjangs(){
+    public function keranjangs()
+    {
         return $this->hasMany(Keranjang::class);
+    }
+    public function transaksiItem()
+    {
+        return $this->hasMany(TransaksiItem::class, 'produks_id');
     }
 }

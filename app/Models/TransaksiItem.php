@@ -13,6 +13,12 @@ class TransaksiItem extends Model
         'jumlah',
         'subtotal',
     ];
+    protected function casts(): array
+    {
+        return [
+            'jumlah' => 'integer',
+        ];
+    }
     public function produks()
     {
         return $this->belongsTo(Produk::class, 'produks_id')->withTrashed();

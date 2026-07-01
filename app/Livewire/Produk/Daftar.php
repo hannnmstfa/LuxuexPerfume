@@ -34,7 +34,7 @@ class Daftar extends Component
 
     public function render()
     {
-        $products = Produk::when($this->kategori !== 'all', function ($q) {
+        $products = Produk::withSum('transaksiItem as terjual', 'jumlah')->when($this->kategori !== 'all', function ($q) {
             $q->where('kategori', $this->kategori);
         })
             ->when($this->sortBy === 'harga', function ($q) {
