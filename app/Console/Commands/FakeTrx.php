@@ -71,7 +71,7 @@ class FakeTrx extends Command
             ]);
             $amount = $subtotal + $ongkir;
             $data_tripay = $tripay->createTrx($payment['code'], $kodeTrx, $amount, $orderItems);
-            $trx = Transaksi::create([
+            $trx = Transaksi::forceCreate([
                 'users_id' => $user->id,
                 'kodeTrx' => $kodeTrx,
                 'subtotal' => $subtotal,
@@ -80,6 +80,7 @@ class FakeTrx extends Command
                 'metode_bayar' => $data_tripay['data']['payment_name'],
                 'fee_payment' => $data_tripay['data']['total_fee'],
                 'tripay_ref' => $data_tripay['data']['reference'],
+                'created_at' => now()->subDays(rand(0, 30))->subHours(rand(0, 23))->subMinutes(rand(0, 59)),
             ]);
             foreach ($keranjang as $item) {
                 TransaksiItem::create([
