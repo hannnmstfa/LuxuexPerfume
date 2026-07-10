@@ -49,7 +49,7 @@ class CheckoutController extends Controller
             'kode_area.required' => 'Silahkan pilih area terlebih dahulu',
             'payment_method.required' => 'Silahkan Pilih metode pembayaran terlebih dahulu',
             'ongkir.required' => 'Gagal menghitung ongkir',
-            'fee_payment' => 'Fee Payment gagal dihitung'
+            'fee_payment.required' => 'Fee Payment gagal dihitung'
         ]);
         $kodeTrx = 'LX' . date('YmdHis');
         $keranjangs = Keranjang::with('produks')->where('users_id', Auth::id())->get();

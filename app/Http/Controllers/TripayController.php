@@ -67,13 +67,14 @@ class TripayController extends Controller
     }
     public function createTrx($methodCode, $kodeTrx, $amount, $orderItems)
     {
+        // dd($orderItems);
         $data = [
             'method' => $methodCode,
             'merchant_ref' => $kodeTrx,
             'amount' => $amount,
-            'customer_name' => Auth::user()->name,
-            'customer_email' => Auth::user()->email,
-            'customer_phone' => Auth::user()->phone,
+            'customer_name' => Auth::user()->name ?? 'Guest',
+            'customer_email' => Auth::user()->email ?? 'guest@example.com',
+            'customer_phone' => Auth::user()->phone ?? '081234567890',
             'order_items' => $orderItems,
             'callback_url' => config('app.url') . '/transaksi/callback',
             'return_url' => route('trx.pay', $kodeTrx),
