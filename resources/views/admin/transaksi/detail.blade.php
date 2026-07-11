@@ -100,7 +100,7 @@
                 </div>
             </div>
             <div
-                class="rounded-lg shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border max-h-[50dvh]">
+                class="rounded-lg {{ $trx->status_bayar !== 'berhasil' ? 'hidden' : '' }} shadow-lg bg-gray-100 dark:bg-black/50 dark:backdrop-blur dark:border-gray-700 p-3 border max-h-[50dvh]">
                 <div class="flex-row items-center justify-between space-y-2 sm:flex sm:space-y-0 sm:space-x-4">
                     <h1 class="text-lg font-semibold">Tracking Pengiriman</h1>
                     <div class="flex flex-col md:flex-row justify-start items-start md:items-center gap-2">
