@@ -112,7 +112,7 @@
         <table class="header-table">
             <tr>
                 <td style="width: 50%;">
-                    <img src="{{ asset(\App\Models\TokoSetting::data()->path_logo ?? '') }}" style="width:50px" alt="Logo">
+                    <img src="{{ public_path(\App\Models\TokoSetting::data()->path_logo) }}" style="width:50px" alt="Logo">
                 </td>
                 <td class="title" style="width: 50%;">
                     <h1>Laporan Bulanan</h1>
