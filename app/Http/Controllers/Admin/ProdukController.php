@@ -33,6 +33,11 @@ class ProdukController extends Controller
             'harga.integer' => 'Format Penulisan tidak boleh mengandung karakter apapun. <b>Cth: 5000</b>',
             'harga.min' => 'Harga paling sedikit adalah <b>1</b>',
         ]);
+        $cek = Produk::where('kategori', $request->kategori)->where('nama', $request->nama)->exists();
+        if($cek){
+            Alert::warning('Peringatan !!!', 'Produk sudah terdaftar...');
+            return back()->withInput();
+        }
         $nama_file = Str::slug($request->nama) . '-' . Str::random(10);
         $filepond = Filepond::field($request->gambar)->moveTo('produk/' . $nama_file);
         $pathGambar = '/storage/' . $filepond['location'];
