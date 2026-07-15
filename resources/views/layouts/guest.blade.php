@@ -7,7 +7,7 @@
     </title>
 </head>
 
-<body class="max-h-screen font-poppins scroll-style dark" x-data>
+<body class="max-h-screen font-poppins scroll-style" x-data>
     @include('layouts.nav-guest')
     <div class="w-full min-h-screen overflow-hidden">
         <main
